@@ -46,4 +46,4 @@ jobs:
           elif [[ "${GITHUB_REF##*/}" == "prod" ]]; then
             curl -X POST "${{ secrets.RENDER_HOOK_URL_PROD }}"
           else
-            echo "Not a deployable branch. Skipping deployment."
+            "Not a deployable branch. Skipping deployment."
