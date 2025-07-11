@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: Trigger Render Deploy Hook (preprod or prod)
         run: |
-          if [[ "${GITHUB_REF##*/}" == "preprod"]]; then
+          if [[ "${GITHUB_REF##*/}" == "preprod" ]]; then
            curl -X POST "${{ secrets.RENDER_HOOK_URL_PREPROD }}"
           elif [[ "${GITHUB_REF##*/}" == "prod" ]]; then
            curl -X POST "${{ secrets.RENDER_HOOK_URL_PROD }}"
