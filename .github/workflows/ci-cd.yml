@@ -47,3 +47,4 @@ jobs:
             curl -X POST "${{ secrets.RENDER_HOOK_URL_PROD }}"
           else
             "Not a deployable branch. Skipping deployment."
+          fi
