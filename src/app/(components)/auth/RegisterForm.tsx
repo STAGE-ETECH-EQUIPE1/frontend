@@ -16,7 +16,7 @@ export function RegisterForm() {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null 
+  if (!mounted) return null
 
   const isDarkMode = resolvedTheme === 'dark'
 

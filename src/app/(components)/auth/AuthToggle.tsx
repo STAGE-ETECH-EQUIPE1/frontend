@@ -24,7 +24,6 @@ export function AuthToggle({
         'relative rounded-2xl p-1 transition-colors duration-300',
         isDarkMode ? 'glass-input' : 'glass-input-light-blue' // Utilise glass-input-light-blue
       )}
-      
     >
       <div
         className={cn(
@@ -41,7 +40,6 @@ export function AuthToggle({
           left: isSignUp ? '4px' : '50%',
           right: isSignUp ? '50%' : '4px',
         }}
-        
       />
       <div className="relative flex">
         <Button
