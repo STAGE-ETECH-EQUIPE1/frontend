@@ -1,16 +1,29 @@
 'use client'
 
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Mail, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface LoginFormProps {
-  isDarkMode: boolean
-}
+export function LoginForm() {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-export function LoginForm({ isDarkMode }: LoginFormProps) {
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
+  const isDarkMode = resolvedTheme === 'dark'
+
+  const sharedIconClass =
+    'absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200'
+  const sharedInputClass = 'pl-12 transition-all duration-200'
+
   return (
     <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
       {/* Email */}
@@ -20,17 +33,17 @@ export function LoginForm({ isDarkMode }: LoginFormProps) {
           className={cn(
             'font-medium transition-colors duration-300',
             isDarkMode ? 'text-white/90' : 'text-primary-700'
-          )} // Texte sombre en mode clair
+          )}
         >
           Email
         </Label>
         <div className="relative group">
           <Mail
             className={cn(
-              'absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200',
+              sharedIconClass,
               isDarkMode
                 ? 'text-blue-300 group-focus-within:text-white group-hover:text-white'
-                : 'text-primary-700 group-focus-within:text-primary-900 group-hover:text-primary-900' // Icône sombre en mode clair
+                : 'text-primary-700 group-focus-within:text-primary-900 group-hover:text-primary-900'
             )}
           />
           <Input
@@ -39,10 +52,10 @@ export function LoginForm({ isDarkMode }: LoginFormProps) {
             type="email"
             placeholder="toavina@gmail.com"
             className={cn(
-              'pl-12 transition-all duration-200',
+              sharedInputClass,
               isDarkMode
                 ? 'glass-input text-white placeholder:text-blue-200'
-                : 'glass-input-light-blue text-primary-900 placeholder:text-primary-400 focus:border-primary-500 focus:ring-primary-500/20' // Utilise glass-input-light-blue
+                : 'glass-input-light-blue text-primary-900 placeholder:text-primary-400 focus:border-primary-500 focus:ring-primary-500/20'
             )}
             required
           />
@@ -56,29 +69,29 @@ export function LoginForm({ isDarkMode }: LoginFormProps) {
           className={cn(
             'font-medium transition-colors duration-300',
             isDarkMode ? 'text-white/90' : 'text-primary-700'
-          )} // Texte sombre en mode clair
+          )}
         >
           Password
         </Label>
         <div className="relative group">
           <Lock
             className={cn(
-              'absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-colors duration-200',
+              sharedIconClass,
               isDarkMode
                 ? 'text-blue-300 group-focus-within:text-white group-hover:text-white'
-                : 'text-primary-700 group-focus-within:text-primary-900 group-hover:text-primary-900' // Icône sombre en mode clair
+                : 'text-primary-700 group-focus-within:text-primary-900 group-hover:text-primary-900'
             )}
           />
           <Input
             id="password"
             name="password"
-            type="password" // Type fixed to password, visibility toggle removed for pure design
+            type="password"
             placeholder="••••••••"
             className={cn(
               'pl-12 pr-12 transition-all duration-200',
               isDarkMode
                 ? 'glass-input text-white placeholder:text-blue-200'
-                : 'glass-input-light-blue text-primary-900 placeholder:text-primary-400 focus:border-primary-500 focus:ring-primary-500/20' // Utilise glass-input-light-blue
+                : 'glass-input-light-blue text-primary-900 placeholder:text-primary-400 focus:border-primary-500 focus:ring-primary-500/20'
             )}
             required
           />
@@ -104,7 +117,7 @@ export function LoginForm({ isDarkMode }: LoginFormProps) {
             'text-sm transition-colors duration-200 hover:underline',
             isDarkMode
               ? 'text-blue-200 hover:text-white'
-              : 'text-primary-700 hover:text-primary-900' // Texte sombre en mode clair
+              : 'text-primary-700 hover:text-primary-900'
           )}
         >
           Forgot your password?

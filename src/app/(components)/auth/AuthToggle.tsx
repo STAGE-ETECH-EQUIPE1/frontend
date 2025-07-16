@@ -1,6 +1,8 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 interface AuthToggleProps {
   isSignUp: boolean
@@ -13,12 +15,16 @@ export function AuthToggle({
   onToggle,
   isDarkMode,
 }: AuthToggleProps) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  if (!mounted) return null
   return (
     <div
       className={cn(
         'relative rounded-2xl p-1 transition-colors duration-300',
         isDarkMode ? 'glass-input' : 'glass-input-light-blue' // Utilise glass-input-light-blue
       )}
+      
     >
       <div
         className={cn(
@@ -35,9 +41,10 @@ export function AuthToggle({
           left: isSignUp ? '4px' : '50%',
           right: isSignUp ? '50%' : '4px',
         }}
+        
       />
       <div className="relative flex">
-        <button
+        <Button
           onClick={() => onToggle(true)}
           className={cn(
             'flex-1 py-3 px-6 text-sm font-semibold rounded-xl transition-all duration-300 transform',
@@ -51,8 +58,8 @@ export function AuthToggle({
           )}
         >
           Sign up
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => onToggle(false)}
           className={cn(
             'flex-1 py-3 px-6 text-sm font-semibold rounded-xl transition-all duration-300 transform',
@@ -66,7 +73,7 @@ export function AuthToggle({
           )}
         >
           Sign in
-        </button>
+        </Button>
       </div>
     </div>
   )

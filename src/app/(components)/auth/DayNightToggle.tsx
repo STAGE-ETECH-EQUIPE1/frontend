@@ -4,15 +4,34 @@ import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Sun, Moon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 export function DayNightToggle() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   const isDarkMode = theme === 'dark' || theme === 'system'
+
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className="transition-all duration-200 backdrop-blur-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+        aria-label="Toggle theme"
+      >
+        <Sun className="w-5 h-5" />
+      </Button>
+    )
+  }
 
   return (
     <Button
@@ -27,7 +46,7 @@ export function DayNightToggle() {
       )}
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      {isDarkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
     </Button>
   )
 }

@@ -28,7 +28,7 @@ interface ShootingStar {
   size: number
   speed: number
   opacity: number
-  life: number // Durée de vie restante pour le fondu
+  life: number
 }
 
 interface Cloud {

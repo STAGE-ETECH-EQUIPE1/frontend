@@ -1,17 +1,26 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LoginForm } from './LoginForm'
 import { RegisterForm } from './RegisterForm'
 import { AuthToggle } from './AuthToggle'
 import { cn } from '@/lib/utils'
+import { useTheme } from 'next-themes'
 
-interface AuthContainerProps {
-  isDarkMode: boolean
-}
-
-export function AuthForm({ isDarkMode }: AuthContainerProps) {
+export function AuthForm() {
   const [isSignUp, setIsSignUp] = useState(true)
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <div>Loading...</div>
+  }
+
+  const isDarkMode = resolvedTheme === 'dark'
 
   return (
     <div className="w-full max-w-md mx-auto relative z-10">
@@ -20,7 +29,7 @@ export function AuthForm({ isDarkMode }: AuthContainerProps) {
           'rounded-3xl p-8 transform transition-all duration-500 hover:scale-[1.02]',
           isDarkMode
             ? 'glass-effect shadow-glow'
-            : 'glass-effect-light-blue shadow-md' // Utilise glass-effect-light-blue
+            : 'glass-effect-light-blue shadow-md'
         )}
       >
         <AuthToggle
@@ -33,7 +42,7 @@ export function AuthForm({ isDarkMode }: AuthContainerProps) {
           <h2
             className={cn(
               'text-3xl font-bold mb-2 text-center transition-colors duration-300',
-              isDarkMode ? 'text-white' : 'text-primary-900' // Texte sombre en mode clair
+              isDarkMode ? 'text-white' : 'text-primary-900'
             )}
           >
             {isSignUp ? 'Create an account' : 'Welcome back'}
@@ -41,7 +50,7 @@ export function AuthForm({ isDarkMode }: AuthContainerProps) {
           <p
             className={cn(
               'text-center mb-8 transition-colors duration-300',
-              isDarkMode ? 'text-blue-200' : 'text-primary-700' // Texte sombre en mode clair
+              isDarkMode ? 'text-blue-200' : 'text-primary-700'
             )}
           >
             {isSignUp
@@ -50,11 +59,7 @@ export function AuthForm({ isDarkMode }: AuthContainerProps) {
           </p>
 
           <div className="transition-all duration-500 ease-in-out">
-            {isSignUp ? (
-              <RegisterForm isDarkMode={isDarkMode} />
-            ) : (
-              <LoginForm isDarkMode={isDarkMode} />
-            )}
+            {isSignUp ? <RegisterForm /> : <LoginForm />}
           </div>
         </div>
       </div>
