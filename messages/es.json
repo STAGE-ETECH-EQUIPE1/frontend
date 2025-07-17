@@ -1,0 +1,17 @@
+{
+
+  "Auth": {
+    "signup": "Registrarse",
+    "signin": "Iniciar sesión",
+    "createAccount": "Crear una cuenta",
+    "joinUs": "Únete hoy y empieza ahora",
+
+    "name": "RANDRIANIMANANA Toavina",
+    "email1": "mariaa@gmail.com",
+    "email2": "toavina@gmail.com",
+    "phone": "0334014061",
+    "password1": "•••••••••••••••",
+    "password2": "••••••••",
+    "createAccountBtn": "Crear una cuenta"
+  }
+}

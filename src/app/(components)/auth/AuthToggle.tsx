@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface AuthToggleProps {
@@ -15,14 +16,17 @@ export function AuthToggle({
   onToggle,
   isDarkMode,
 }: AuthToggleProps) {
+  const t = useTranslations('Auth')
+
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   if (!mounted) return null
+
   return (
     <div
       className={cn(
         'relative rounded-2xl p-1 transition-colors duration-300',
-        isDarkMode ? 'glass-input' : 'glass-input-light-blue' // Utilise glass-input-light-blue
+        isDarkMode ? 'glass-input' : 'glass-input-light-blue'
       )}
     >
       <div
@@ -49,13 +53,13 @@ export function AuthToggle({
             isSignUp
               ? isDarkMode
                 ? 'text-primary-theme scale-[0.98]'
-                : 'text-primary-900 scale-[0.98]' // Texte sombre en mode clair
+                : 'text-primary-900 scale-[0.98]'
               : isDarkMode
                 ? 'text-white/70 hover:text-white hover:scale-105'
-                : 'text-primary-700 hover:text-primary-900 hover:scale-105' // Texte sombre en mode clair
+                : 'text-primary-700 hover:text-primary-900 hover:scale-105'
           )}
         >
-          Sign up
+          {t('signup')}
         </Button>
         <Button
           onClick={() => onToggle(false)}
@@ -64,13 +68,13 @@ export function AuthToggle({
             !isSignUp
               ? isDarkMode
                 ? 'text-primary-theme scale-[0.98]'
-                : 'text-primary-900 scale-[0.98]' // Texte sombre en mode clair
+                : 'text-primary-900 scale-[0.98]'
               : isDarkMode
                 ? 'text-white/70 hover:text-white hover:scale-105'
-                : 'text-primary-700 hover:text-primary-900 hover:scale-105' // Texte sombre en mode clair
+                : 'text-primary-700 hover:text-primary-900 hover:scale-105'
           )}
         >
-          Sign in
+          {t('signin')}
         </Button>
       </div>
     </div>
