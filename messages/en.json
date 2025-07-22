@@ -1,8 +1,90 @@
 {
-  "Auth": {
-    "signup": "Sign up",
-    "signin": "Sign in",
-    "createAccount": "Create an account",
-    "joinUs": "Join us today and get started"
+  "navbar": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "signin": "Sign In",
+    "start": "Get Started"
+  },
+  "auth": {
+    "signin": {
+      "title": "Welcome Back!",
+      "subtitle": "Sign in to your Orbixup account",
+      "email": "Email address",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign In",
+      "or": "or",
+      "googleSignin": "Continue with Google"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Join Orbixup and access our premium services",
+      "email": "Email address *",
+      "phone": "Phone number *",
+      "fullName": "Full name *",
+      "username": "Username *",
+      "password": "Password *",
+      "confirmPassword": "Confirm password *",
+      "acceptTerms": "I accept the",
+      "termsOfService": "terms of service",
+      "and": "and",
+      "privacyPolicy": "privacy policy",
+      "next": "Next",
+      "back": "Back",
+      "createAccount": "Create Account",
+      "or": "or",
+      "googleSignup": "Continue with Google"
+    },
+    "tabs": {
+      "signin": "Sign In",
+      "signup": "Sign Up"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "titleHighlight": "Premium",
+    "subtitle": "Custom digital solutions to propel your brand to excellence",
+    "logoService": {
+      "title": "Premium Logo",
+      "description": "Creation of unique and memorable logos for your brand",
+      "features": [
+        "3 initial concepts",
+        "Unlimited revisions",
+        "Vector files",
+        "Usage guide"
+      ]
+    },
+    "identityService": {
+      "title": "Complete Identity",
+      "description": "Complete visual identity package for your business",
+      "features": [
+        "Logo + variations",
+        "Color palette",
+        "Typography",
+        "Brand guidelines"
+      ]
+    },
+    "expressService": {
+      "title": "Express Design",
+      "description": "Ultra-fast 24h delivery for your urgent needs",
+      "features": [
+        "24h delivery",
+        "Absolute priority",
+        "Dedicated designer",
+        "Direct support"
+      ]
+    },
+    "startupService": {
+      "title": "Startup Pack",
+      "description": "Complete solution for startups and new businesses",
+      "features": [
+        "Logo + identity",
+        "Business cards",
+        "Landing page",
+        "Social media"
+      ]
+    }
   }
 }

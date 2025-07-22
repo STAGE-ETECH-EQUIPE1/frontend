@@ -1,16 +1,90 @@
 {
-  "Auth": {
-    "signup": "S'inscrire",
-    "signin": "Se connecter",
-    "createAccount": "Créer un compte",
-    "joinUs": "Rejoignez-nous dès aujourd'hui et commencez",
-
-    "name": "RANDRIANIMANANA Toavina",
-    "email1": "mariaa@gmail.com",
-    "email2": "toavina@gmail.com",
-    "phone": "0334014061",
-    "password1": "•••••••••••••••",
-    "password2": "••••••••",
-    "createAccountBtn": "Créer un compte"
+  "navbar": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "pricing": "Tarifs",
+    "contact": "Contact",
+    "signin": "Connexion",
+    "start": "Commencer"
+  },
+  "auth": {
+    "signin": {
+      "title": "Bon retour !",
+      "subtitle": "Connectez-vous à votre compte Orbixup",
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "or": "ou",
+      "googleSignin": "Continuer avec Google"
+    },
+    "signup": {
+      "title": "Créer un compte",
+      "subtitle": "Rejoignez Orbixup et accédez à nos services premium",
+      "email": "Adresse email *",
+      "phone": "Numéro de téléphone *",
+      "fullName": "Nom complet *",
+      "username": "Nom d'utilisateur *",
+      "password": "Mot de passe *",
+      "confirmPassword": "Confirmer le mot de passe *",
+      "acceptTerms": "J'accepte les",
+      "termsOfService": "conditions d'utilisation",
+      "and": "et la",
+      "privacyPolicy": "politique de confidentialité",
+      "next": "Suivant",
+      "back": "Retour",
+      "createAccount": "Créer mon compte",
+      "or": "ou",
+      "googleSignup": "Continuer avec Google"
+    },
+    "tabs": {
+      "signin": "Se connecter",
+      "signup": "S'inscrire"
+    }
+  },
+  "services": {
+    "title": "Nos Services",
+    "titleHighlight": "Premium",
+    "subtitle": "Des solutions digitales sur-mesure pour propulser votre marque vers l'excellence",
+    "logoService": {
+      "title": "Logo Premium",
+      "description": "Création de logos uniques et mémorables pour votre marque",
+      "features": [
+        "3 concepts initiaux",
+        "Révisions illimitées",
+        "Fichiers vectoriels",
+        "Guide d'utilisation"
+      ]
+    },
+    "identityService": {
+      "title": "Identité Complète",
+      "description": "Pack complet d'identité visuelle pour votre entreprise",
+      "features": [
+        "Logo + variations",
+        "Palette couleurs",
+        "Typographie",
+        "Charte graphique"
+      ]
+    },
+    "expressService": {
+      "title": "Express Design",
+      "description": "Livraison ultra-rapide en 24h pour vos urgences",
+      "features": [
+        "Livraison 24h",
+        "Priorité absolue",
+        "Designer dédié",
+        "Support direct"
+      ]
+    },
+    "startupService": {
+      "title": "Pack Startup",
+      "description": "Solution complète pour startups et nouvelles entreprises",
+      "features": [
+        "Logo + identité",
+        "Cartes de visite",
+        "Site vitrine",
+        "Réseaux sociaux"
+      ]
+    }
   }
 }
