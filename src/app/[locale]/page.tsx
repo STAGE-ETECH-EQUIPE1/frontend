@@ -2,7 +2,7 @@
 //import { Link } from '@/i18n/navigation'
 import Auth from './auth/page'
 import { ThemeProvider } from '../(components)/ThemeProvider'
-
+import './globals.css'
 export default function HomePage() {
   //const t = useTranslations('HomePage')
   return (
