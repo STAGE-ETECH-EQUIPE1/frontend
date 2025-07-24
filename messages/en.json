@@ -1,4 +1,12 @@
 {
+  "toast": {
+    "successLogin": "Login successful!",
+    "errorLogin": "Check your email or password!",
+    "successSignup": "Signup successful!",
+    "errorSignup": "Error during signup, please try again!",
+    "confirmPassword": "Passwords do not match.",
+    "successLogout": "Logout successful!"
+  },
   "navbar": {
     "services": "Services",
     "portfolio": "Portfolio",

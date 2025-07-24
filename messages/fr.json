@@ -1,4 +1,12 @@
 {
+  "toast":{
+    "successLogin":"Connexion réussie !",
+    "errorLogin":"Vérifier votre email ou mot de passe !",
+    "successSignup":"Inscription réussie !",
+    "errorSignup":"Erreur lors de l'inscription veuillez réessayer !",
+    "confirmPassword": "Les mots de passe ne correspondent pas.",
+    "successLogout":"Déconnexion réussie !"
+  },
   "navbar": {
     "services": "Services",
     "portfolio": "Portfolio",

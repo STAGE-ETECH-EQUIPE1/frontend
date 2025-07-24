@@ -1,55 +1,37 @@
-import { baseApi } from "./baseApi"
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from './baseQuery';
+import type { SignupRequest, AuthResponse, LoginRequest, GoogleAuthRequest } from '../../types/auth';
 
-export interface LoginRequest {
-  email: string
-  password: string
-}
-
-export interface SignupRequest {
-  email: string
-  password: string
-  name: string
-}
-
-export interface AuthResponse {
-  user: {
-    id: string
-    email: string
-    name: string
-  }
-  token: string
-}
-
-export const authApi = baseApi.injectEndpoints({
+export const authApi = createApi({
+  reducerPath: 'authApi',
+  baseQuery,
   endpoints: (builder) => ({
-    login: builder.mutation<AuthResponse, LoginRequest>({
-      query: (credentials) => ({
-        url: "/login", // ✅ Vos URLs sont correctes
-        method: "POST",
-        body: credentials,
-      }),
-      invalidatesTags: ["Auth"],
-    }),
     signup: builder.mutation<AuthResponse, SignupRequest>({
-      query: (userData) => ({
-        url: "/register", // ✅ Correct
-        method: "POST",
-        body: userData,
+      query: (data) => ({
+        url: '/register',
+        method: 'POST',
+        body: data,
       }),
-      invalidatesTags: ["Auth"],
     }),
-    logout: builder.mutation<void, void>({
-      query: () => ({
-        url: "/logout",
-        method: "POST",
+    login: builder.mutation<AuthResponse, LoginRequest>({
+      query: (data) => ({
+        url: '/login',
+        method: 'POST',
+        body: data,
       }),
-      invalidatesTags: ["Auth", "User"],
     }),
-    getProfile: builder.query<AuthResponse["user"], void>({
-      query: () => "/profile", // ✅ Simplifié
-      providesTags: ["User"],
+  googleAuth: builder.mutation<AuthResponse, GoogleAuthRequest>({
+    query: ({ id_token }) => ({
+      url: '/auth/google',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id_token }),
     }),
-  }),
-})
+}),
 
-export const { useLoginMutation, useSignupMutation, useLogoutMutation, useGetProfileQuery } = authApi
+ }),
+});
+
+export const { useSignupMutation, useLoginMutation, useGoogleAuthMutation } = authApi;

@@ -1,7 +1,9 @@
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import './globals.css'
+import Providers from './providers'
 export default async function LocaleLayout({
   children,
   params,
@@ -17,7 +19,15 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <Providers>
+          <NextIntlClientProvider>
+            <GoogleOAuthProvider
+              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+            >
+              {children}
+            </GoogleOAuthProvider>
+          </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   )
