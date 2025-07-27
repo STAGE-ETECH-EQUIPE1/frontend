@@ -1,6 +1,6 @@
 'use client'
 
-import type React from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import {
@@ -30,6 +30,7 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const dispatch = useDispatch()
   const [signup, { isLoading }] = useSignupMutation()
+  const [authMethod, setAuthMethod] = useState<'form' | 'google' | null>(null)
 
   const [formData, setFormData] = useState({
     email: '',
@@ -46,6 +47,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setAuthMethod('form')
 
     if (currentStep < 3) {
       setCurrentStep(currentStep + 1)
@@ -60,7 +62,11 @@ const SignUp = () => {
     try {
       const res = await signup(formData).unwrap()
       dispatch(setToken(res.token))
-      toast.success(toastMessage('successSignup'))
+      if (authMethod === 'form') {
+        toast.success(toastMessage('successSignup'))
+      } else if (authMethod === 'google') {
+        toast.success(toastMessage('successSignupGoogle'))
+      }
     } catch (err) {
       toast.error(toastMessage('errorSignup'))
       console.error(err)
@@ -299,6 +305,7 @@ const SignUp = () => {
                 <input
                   type="checkbox"
                   id="acceptTerms"
+                  name="acceptTerms"
                   className="w-4 h-4 text-primary border-border/50 rounded focus:ring-primary/20 mt-0.5"
                   required
                 />
@@ -369,7 +376,7 @@ const SignUp = () => {
           </div>
         </div>
 
-        <GoogleLoginButton />
+        <GoogleLoginButton setAuthMethod={setAuthMethod} authContext="signup" />
       </div>
     </div>
   )

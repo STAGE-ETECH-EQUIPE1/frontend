@@ -1,7 +1,6 @@
 'use client'
 
 import type React from 'react'
-
 import { useState } from 'react'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -25,6 +24,7 @@ const SignIn = () => {
 
   const dispatch = useDispatch()
   const [login, { isLoading, error }] = useLoginMutation()
+  const [authMethod, setAuthMethod] = useState<'form' | 'google' | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -32,10 +32,14 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setAuthMethod('form')
     try {
       const res = await login(formData).unwrap()
       dispatch(setToken(res.token))
-      toast.success(toastMessage('successLogin'))
+      if (authMethod !== 'google') {
+        toast.success(toastMessage('successLogin'))
+      }
+      setAuthMethod('form')
     } catch (err) {
       toast.error(toastMessage('errorLogin'))
       console.error('Erreur :', err)
@@ -142,12 +146,11 @@ const SignIn = () => {
             </span>
           </div>
         </div>
-
-        {/* Social Login */}
-        <div className="space-y-3">
-          <GoogleLoginButton />
-        </div>
       </form>
+      {/* Social Login */}
+      <div className="space-y-3">
+        <GoogleLoginButton setAuthMethod={() => {}} authContext="login" />
+      </div>
     </div>
   )
 }

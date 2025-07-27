@@ -1,21 +1,21 @@
 export interface SignupRequest {
-  email: string;
-  phone: string;
-  fullName: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
+  email: string
+  phone: string
+  fullName: string
+  username: string
+  password: string
+  confirmPassword: string
 }
 
 export interface LoginRequest {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export interface AuthResponse {
-  token: string;
+  token: string
 }
 
 export interface GoogleAuthRequest {
-  id_token: string
+  access_token: string
 }

@@ -1,11 +1,15 @@
 {
-  "toast":{
-    "successLogin":"Connexion réussie !",
-    "errorLogin":"Vérifier votre email ou mot de passe !",
-    "successSignup":"Inscription réussie !",
-    "errorSignup":"Erreur lors de l'inscription veuillez réessayer !",
+  "toast": {
+    "successLogin": "Connexion réussie !",
+    "errorLogin": "Vérifier votre email ou mot de passe !",
+    "successSignup": "Inscription réussie !",
+    "errorSignup": "Erreur lors de l'inscription veuillez réessayer !",
+    "successLoginGoogle": "Connexion réussie avec Google !",
+    "errorLoginGoogle": "Erreur lors de la connexion avec Google !",
+    "successSignupGoogle": "Inscription réussie avec Google !",
+    "errorSignupGoogle": "Erreur lors de l'inscription avec Google !",
     "confirmPassword": "Les mots de passe ne correspondent pas.",
-    "successLogout":"Déconnexion réussie !"
+    "successLogout": "Déconnexion réussie !"
   },
   "navbar": {
     "services": "Services",

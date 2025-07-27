@@ -1,18 +1,34 @@
+// jest.setup.ts
 import '@testing-library/jest-dom'
+import 'jest-canvas-mock'
 
-jest.mock('next-intl', () => {
-  const actual = jest.requireActual('next-intl')
-  return {
-    ...actual,
-    unstable_setRequestLocale: jest.fn(),
-    getTranslations: jest.fn().mockImplementation(async (namespace: string) => {
-      const messages: { [key: string]: string } = (
-        await import(`../../messages/${namespace}.json`)
-      ).default
+// Mock global pour next-intl
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+  useLocale: () => 'en',
+  useNow: () => new Date(),
+  useTimeZone: () => 'UTC',
+  unstable_setRequestLocale: jest.fn(),
+}))
 
-      return (key: string) => {
-        return messages[key] || key
-      }
-    }),
-  }
+// Mock global pour fetch
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({}),
+  })
+) as jest.Mock
+
+// Mock pour matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
 })

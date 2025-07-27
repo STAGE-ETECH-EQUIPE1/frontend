@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Orbixup Premium Design System - Modern digital services platform */
 
@@ -40,9 +40,21 @@
   --primary-glow: 210 100% 50%;
 
   /* Premium Gradients - Blue Theme */
-  --gradient-primary: linear-gradient(135deg, hsl(210 100% 35%), hsl(210 80% 45%));
-  --gradient-hero: linear-gradient(135deg, hsl(203, 100%, 2%), hsl(210 70% 25%));
-  --gradient-accent: linear-gradient(135deg, hsl(210 100% 60%), hsl(210 80% 50%));
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(210 100% 35%),
+    hsl(210 80% 45%)
+  );
+  --gradient-hero: linear-gradient(
+    135deg,
+    hsl(203, 100%, 2%),
+    hsl(210 70% 25%)
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    hsl(210 100% 60%),
+    hsl(210 80% 50%)
+  );
   --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 30% 98%));
 
   /* Premium Shadows - Blue Theme */
@@ -55,7 +67,7 @@
   --transition-smooth: all 0.3s ease;
 
   /* Typography */
-  --font-heading: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --radius: 0.5rem;
 
   /* Sidebar */
@@ -119,7 +131,11 @@ body {
 @layer components {
   /* Premium button variants */
   .btn-premium {
-    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)));
+    background: linear-gradient(
+      to right,
+      hsl(var(--primary)),
+      hsl(var(--secondary))
+    );
     color: white;
     font-weight: 600;
     padding: 2rem 2rem;
@@ -134,7 +150,11 @@ body {
   }
 
   .btn-accent {
-    background: linear-gradient(to right, hsl(var(--accent)), hsl(var(--primary-glow)));
+    background: linear-gradient(
+      to right,
+      hsl(var(--accent)),
+      hsl(var(--primary-glow))
+    );
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
@@ -206,20 +226,26 @@ body {
   }
 
   .nav-link::before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(var(--accent)), hsl(var(--primary-glow)), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--accent)),
+      hsl(var(--primary-glow)),
+      transparent
+    );
     transform: translateX(-50%);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 1px;
   }
 
   .nav-link::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: -2px;
     left: 50%;
@@ -273,7 +299,9 @@ body {
       box-shadow: 0 0 15px hsl(var(--accent) / 0.6);
     }
     50% {
-      box-shadow: 0 0 25px hsl(var(--accent) / 0.8), 0 0 35px hsl(var(--primary-glow) / 0.4);
+      box-shadow:
+        0 0 25px hsl(var(--accent) / 0.8),
+        0 0 35px hsl(var(--primary-glow) / 0.4);
     }
   }
 
@@ -283,7 +311,9 @@ body {
       box-shadow: 0 0 20px hsl(var(--accent) / 0.5);
     }
     50% {
-      box-shadow: 0 0 30px hsl(var(--accent) / 0.7), 0 0 40px hsl(var(--primary-glow) / 0.3);
+      box-shadow:
+        0 0 30px hsl(var(--accent) / 0.7),
+        0 0 40px hsl(var(--primary-glow) / 0.3);
     }
   }
 

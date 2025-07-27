@@ -4,6 +4,10 @@
     "errorLogin": "Check your email or password!",
     "successSignup": "Signup successful!",
     "errorSignup": "Error during signup, please try again!",
+    "successLoginGoogle": "Login successful with Google!",
+    "errorLoginGoogle": "Error during login with Google!",
+    "successSignupGoogle": "Signup successful with Google!",
+    "errorSignupGoogle": "Error during signup with Google!",
     "confirmPassword": "Passwords do not match.",
     "successLogout": "Logout successful!"
   },

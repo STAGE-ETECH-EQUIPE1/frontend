@@ -1,6 +1,11 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQuery } from './baseQuery';
-import type { SignupRequest, AuthResponse, LoginRequest, GoogleAuthRequest } from '../../types/auth';
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQuery } from './baseQuery'
+import type {
+  SignupRequest,
+  AuthResponse,
+  LoginRequest,
+  GoogleAuthRequest,
+} from '../../types/auth'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -20,18 +25,18 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-  googleAuth: builder.mutation<AuthResponse, GoogleAuthRequest>({
-    query: ({ id_token }) => ({
-      url: '/auth/google',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id_token }),
+    googleAuth: builder.mutation<AuthResponse, GoogleAuthRequest>({
+      query: ({ access_token }) => ({
+        url: '/auth/google',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ access_token }),
+      }),
     }),
-}),
+  }),
+})
 
- }),
-});
-
-export const { useSignupMutation, useLoginMutation, useGoogleAuthMutation } = authApi;
+export const { useSignupMutation, useLoginMutation, useGoogleAuthMutation } =
+  authApi
