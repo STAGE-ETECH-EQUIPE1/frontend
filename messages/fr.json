@@ -19,6 +19,21 @@
     "signin": "Connexion",
     "start": "Commencer"
   },
+  "Header": {
+    "tagline": "Plateforme Premium",
+    "titleLine1": "Services Digitaux",
+    "titleLine2": "d'Excellence",
+    "description": "Orbixup transforme votre vision en réalité digitale. Logos premium, identité visuelle et services sur-mesure pour entreprises ambitieuses.",
+    "cta": {
+      "packs": "Découvrir nos Packs",
+      "portfolio": "Portfolio"
+    },
+    "stats": {
+      "logos": "Logos Créés",
+      "satisfaction": "Satisfaction Client",
+      "delivery": "Livraison Express"
+    }
+  },
   "auth": {
     "signin": {
       "title": "Bon retour !",
@@ -98,5 +113,56 @@
         "Réseaux sociaux"
       ]
     }
+  },
+
+  "pricing": {
+    "title": "Formules Premium",
+    "subtitle": "Choisissez l’offre adaptée à votre ambition",
+    "free": {
+      "title": "Gratuit",
+      "description": "Parfait pour découvrir nos outils",
+      "features": {
+        "tokens": "10 jetons par jour",
+        "tools": "Outils de base",
+        "community": "Support communautaire",
+        "watermark": "Filigrane sur les exports"
+      },
+      "button": "Commencer gratuitement"
+    },
+    "premium": {
+      "title": "Premium",
+      "description": "Notre formule la plus populaire",
+      "features": {
+        "tokens": "1000 jetons par mois",
+        "logo": "Logo + 3 variantes",
+        "concepts": "Concepts illimités",
+        "revisions": "Révisions illimitées",
+        "formats": "Tous formats (PNG, JPG, SVG, AI)",
+        "charter": "Charte graphique",
+        "mockups": "Mockups inclus",
+        "delivery": "Livraison en 3 jours"
+      },
+      "popular": "Le plus populaire",
+      "button": "Choisir cette offre"
+    },
+    "enterprise": {
+      "title": "Entreprise",
+      "description": "Solution complète pour les entreprises",
+      "features": {
+        "tokens": "Jetons illimités",
+        "identity": "Identité visuelle complète",
+        "logo": "Logo + variantes",
+        "charter": "Charte graphique détaillée",
+        "cards": "Cartes de visite",
+        "stationery": "Papeterie d’entreprise",
+        "templates": "Templates réseaux sociaux",
+        "designer": "Designer dédié",
+        "delivery": "Livraison en 24h",
+        "support": "Support prioritaire"
+      },
+      "button": "Choisir cette offre"
+    },
+    "customMessage": "Besoin d'une solution sur-mesure ?",
+    "requestQuote": "Demander un devis personnalisé"
   }
 }

@@ -19,6 +19,21 @@
     "signin": "Sign In",
     "start": "Get Started"
   },
+  "Header": {
+    "tagline": "Premium Platform",
+    "titleLine1": "Digital Services",
+    "titleLine2": "of Excellence",
+    "description": "Orbixup turns your vision into digital reality. Premium logos, brand identity and tailored services for ambitious companies.",
+    "cta": {
+      "packs": "Discover Our Packs",
+      "portfolio": "Portfolio"
+    },
+    "stats": {
+      "logos": "Logos Created",
+      "satisfaction": "Customer Satisfaction",
+      "delivery": "Express Delivery"
+    }
+  },
   "auth": {
     "signin": {
       "title": "Welcome Back!",
@@ -97,6 +112,62 @@
         "Landing page",
         "Social media"
       ]
+    }
+  },
+  "pricing": {
+    "title": "Premium Plans",
+    "subtitle": "Choose the plan that fits your ambition",
+    "ttc": "incl. VAT",
+    "free": {
+      "name": "Free",
+      "price": "0€",
+      "description": "Perfect for discovering our tools",
+      "features": [
+        "10 tokens per day",
+        "Basic tools",
+        "Community support",
+        "Watermark on exports"
+      ],
+      "button": "Start for free"
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "599€",
+      "description": "Our most popular package",
+      "features": [
+        "1000 tokens per month",
+        "Logo + 3 variations",
+        "Unlimited concepts",
+        "Unlimited revisions",
+        "All formats (PNG, JPG, SVG, AI)",
+        "Brand guidelines",
+        "Mockups included",
+        "3-day delivery"
+      ],
+      "popularBadge": "Most Popular",
+      "button": "Choose this plan"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "1299€",
+      "description": "Complete solution for companies",
+      "features": [
+        "Unlimited tokens",
+        "Complete brand identity",
+        "Logo + variations",
+        "Detailed brand guidelines",
+        "Business cards",
+        "Corporate stationery",
+        "Social media templates",
+        "Dedicated designer",
+        "24h delivery",
+        "Priority support"
+      ],
+      "button": "Choose this plan"
+    },
+    "custom": {
+      "cta": "Need a custom solution?",
+      "button": "Request a custom quote"
     }
   }
 }
