@@ -1,15 +1,13 @@
-//import { useTranslations } from 'next-intl'
-//import { Link } from '@/i18n/navigation'
-import Auth from './auth/page'
-import { ThemeProvider } from '../(components)/ThemeProvider'
-import './globals.css'
+import Header from '../(components)/header/Header'
+import Navbar from '../(components)/navbar/Navbar'
+import Services from '../(components)/service/Services'
 export default function HomePage() {
   //const t = useTranslations('HomePage')
   return (
-    <div>
-      <ThemeProvider>
-        <Auth />
-      </ThemeProvider>
+    <div className="min-h-screen">
+      <Navbar />
+      <Header />
+      <Services />
     </div>
   )
 }
