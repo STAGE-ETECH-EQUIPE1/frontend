@@ -163,5 +163,31 @@
     },
     "customMessage": "Need a custom solution?",
     "requestQuote": "Request a personalized quote"
+  },
+  
+  "Footer": {
+    "description": "Your trusted partner for outstanding digital services. We turn your ideas into memorable visual experiences using AI.",
+    "servicesTitle": "Services",
+    "services": [
+      "AI Logo Creation",
+      "Visual Identity",
+      "24h Express Design",
+      "Startup Pack",
+      "Brand Guidelines",
+      "Premium Mockups"
+    ],
+    "contactTitle": "Contact",
+    "newsletterTitle": "Stay updated",
+    "newsletterSubtitle": "Get our latest creations and exclusive offers",
+    "emailPlaceholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "rights": "© 2025 Orbixup. All rights reserved. Powered by AI.",
+    "footerLinks": [
+      "Legal Notice",
+      "Privacy Policy",
+      "Terms & Conditions",
+      "Support"
+    ]
   }
+
 }

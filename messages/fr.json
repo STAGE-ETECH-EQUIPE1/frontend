@@ -114,7 +114,6 @@
       ]
     }
   },
-
   "pricing": {
     "title": "Formules",
     "subtitle": "Choisissez l’offre adaptée à votre ambition",
@@ -164,5 +163,25 @@
     },
     "customMessage": "Besoin d'une solution sur-mesure ?",
     "requestQuote": "Demander un devis personnalisé"
+  },
+
+  "Footer": {
+    "description": "Votre partenaire de confiance pour des services digitaux d'exception. Nous transformons vos idées en réalités visuelles mémorables avec l'IA.",
+    "servicesTitle": "Services",
+    "services": [
+      "Création de logos IA",
+      "Identité visuelle",
+      "Design express 24h",
+      "Pack startup",
+      "Charte graphique",
+      "Mockups premium"
+    ],
+    "contactTitle": "Contact",
+    "newsletterTitle": "Restez informé",
+    "newsletterSubtitle": "Recevez nos dernières créations et offres exclusives",
+    "emailPlaceholder": "votre@email.com",
+    "subscribe": "S'abonner",
+    "rights": "© 2025 Orbixup. Tous droits réservés. Propulsé par l'IA.",
+    "footerLinks": ["Mentions légales", "Confidentialité", "CGV", "Support"]
   }
 }
