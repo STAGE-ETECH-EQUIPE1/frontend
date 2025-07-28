@@ -19,6 +19,21 @@
     "signin": "Sign In",
     "start": "Get Started"
   },
+  "Header": {
+    "tagline": "Premium Platform",
+    "titleLine1": "Digital Services",
+    "titleLine2": "of Excellence",
+    "description": "Orbixup turns your vision into digital reality. Premium logos, brand identity and tailored services for ambitious companies.",
+    "cta": {
+      "packs": "Discover Our Packs",
+      "portfolio": "Portfolio"
+    },
+    "stats": {
+      "logos": "Logos Created",
+      "satisfaction": "Customer Satisfaction",
+      "delivery": "Express Delivery"
+    }
+  },
   "auth": {
     "signin": {
       "title": "Welcome Back!",
@@ -98,5 +113,80 @@
         "Social media"
       ]
     }
+  },
+  "pricing": {
+    "title": "Plans",
+    "subtitle": "Choose the offer that fits your ambition",
+    "free": {
+      "title": "Free",
+      "description": "Perfect for discovering our tools",
+      "features": {
+        "tokens": "10 tokens per day",
+        "tools": "Basic tools",
+        "community": "Community support",
+        "watermark": "Watermark on exports"
+      },
+      "button": "Start for free"
+    },
+    "premium": {
+      "title": "Premium",
+      "description": "Our most popular plan",
+      "features": {
+        "tokens": "1000 tokens per month",
+        "logo": "Logo + 3 variations",
+        "concepts": "Unlimited concepts",
+        "revisions": "Unlimited revisions",
+        "formats": "All formats (PNG, JPG, SVG, AI)",
+        "charter": "Brand guidelines",
+        "mockups": "Mockups included",
+        "delivery": "3-day delivery"
+      },
+      "popular": "Most popular",
+      "button": "Choose this plan"
+    },
+    "enterprise": {
+      "title": "Enterprise",
+      "description": "Complete solution for businesses",
+      "features": {
+        "tokens": "Unlimited tokens",
+        "identity": "Complete visual identity",
+        "logo": "Logo + variations",
+        "charter": "Detailed brand guidelines",
+        "cards": "Business cards",
+        "stationery": "Corporate stationery",
+        "templates": "Social media templates",
+        "designer": "Dedicated designer",
+        "delivery": "24h delivery",
+        "support": "Priority support"
+      },
+      "button": "Choose this plan"
+    },
+    "customMessage": "Need a custom solution?",
+    "requestQuote": "Request a personalized quote"
+  },
+
+  "Footer": {
+    "description": "Your trusted partner for outstanding digital services. We turn your ideas into memorable visual experiences using AI.",
+    "servicesTitle": "Services",
+    "services": [
+      "AI Logo Creation",
+      "Visual Identity",
+      "24h Express Design",
+      "Startup Pack",
+      "Brand Guidelines",
+      "Premium Mockups"
+    ],
+    "contactTitle": "Contact",
+    "newsletterTitle": "Stay updated",
+    "newsletterSubtitle": "Get our latest creations and exclusive offers",
+    "emailPlaceholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "rights": "© 2025 Orbixup. All rights reserved. Powered by AI.",
+    "footerLinks": [
+      "Legal Notice",
+      "Privacy Policy",
+      "Terms & Conditions",
+      "Support"
+    ]
   }
 }
