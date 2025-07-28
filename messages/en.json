@@ -164,7 +164,7 @@
     "customMessage": "Need a custom solution?",
     "requestQuote": "Request a personalized quote"
   },
-  
+
   "Footer": {
     "description": "Your trusted partner for outstanding digital services. We turn your ideas into memorable visual experiences using AI.",
     "servicesTitle": "Services",
@@ -189,5 +189,4 @@
       "Support"
     ]
   }
-
 }
