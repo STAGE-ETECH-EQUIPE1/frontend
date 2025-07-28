@@ -35,10 +35,7 @@ const FreeCard = () => {
           </li>
         ))}
       </ul>
-      <Button
-        className="w-full py-3 border-2 border-primary text-primary hover:bg-primary hover:text-white"
-        variant="outline"
-      >
+      <Button className="w-full py-3 btn-white btn-white" variant="outline">
         {t('pricing.free.button')}
       </Button>
     </Card>

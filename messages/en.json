@@ -115,59 +115,53 @@
     }
   },
   "pricing": {
-    "title": "Premium Plans",
-    "subtitle": "Choose the plan that fits your ambition",
-    "ttc": "incl. VAT",
+    "title": "Plans",
+    "subtitle": "Choose the offer that fits your ambition",
     "free": {
-      "name": "Free",
-      "price": "0€",
+      "title": "Free",
       "description": "Perfect for discovering our tools",
-      "features": [
-        "10 tokens per day",
-        "Basic tools",
-        "Community support",
-        "Watermark on exports"
-      ],
+      "features": {
+        "tokens": "10 tokens per day",
+        "tools": "Basic tools",
+        "community": "Community support",
+        "watermark": "Watermark on exports"
+      },
       "button": "Start for free"
     },
     "premium": {
-      "name": "Premium",
-      "price": "599€",
-      "description": "Our most popular package",
-      "features": [
-        "1000 tokens per month",
-        "Logo + 3 variations",
-        "Unlimited concepts",
-        "Unlimited revisions",
-        "All formats (PNG, JPG, SVG, AI)",
-        "Brand guidelines",
-        "Mockups included",
-        "3-day delivery"
-      ],
-      "popularBadge": "Most Popular",
+      "title": "Premium",
+      "description": "Our most popular plan",
+      "features": {
+        "tokens": "1000 tokens per month",
+        "logo": "Logo + 3 variations",
+        "concepts": "Unlimited concepts",
+        "revisions": "Unlimited revisions",
+        "formats": "All formats (PNG, JPG, SVG, AI)",
+        "charter": "Brand guidelines",
+        "mockups": "Mockups included",
+        "delivery": "3-day delivery"
+      },
+      "popular": "Most popular",
       "button": "Choose this plan"
     },
     "enterprise": {
-      "name": "Enterprise",
-      "price": "1299€",
-      "description": "Complete solution for companies",
-      "features": [
-        "Unlimited tokens",
-        "Complete brand identity",
-        "Logo + variations",
-        "Detailed brand guidelines",
-        "Business cards",
-        "Corporate stationery",
-        "Social media templates",
-        "Dedicated designer",
-        "24h delivery",
-        "Priority support"
-      ],
+      "title": "Enterprise",
+      "description": "Complete solution for businesses",
+      "features": {
+        "tokens": "Unlimited tokens",
+        "identity": "Complete visual identity",
+        "logo": "Logo + variations",
+        "charter": "Detailed brand guidelines",
+        "cards": "Business cards",
+        "stationery": "Corporate stationery",
+        "templates": "Social media templates",
+        "designer": "Dedicated designer",
+        "delivery": "24h delivery",
+        "support": "Priority support"
+      },
       "button": "Choose this plan"
     },
-    "custom": {
-      "cta": "Need a custom solution?",
-      "button": "Request a custom quote"
-    }
+    "customMessage": "Need a custom solution?",
+    "requestQuote": "Request a personalized quote"
   }
 }

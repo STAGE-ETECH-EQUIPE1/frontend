@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Menu, X, Zap, User } from 'lucide-react'
+import { Menu, X, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
 import AuthModal from '../auth/AuthModal'
 import LanguageSwitcher from '../translation/LanguageSwitcher'
-
+import Image from 'next/image'
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
@@ -58,10 +58,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-accent rounded-xl flex items-center justify-center">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold text-white">Orbixup</span>
+            <Image src="/_logo.png" alt="Google" width={98} height={98} />
           </div>
 
           {/* Desktop Navigation avec effet stylé */}
