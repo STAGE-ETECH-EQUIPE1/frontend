@@ -128,6 +128,8 @@ body {
   font-family: var(--font-heading);
 }
 
+/*DASHBOARD*/
+
 @layer components {
   /* Premium button variants */
   .btn-premium {
@@ -466,3 +468,291 @@ body {
     background-color: hsl(var(--muted));
   }
 }
+
+@layer components{
+  /* Style Glassmorphism Premium */
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  }
+
+  .glass-card:hover {
+    @apply bg-white/15;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .glass-card:hover::before {
+    left: 100%;
+  }
+
+  /* Style Neumorphism */
+  .neuro-card {
+    @apply bg-gray-100 rounded-3xl;
+    transition: all 0.3s ease;
+  }
+
+  .neuro-button {
+    @apply bg-gray-100 rounded-2xl px-6 py-3;
+    transition: all 0.2s ease;
+  }
+
+
+  /* Style Dark Futuriste */
+  .cyber-card {
+    @apply bg-gray-900/90 border border-cyan-500/30;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  }
+
+  .cyber-card:hover {
+    @apply border-cyan-400/60;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+
+  .neon-text {
+    @apply text-cyan-400;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .neon-button {
+    @apply bg-transparent border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+  }
+
+  .neon-button:hover {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.2);
+  }
+
+  /* Style Minimal Luxury */
+  .luxury-card {
+    @apply bg-white border border-gray-200/50 shadow-sm rounded-2xl;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  }
+
+  .luxury-card:hover {
+    @apply shadow-xl border-gray-300/50;
+    transform: translateY(-4px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .luxury-text {
+    @apply text-gray-800 font-light tracking-wide;
+  }
+
+  .luxury-button {
+    @apply bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-full px-8 py-3 font-medium;
+    transition: all 0.3s ease;
+  }
+
+  .luxury-button:hover {
+    @apply from-gray-700 to-gray-800 shadow-lg;
+    transform: translateY(-1px);
+  }
+
+  /* Styles communs améliorés */
+  .card-premium {
+    @apply relative overflow-hidden transition-all duration-500;
+  }
+
+  .btn-premium {
+    @apply relative overflow-hidden hover:shadow-glow transition-all duration-300;
+  }
+
+  .btn-premium::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-premium:hover::before {
+    left: 100%;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  /* Scrollbar personnalisée */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  }
+}
+
+/* Effets de particules pour le style futuriste */
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(240deg);
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, #00f5ff, #ff00f5);
+  border-radius: 50%;
+  animation: particle-float 6s ease-in-out infinite;
+}
+
+/* Effet de typing pour les textes */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: currentColor;
+  }
+}
+
+.typing-effect {
+  overflow: hidden;
+  border-right: 2px solid;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+/* Effet holographique */
+.holographic {
+  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+  background-size: 300% 300%;
+  animation: gradient-shift 2s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Effet de morphing pour les boutons */
+.morph-button {
+  animation: morph 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.morph-button:hover {
+  animation-play-state: paused;
+  transform: scale(1.05);
+}
+
+@layer utilities {
+  /* Utilitaires responsifs personnalisés */
+  .container-responsive {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .heading-responsive {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .padding-responsive {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+  }
+}
+
+/* Animations personnalisées */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Scrollbar personnalisée */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 641px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
