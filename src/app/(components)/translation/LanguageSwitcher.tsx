@@ -26,7 +26,7 @@ const LanguageSwitcher = () => {
       <Button
         variant="ghost"
         size="sm"
-        className="text-white hover:text-white hover:bg-white/10 transition-colors gap-2"
+        className="text-primary hover:bg-white/10 transition-colors gap-2"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Globe className="w-4 h-4" />
