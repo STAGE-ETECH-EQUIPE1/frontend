@@ -3,7 +3,7 @@ export interface AdminUser {
   name: string
   email: string
   avatar?: string
-  role: "admin" | "super_admin"
+  role: 'admin' | 'super_admin'
   permissions: string[]
   lastLogin: string
   createdAt: string
@@ -12,10 +12,10 @@ export interface AdminUser {
 export interface Plan {
   id: string
   name: string
-  type: "gratuit" | "premium" | "entreprise"
+  type: 'gratuit' | 'premium' | 'entreprise'
   price: number
-  tokens: number | "unlimited"
-  maxTokens: number | "unlimited"
+  tokens: number | 'unlimited'
+  maxTokens: number | 'unlimited'
   features: string[]
   isActive: boolean
   subscribersCount: number
@@ -28,7 +28,7 @@ export interface User {
   username: string
   email: string
   avatar?: string
-  status: "active" | "suspended" | "banned"
+  status: 'active' | 'suspended' | 'banned'
   plan: Plan
   joinedAt: string
   lastActive: string
@@ -49,7 +49,7 @@ export interface LogoFeedback {
   comment: string
   category: string
   style: string
-  status: "pending" | "approved" | "rejected"
+  status: 'pending' | 'approved' | 'rejected'
   adminResponse?: string
   createdAt: string
 }

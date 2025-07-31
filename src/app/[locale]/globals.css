@@ -469,11 +469,15 @@ body {
   }
 }
 
-@layer components{
+@layer components {
   /* Style Glassmorphism Premium */
   .glass-card {
     @apply bg-white/10 backdrop-blur-xl border border-white/20;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
   }
 
   .glass-card:hover {
@@ -483,13 +487,18 @@ body {
   }
 
   .glass-card::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s;
   }
 
@@ -508,16 +517,21 @@ body {
     transition: all 0.2s ease;
   }
 
-
   /* Style Dark Futuriste */
   .cyber-card {
     @apply bg-gray-900/90 border border-cyan-500/30;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.1) 0%,
+      rgba(139, 92, 246, 0.1) 100%
+    );
   }
 
   .cyber-card:hover {
     @apply border-cyan-400/60;
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+    box-shadow:
+      0 0 20px rgba(6, 182, 212, 0.5),
+      0 0 40px rgba(139, 92, 246, 0.3);
   }
 
   .neon-text {
@@ -532,7 +546,9 @@ body {
   }
 
   .neon-button:hover {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.2);
+    box-shadow:
+      0 0 20px rgba(6, 182, 212, 0.6),
+      inset 0 0 20px rgba(6, 182, 212, 0.2);
   }
 
   /* Style Minimal Luxury */
@@ -571,13 +587,18 @@ body {
   }
 
   .btn-premium::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s;
   }
 
@@ -661,7 +682,9 @@ body {
   overflow: hidden;
   border-right: 2px solid;
   white-space: nowrap;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret 0.75s step-end infinite;
 }
 
 /* Effet holographique */
@@ -755,4 +778,3 @@ body {
     display: none;
   }
 }
-

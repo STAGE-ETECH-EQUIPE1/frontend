@@ -338,12 +338,16 @@
     "renewalDate": "Renouvellement le",
     "includedFeatures": "Fonctionnalités incluses :",
     "myStats": "Mes Statistiques",
+    "logosCreated": "Logos créés",
+    "downloads": "Téléchargements",
+    "favorites": "Favoris",
     "comments": "Commentaires",
     "recentActivity": "Activité Récente",
     "logoCreated": "Logo créé",
     "commentAdded": "Commentaire ajouté",
     "logoDownloaded": "Logo téléchargé",
     "favoriteAdded": "Favori ajouté",
+    "memberSince": "Membre depuis",
     "timeAgo": {
       "hours": "Il y a {hours}h",
       "days": "Il y a {days}j"
@@ -352,6 +356,28 @@
       "starter": "Starter",
       "pro": "Pro",
       "enterprise": "Enterprise"
+    },
+    "planFeatures": {
+      "starter": {
+        "feature1": "10 logos par mois",
+        "feature2": "Formats PNG/JPG",
+        "feature3": "Support email"
+      },
+      "pro": {
+        "feature1": "100 logos par mois",
+        "feature2": "Tous formats (PNG, JPG, SVG, PDF)",
+        "feature3": "Support prioritaire",
+        "feature4": "Accès API",
+        "feature5": "Templates premium"
+      },
+      "enterprise": {
+        "feature1": "Logos illimités",
+        "feature2": "Tous formats",
+        "feature3": "Support 24/7",
+        "feature4": "Accès API",
+        "feature5": "White-label",
+        "feature6": "Équipe collaborative"
+      }
     }
   },
   "projectsManager": {

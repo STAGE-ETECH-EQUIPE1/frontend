@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { UserSidebar } from './UserSidebar'
 import { LogoGenerator } from './LogoGenerator'
 import { ProjectsManager } from './ProjectsManager'
@@ -52,22 +53,23 @@ const mockUser = {
 }
 
 export default function UserDashboard() {
+  const t = useTranslations('navigation')
   const [activeTab, setActiveTab] = useState('generate')
 
   const getBreadcrumbTitle = (tab: string) => {
     switch (tab) {
       case 'generate':
-        return 'Générer un Logo'
+        return t('generate')
       case 'projects':
-        return 'Mes Projets'
+        return t('projects')
       case 'profile':
-        return 'Mon Profil'
+        return t('profile')
+      case 'history':
+        return t('history')
       case 'settings':
-        return 'Paramètres'
+        return t('settings')
       default:
         return 'Dashboard'
-      case 'history':
-        return 'History'
     }
   }
 
@@ -86,7 +88,7 @@ export default function UserDashboard() {
           <div className="flex items-center justify-center h-96">
             <div className="text-center">
               <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                Paramètres
+                {t('settings')}
               </h3>
               <p className="text-slate-600">
                 Cette section sera bientôt disponible

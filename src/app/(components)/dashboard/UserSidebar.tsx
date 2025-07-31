@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import {
   Sidebar,
   SidebarContent,
@@ -52,36 +53,37 @@ export function UserSidebar({
   activeTab,
   setActiveTab,
 }: UserSidebarProps) {
+  const t = useTranslations()
   const { state } = useSidebar()
   const isCollapsed = state === 'collapsed'
 
   const navigationItems = [
     {
-      title: 'Générer un Logo',
+      title: t('navigation.generate'),
       icon: Palette,
       value: 'generate',
       color: 'text-blue-600',
     },
     {
-      title: 'Historique',
+      title: t('navigation.history'),
       icon: History,
       value: 'history',
       color: 'text-blue-600',
     },
     {
-      title: 'Mes Projets',
+      title: t('navigation.projects'),
       icon: FolderOpen,
       value: 'projects',
       color: 'text-blue-600',
     },
     {
-      title: 'Mon Profil',
+      title: t('navigation.profile'),
       icon: User,
       value: 'profile',
       color: 'text-blue-600',
     },
     {
-      title: 'Paramètres',
+      title: t('navigation.settings'),
       icon: Settings,
       value: 'settings',
       color: 'text-slate-600',
@@ -134,9 +136,11 @@ export function UserSidebar({
           {!isCollapsed && (
             <div>
               <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                ORBIXUP
+                {t('dashboard.title')}
               </h1>
-              <p className="text-xs text-slate-500">Créateur de Logos</p>
+              <p className="text-xs text-slate-500">
+                {t('userSidebar.logoCreator')}
+              </p>
             </div>
           )}
         </motion.div>
@@ -185,7 +189,7 @@ export function UserSidebar({
               {!isCollapsed && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs text-slate-600">
-                    <span>Tokens utilisés</span>
+                    <span>{t('dashboard.tokensUsed')}</span>
                     <span>
                       {tokensUsed}/{maxTokens === 'unlimited' ? '∞' : maxTokens}
                     </span>
@@ -202,7 +206,7 @@ export function UserSidebar({
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-            Navigation
+            {t('navigation.statistics')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -246,7 +250,7 @@ export function UserSidebar({
         {!isCollapsed && (
           <SidebarGroup>
             <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-              Statistiques
+              {t('navigation.statistics')}
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <motion.div
@@ -256,13 +260,21 @@ export function UserSidebar({
                 className="space-y-2"
               >
                 {[
-                  { label: 'Logos créés', value: '12', color: 'text-blue-500' },
                   {
-                    label: 'Téléchargements',
+                    label: t('dashboard.logosCreated'),
+                    value: '12',
+                    color: 'text-blue-500',
+                  },
+                  {
+                    label: t('dashboard.downloads'),
                     value: '34',
                     color: 'text-blue-500',
                   },
-                  { label: 'Favoris', value: '8', color: 'text-pink-500' },
+                  {
+                    label: t('dashboard.favorites'),
+                    value: '8',
+                    color: 'text-pink-500',
+                  },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -285,10 +297,12 @@ export function UserSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton
               className="group text-red-500 hover:bg-red-50 transition-all duration-300"
-              tooltip={isCollapsed ? 'Déconnexion' : undefined}
+              tooltip={isCollapsed ? t('navigation.logout') : undefined}
             >
               <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-              {!isCollapsed && <span className="text-sm">Déconnexion</span>}
+              {!isCollapsed && (
+                <span className="text-sm">{t('navigation.logout')}</span>
+              )}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

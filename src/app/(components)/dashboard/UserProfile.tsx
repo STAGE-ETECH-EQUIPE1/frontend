@@ -1,9 +1,9 @@
 'use client'
 
 import type React from 'react'
-
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,8 +14,6 @@ import { Progress } from '@/components/ui/progress'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
@@ -90,45 +88,34 @@ const mockUser = {
 
 const plans = [
   {
-    name: 'Starter',
+    name: 'starter',
     type: 'gratuit' as const,
     price: 0,
     tokens: 10,
-    features: ['10 logos par mois', 'Formats PNG/JPG', 'Support email'],
     popular: false,
+    featureCount: 3,
   },
   {
-    name: 'Pro',
+    name: 'pro',
     type: 'premium' as const,
     price: 29,
     tokens: 100,
-    features: [
-      '100 logos par mois',
-      'Tous formats',
-      'Support prioritaire',
-      'API access',
-      'Templates premium',
-    ],
     popular: true,
+    featureCount: 5,
   },
   {
-    name: 'Enterprise',
+    name: 'enterprise',
     type: 'entreprise' as const,
     price: 99,
     tokens: 'unlimited' as const,
-    features: [
-      'Logos illimités',
-      'Tous formats',
-      'Support 24/7',
-      'API access',
-      'White-label',
-      'Équipe collaborative',
-    ],
     popular: false,
+    featureCount: 6,
   },
 ]
 
 export function UserProfile() {
+  const t = useTranslations('userProfile')
+  const tCommon = useTranslations('common')
   const [user, setUser] = useState(mockUser)
   const [formData, setFormData] = useState({
     name: user.name,
@@ -158,6 +145,15 @@ export function UserProfile() {
     }
   }
 
+  const getPlanFeatures = (planName: string, featureCount: number) => {
+    const features = []
+    for (let i = 1; i <= featureCount; i++) {
+      const featureKey = `planFeatures.${planName}.feature${i}`
+      features.push(t(featureKey))
+    }
+    return features
+  }
+
   const PlanIcon = getPlanIcon(user.plan.type)
   const tokensPercentage =
     user.plan.maxTokens === 'unlimited'
@@ -181,11 +177,9 @@ export function UserProfile() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
-            Mon Profil
+            {t('title')}
           </h2>
-          <p className="text-slate-600">
-            Gérez vos informations personnelles et votre abonnement
-          </p>
+          <p className="text-slate-600">{t('subtitle')}</p>
         </div>
         <Badge
           className={`bg-gradient-to-r ${getPlanColor(user.plan.type)} text-white border-0`}
@@ -203,7 +197,7 @@ export function UserProfile() {
             <CardHeader>
               <CardTitle className="text-blue-600 flex items-center gap-2">
                 <User className="w-5 h-5" />
-                Informations Personnelles
+                {t('personalInfo')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -243,7 +237,7 @@ export function UserProfile() {
                       </Badge>
                       <span className="text-xs text-slate-500">
                         <Calendar className="w-3 h-3 inline mr-1" />
-                        Membre depuis{' '}
+                        {t('memberSince')}{' '}
                         {new Date(user.joinedAt).toLocaleDateString('fr-FR')}
                       </span>
                     </div>
@@ -253,7 +247,7 @@ export function UserProfile() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name" className="text-blue-600">
-                      Nom complet
+                      {t('fullName')}
                     </Label>
                     <Input
                       id="name"
@@ -266,7 +260,7 @@ export function UserProfile() {
                   </div>
                   <div>
                     <Label htmlFor="email" className="text-blue-600">
-                      Email
+                      {t('email')}
                     </Label>
                     <Input
                       id="email"
@@ -286,7 +280,7 @@ export function UserProfile() {
                     className="bg-blue-600 hover:bg-blue-700"
                   >
                     <Save className="w-4 h-4 mr-2" />
-                    Sauvegarder
+                    {tCommon('save')}
                   </Button>
                 </div>
               </form>
@@ -298,7 +292,7 @@ export function UserProfile() {
             <CardHeader>
               <CardTitle className="text-blue-600 flex items-center gap-2">
                 <CreditCard className="w-5 h-5" />
-                Mon Abonnement
+                {t('mySubscription')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -315,8 +309,8 @@ export function UserProfile() {
                     </h3>
                     <p className="text-sm text-slate-600">
                       {user.plan.price === 0
-                        ? 'Gratuit'
-                        : `${user.plan.price}€/mois`}
+                        ? t('free')
+                        : `${user.plan.price}€${t('perMonth')}`}
                     </p>
                   </div>
                 </div>
@@ -327,15 +321,21 @@ export function UserProfile() {
                   <DialogTrigger asChild>
                     <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                       {user.plan.type === 'gratuit'
-                        ? 'Upgrader'
-                        : 'Changer de plan'}
+                        ? t('upgrade')
+                        : t('changePlan')}
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-[95vw] sm:max-w-[85vw] lg:max-w-[80vw] xl:max-w-[75vw] max-h-screen overflow-y-auto bg-background/95 backdrop-blur-md border border-border/50 rounded-2xl p-0 [&>button]:right-2 [&>button]:top-2 [&>button]:w-4 [&>button]:h-4 [&>button]:rounded-full [&>button]:bg-muted/80 [&>button]:hover:bg-muted [&>button]:opacity-100">
+                    <DialogTitle></DialogTitle>
                     <div className="flex flex-wrap sm:gap-6 justify-center p-2 sm:p-4">
                       {plans.map((plan) => {
                         const PlanIcon = getPlanIcon(plan.type)
                         const isCurrentPlan = plan.type === user.plan.type
+                        const planFeatures = getPlanFeatures(
+                          plan.name,
+                          plan.featureCount
+                        )
+
                         return (
                           <Card
                             key={plan.type}
@@ -348,14 +348,14 @@ export function UserProfile() {
                             {plan.popular && (
                               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                                 <Badge className="bg-blue-600 text-white px-2 py-1 text-xs">
-                                  Populaire
+                                  {t('popular')}
                                 </Badge>
                               </div>
                             )}
                             {isCurrentPlan && (
                               <div className="absolute -top-3 right-4">
                                 <Badge className="bg-blue-600 text-white px-2 py-1 text-xs">
-                                  Actuel
+                                  {t('current')}
                                 </Badge>
                               </div>
                             )}
@@ -366,22 +366,22 @@ export function UserProfile() {
                                 <PlanIcon className="w-6 h-6 text-white" />
                               </div>
                               <CardTitle className="text-lg sm:text-xl">
-                                {plan.name}
+                                {t(`plans.${plan.name.toLowerCase()}`)}
                               </CardTitle>
                               <div className="text-2xl sm:text-3xl font-bold text-slate-800">
                                 {plan.price === 0
-                                  ? 'Gratuit'
+                                  ? t('free')
                                   : `${plan.price}€`}
                               </div>
                               {plan.price > 0 && (
                                 <p className="text-xs sm:text-sm text-slate-600">
-                                  /mois
+                                  {t('perMonth')}
                                 </p>
                               )}
                             </CardHeader>
                             <CardContent className="p-4 sm:p-6">
                               <ul className="space-y-2 mb-4">
-                                {plan.features.map((feature, index) => (
+                                {planFeatures.map((feature, index) => (
                                   <li
                                     key={index}
                                     className="flex items-start gap-2 text-xs sm:text-sm"
@@ -400,8 +400,8 @@ export function UserProfile() {
                                 disabled={isCurrentPlan}
                               >
                                 {isCurrentPlan
-                                  ? 'Plan actuel'
-                                  : 'Choisir ce plan'}
+                                  ? t('currentPlan')
+                                  : t('choosePlan')}
                               </Button>
                             </CardContent>
                           </Card>
@@ -414,7 +414,7 @@ export function UserProfile() {
 
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-600">Utilisation des tokens</span>
+                  <span className="text-slate-600">{t('tokenUsage')}</span>
                   <span className="text-blue-600">
                     {user.plan.tokensUsed}/
                     {user.plan.maxTokens === 'unlimited'
@@ -430,14 +430,14 @@ export function UserProfile() {
               <div className="text-sm text-slate-600">
                 <p>
                   <Calendar className="w-4 h-4 inline mr-1" />
-                  Renouvellement le{' '}
+                  {t('renewalDate')}{' '}
                   {new Date(user.plan.renewalDate).toLocaleDateString('fr-FR')}
                 </p>
               </div>
 
               <div className="space-y-2">
                 <h4 className="font-medium text-slate-800">
-                  Fonctionnalités incluses :
+                  {t('includedFeatures')}
                 </h4>
                 <ul className="space-y-1">
                   {user.plan.features.map((feature, index) => (
@@ -462,31 +462,31 @@ export function UserProfile() {
             <CardHeader>
               <CardTitle className="text-blue-600 flex items-center gap-2">
                 <Palette className="w-5 h-5" />
-                Mes Statistiques
+                {t('myStats')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {[
                 {
-                  label: 'Logos créés',
+                  label: t('logosCreated'),
                   value: user.stats.totalLogos,
                   icon: Palette,
                   color: 'text-blue-500',
                 },
                 {
-                  label: 'Téléchargements',
+                  label: t('downloads'),
                   value: user.stats.totalDownloads,
                   icon: Download,
                   color: 'text-blue-500',
                 },
                 {
-                  label: 'Favoris',
+                  label: t('favorites'),
                   value: user.stats.favoriteLogos,
                   icon: Heart,
                   color: 'text-red-500',
                 },
                 {
-                  label: 'Commentaires',
+                  label: t('comments'),
                   value: user.stats.commentsGiven,
                   icon: Settings,
                   color: 'text-green-500',
@@ -514,30 +514,32 @@ export function UserProfile() {
           {/* Recent Activity */}
           <Card className="bg-white border-slate-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="text-slate-800">Activité Récente</CardTitle>
+              <CardTitle className="text-slate-800">
+                {t('recentActivity')}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {[
                   {
-                    action: 'Logo créé',
+                    action: t('logoCreated'),
                     project: 'TechCorp',
-                    time: 'Il y a 2h',
+                    time: t('timeAgo.hours', { hours: 2 }),
                   },
                   {
-                    action: 'Commentaire ajouté',
+                    action: t('commentAdded'),
                     project: 'Fitness Pro',
-                    time: 'Il y a 1j',
+                    time: t('timeAgo.days', { days: 1 }),
                   },
                   {
-                    action: 'Logo téléchargé',
+                    action: t('logoDownloaded'),
                     project: 'Restaurant Saveurs',
-                    time: 'Il y a 2j',
+                    time: t('timeAgo.days', { days: 2 }),
                   },
                   {
-                    action: 'Favori ajouté',
+                    action: t('favoriteAdded'),
                     project: 'Startup Logo',
-                    time: 'Il y a 3j',
+                    time: t('timeAgo.days', { days: 3 }),
                   },
                 ].map((activity, index) => (
                   <motion.div

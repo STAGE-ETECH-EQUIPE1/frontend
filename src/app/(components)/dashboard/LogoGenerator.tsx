@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -38,6 +39,8 @@ interface LogoGeneratorProps {
 }
 
 export function LogoGenerator({ user }: LogoGeneratorProps) {
+  const t = useTranslations('logoGenerator')
+  const tCommon = useTranslations('common')
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
@@ -51,52 +54,58 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
   const [customColors, setCustomColors] = useState<string[]>([])
 
   const industries = [
-    'Technologie',
-    'Santé',
-    'Finance',
-    'Éducation',
-    'Commerce',
-    'Restaurant',
-    'Mode',
-    'Sport',
-    'Immobilier',
-    'Autre',
+    { key: 'technology', value: 'Technologie' },
+    { key: 'health', value: 'Santé' },
+    { key: 'finance', value: 'Finance' },
+    { key: 'education', value: 'Éducation' },
+    { key: 'commerce', value: 'Commerce' },
+    { key: 'restaurant', value: 'Restaurant' },
+    { key: 'fashion', value: 'Mode' },
+    { key: 'sport', value: 'Sport' },
+    { key: 'realEstate', value: 'Immobilier' },
+    { key: 'other', value: 'Autre' },
   ]
 
   const styles = [
-    'Moderne',
-    'Minimaliste',
-    'Vintage',
-    'Professionnel',
-    'Créatif',
-    'Élégant',
-    'Dynamique',
-    'Classique',
+    { key: 'modern', value: 'Moderne' },
+    { key: 'minimalist', value: 'Minimaliste' },
+    { key: 'vintage', value: 'Vintage' },
+    { key: 'professional', value: 'Professionnel' },
+    { key: 'creative', value: 'Créatif' },
+    { key: 'elegant', value: 'Élégant' },
+    { key: 'dynamic', value: 'Dynamique' },
+    { key: 'classic', value: 'Classique' },
   ]
 
   const colorSchemes = [
     {
-      name: 'Bleu et Blanc',
+      key: 'blueWhite',
+      name: t('colorSchemes.blueWhite'),
       colors: ['#3B82F6', '#FFFFFF', '#1E40AF'],
     },
     {
-      name: 'Rouge et Noir',
+      key: 'redBlack',
+      name: t('colorSchemes.redBlack'),
       colors: ['#EF4444', '#000000', '#DC2626'],
     },
     {
-      name: 'Vert et Blanc',
+      key: 'greenWhite',
+      name: t('colorSchemes.greenWhite'),
       colors: ['#10B981', '#FFFFFF', '#059669'],
     },
     {
-      name: 'Violet et Rose',
+      key: 'purplePink',
+      name: t('colorSchemes.purplePink'),
       colors: ['#8B5CF6', '#EC4899', '#7C3AED'],
     },
     {
-      name: 'Noir et Blanc',
+      key: 'blackWhite',
+      name: t('colorSchemes.blackWhite'),
       colors: ['#000000', '#FFFFFF', '#6B7280'],
     },
     {
-      name: 'Orange et Bleu',
+      key: 'orangeBlue',
+      name: t('colorSchemes.orangeBlue'),
       colors: ['#F97316', '#3B82F6', '#EA580C'],
     },
   ]
@@ -107,8 +116,8 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
 
     // Simulation de génération avec les couleurs
     const selectedColorScheme =
-      formData.colors === 'Personnalisé'
-        ? { name: 'Personnalisé', colors: customColors }
+      formData.colors === t('colorSchemes.custom')
+        ? { name: t('colorSchemes.custom'), colors: customColors }
         : colorSchemes.find((scheme) => scheme.name === formData.colors)
 
     const interval = setInterval(() => {
@@ -170,11 +179,9 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
-            Générateur de Logos IA
+            {t('title')}
           </h2>
-          <p className="text-slate-600">
-            Créez des logos uniques en quelques clics
-          </p>
+          <p className="text-slate-600">{t('subtitle')}</p>
         </div>
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
@@ -191,13 +198,13 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
             <CardHeader>
               <CardTitle className="text-blue-600 flex items-center gap-2">
                 <Settings className="w-5 h-5" />
-                Paramètres de Génération
+                {t('generationSettings')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <Label htmlFor="companyName" className="text-slate-700">
-                  Nom de l'entreprise *
+                  {t('companyNameRequired')}
                 </Label>
                 <Input
                   id="companyName"
@@ -205,14 +212,14 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, companyName: e.target.value })
                   }
-                  placeholder="Ex: TechCorp"
+                  placeholder={t('companyNamePlaceholder')}
                   className="bg-slate-50 border-slate-200"
                 />
               </div>
 
               <div>
                 <Label htmlFor="industry" className="text-slate-700">
-                  Secteur d'activité
+                  {t('industry')}
                 </Label>
                 <Select
                   value={formData.industry}
@@ -221,12 +228,12 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                   }
                 >
                   <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder="Choisir un secteur" />
+                    <SelectValue placeholder={t('industryPlaceholder')} />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-slate-200">
                     {industries.map((industry) => (
-                      <SelectItem key={industry} value={industry}>
-                        {industry}
+                      <SelectItem key={industry.key} value={industry.value}>
+                        {t(`industries.${industry.key}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -235,7 +242,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
 
               <div>
                 <Label htmlFor="style" className="text-slate-700">
-                  Style de logo
+                  {t('style')}
                 </Label>
                 <Select
                   value={formData.style}
@@ -244,12 +251,12 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                   }
                 >
                   <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder="Choisir un style" />
+                    <SelectValue placeholder={t('stylePlaceholder')} />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-slate-200">
                     {styles.map((style) => (
-                      <SelectItem key={style} value={style}>
-                        {style}
+                      <SelectItem key={style.key} value={style.value}>
+                        {t(`styles.${style.key}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -258,14 +265,14 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
 
               <div>
                 <Label htmlFor="colors" className="text-slate-700 mb-3 block">
-                  Palette de couleurs
+                  {t('colorPalette')}
                 </Label>
                 <div className="space-y-4">
                   {/* Palettes prédéfinies - 2 par ligne */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {colorSchemes.map((scheme) => (
                       <div
-                        key={scheme.name}
+                        key={scheme.key}
                         onClick={() =>
                           setFormData({ ...formData, colors: scheme.name })
                         }
@@ -300,7 +307,10 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                       onColorsChange={(colors) => {
                         setCustomColors(colors)
                         if (colors.length > 0) {
-                          setFormData({ ...formData, colors: 'Personnalisé' })
+                          setFormData({
+                            ...formData,
+                            colors: t('colorSchemes.custom'),
+                          })
                         }
                       }}
                       maxColors={4}
@@ -311,7 +321,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
 
               <div>
                 <Label htmlFor="description" className="text-slate-700">
-                  Description (optionnel)
+                  {t('description')}
                 </Label>
                 <Textarea
                   id="description"
@@ -319,7 +329,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, description: e.target.value })
                   }
-                  placeholder="Décrivez votre vision du logo..."
+                  placeholder={t('descriptionPlaceholder')}
                   className="bg-slate-50 border-slate-200"
                   rows={3}
                 />
@@ -328,9 +338,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
               {isGenerating && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-slate-600">
-                      Génération en cours...
-                    </span>
+                    <span className="text-slate-600">{t('generating')}</span>
                     <span className="text-blue-600">{generationProgress}%</span>
                   </div>
                   <Progress value={generationProgress} className="h-2" />
@@ -345,20 +353,19 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                 {isGenerating ? (
                   <>
                     <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                    Génération...
+                    {t('generating')}
                   </>
                 ) : (
                   <>
                     <Wand2 className="w-4 h-4 mr-2" />
-                    Générer des Logos
+                    {t('generateLogos')}
                   </>
                 )}
               </Button>
 
               {!canGenerate && (
                 <p className="text-sm text-amber-600 text-center">
-                  Vous avez atteint votre limite de tokens. Upgradez votre plan
-                  pour continuer.
+                  {t('tokenLimit')}
                 </p>
               )}
             </CardContent>
@@ -372,7 +379,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
               <CardHeader>
                 <CardTitle className="text-blue-600 flex items-center gap-2">
                   <Sparkles className="w-5 h-5" />
-                  Logos Générés
+                  {t('generatedLogos')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -441,11 +448,10 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                   <Palette className="w-12 h-12 text-blue-500" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                  Prêt à créer votre logo ?
+                  {t('readyToCreate')}
                 </h3>
                 <p className="text-slate-600 text-center max-w-md mb-6">
-                  Remplissez les informations à gauche et cliquez sur "Générer
-                  des Logos" pour commencer.
+                  {t('fillInformation')}
                 </p>
 
                 {/* Aperçu des paramètres saisis */}
@@ -455,12 +461,12 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                   formData.colors) && (
                   <div className="w-full max-w-md bg-slate-50 rounded-lg p-4 mb-4">
                     <h4 className="font-medium text-slate-800 mb-3">
-                      Vos paramètres :
+                      {t('yourSettings')}
                     </h4>
                     <div className="space-y-2 text-sm">
                       {formData.companyName && (
                         <div className="flex justify-between">
-                          <span className="text-slate-600">Entreprise :</span>
+                          <span className="text-slate-600">{t('company')}</span>
                           <span className="font-medium text-slate-800">
                             {formData.companyName}
                           </span>
@@ -468,7 +474,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                       )}
                       {formData.industry && (
                         <div className="flex justify-between">
-                          <span className="text-slate-600">Secteur :</span>
+                          <span className="text-slate-600">{t('sector')}</span>
                           <span className="font-medium text-slate-800">
                             {formData.industry}
                           </span>
@@ -476,7 +482,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                       )}
                       {formData.style && (
                         <div className="flex justify-between">
-                          <span className="text-slate-600">Style :</span>
+                          <span className="text-slate-600">{t('style')}:</span>
                           <span className="font-medium text-slate-800">
                             {formData.style}
                           </span>
@@ -484,7 +490,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                       )}
                       {formData.colors && (
                         <div className="flex justify-between items-center">
-                          <span className="text-slate-600">Couleurs :</span>
+                          <span className="text-slate-600">{t('colors')}</span>
                           <div className="flex items-center gap-2">
                             <span className="font-medium text-slate-800">
                               {formData.colors}

@@ -1,11 +1,16 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Plus } from "lucide-react"
+import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Plus } from 'lucide-react'
 
 interface ColorPickerProps {
   selectedColors: string[]
@@ -14,28 +19,33 @@ interface ColorPickerProps {
 }
 
 const presetColors = [
-  "#3B82F6",
-  "#EF4444",
-  "#10B981",
-  "#F59E0B",
-  "#8B5CF6",
-  "#EC4899",
-  "#06B6D4",
-  "#84CC16",
-  "#F97316",
-  "#6366F1",
-  "#14B8A6",
-  "#F43F5E",
-  "#000000",
-  "#FFFFFF",
-  "#6B7280",
-  "#374151",
-  "#1F2937",
-  "#111827",
+  '#3B82F6',
+  '#EF4444',
+  '#10B981',
+  '#F59E0B',
+  '#8B5CF6',
+  '#EC4899',
+  '#06B6D4',
+  '#84CC16',
+  '#F97316',
+  '#6366F1',
+  '#14B8A6',
+  '#F43F5E',
+  '#000000',
+  '#FFFFFF',
+  '#6B7280',
+  '#374151',
+  '#1F2937',
+  '#111827',
 ]
 
-export function ColorPicker({ selectedColors, onColorsChange, maxColors = 4 }: ColorPickerProps) {
-  const [customColor, setCustomColor] = useState("#3B82F6")
+export function ColorPicker({
+  selectedColors,
+  onColorsChange,
+  maxColors = 4,
+}: ColorPickerProps) {
+  const t = useTranslations('colorPicker')
+  const [customColor, setCustomColor] = useState('#3B82F6')
 
   const addColor = (color: string) => {
     if (selectedColors.length < maxColors && !selectedColors.includes(color)) {
@@ -54,13 +64,17 @@ export function ColorPicker({ selectedColors, onColorsChange, maxColors = 4 }: C
   return (
     <div className="space-y-4">
       <Label className="text-slate-700">
-        Couleurs personnalisées ({selectedColors.length}/{maxColors})
+        {t('customColors')} ({selectedColors.length}/{maxColors})
       </Label>
 
       {/* Couleurs sélectionnées */}
       <div className="flex flex-wrap gap-2">
         {selectedColors.map((color, index) => (
-          <div key={index} className="relative group cursor-pointer" onClick={() => removeColor(color)}>
+          <div
+            key={index}
+            className="relative group cursor-pointer"
+            onClick={() => removeColor(color)}
+          >
             <div
               className="w-10 h-10 rounded-lg border-2 border-white shadow-md group-hover:scale-110 transition-transform duration-200"
               style={{ backgroundColor: color }}
@@ -86,7 +100,9 @@ export function ColorPicker({ selectedColors, onColorsChange, maxColors = 4 }: C
             <PopoverContent className="w-64">
               <div className="space-y-4">
                 <div>
-                  <Label className="text-sm font-medium">Couleurs prédéfinies</Label>
+                  <Label className="text-sm font-medium">
+                    {t('presetColors')}
+                  </Label>
                   <div className="grid grid-cols-6 gap-2 mt-2">
                     {presetColors.map((color) => (
                       <button
@@ -101,7 +117,9 @@ export function ColorPicker({ selectedColors, onColorsChange, maxColors = 4 }: C
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium">Couleur personnalisée</Label>
+                  <Label className="text-sm font-medium">
+                    {t('customColor')}
+                  </Label>
                   <div className="flex gap-2 mt-2">
                     <Input
                       type="color"

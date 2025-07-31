@@ -342,12 +342,16 @@
     "renewalDate": "Renewal on",
     "includedFeatures": "Included features:",
     "myStats": "My Statistics",
+    "logosCreated": "Logos created",
+    "downloads": "Downloads",
+    "favorites": "Favorites",
     "comments": "Comments",
     "recentActivity": "Recent Activity",
     "logoCreated": "Logo created",
     "commentAdded": "Comment added",
     "logoDownloaded": "Logo downloaded",
     "favoriteAdded": "Favorite added",
+    "memberSince": "Member since",
     "timeAgo": {
       "hours": "{hours}h ago",
       "days": "{days}d ago"
@@ -356,6 +360,28 @@
       "starter": "Starter",
       "pro": "Pro",
       "enterprise": "Enterprise"
+    },
+    "planFeatures": {
+      "starter": {
+        "feature1": "10 logos per month",
+        "feature2": "PNG/JPG formats",
+        "feature3": "Email support"
+      },
+      "pro": {
+        "feature1": "100 logos per month",
+        "feature2": "All formats (PNG, JPG, SVG, PDF)",
+        "feature3": "Priority support",
+        "feature4": "API access",
+        "feature5": "Premium templates"
+      },
+      "enterprise": {
+        "feature1": "Unlimited logos",
+        "feature2": "All formats",
+        "feature3": "24/7 support",
+        "feature4": "API access",
+        "feature5": "White-label",
+        "feature6": "Team collaboration"
+      }
     }
   },
   "projectsManager": {
