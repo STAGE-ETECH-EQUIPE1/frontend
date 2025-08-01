@@ -128,7 +128,7 @@ export default function UserDashboard() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <LanguageSwitcher className="bg-black" />
+          <LanguageSwitcher />
         </header>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-white p-4 sm:p-6">
           {renderContent()}

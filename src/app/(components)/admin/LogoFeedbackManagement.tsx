@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -50,6 +51,9 @@ export function FeedbackManagement({
   onDeleteFeedback,
   onRespondToFeedback,
 }: FeedbackManagementProps) {
+  const t = useTranslations('admin.feedback')
+  const tCommon = useTranslations('admin.common')
+
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [ratingFilter, setRatingFilter] = useState<string>('all')
@@ -100,6 +104,19 @@ export function FeedbackManagement({
         return Clock
       default:
         return Clock
+    }
+  }
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'approved':
+        return tCommon('approved')
+      case 'rejected':
+        return tCommon('rejected')
+      case 'pending':
+        return tCommon('pending')
+      default:
+        return status
     }
   }
 
@@ -155,19 +172,17 @@ export function FeedbackManagement({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-2">
-            Gestion des Commentaires
+            {t('title')}
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Modérez les avis et commentaires des utilisateurs
-          </p>
+          <p className="text-slate-600 text-sm sm:text-base">{t('subtitle')}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <Badge className="bg-blue-100 text-blue-700 border-blue-200 text-xs sm:text-sm">
-            {filteredFeedbacks.length} commentaire
-            {filteredFeedbacks.length > 1 ? 's' : ''}
+            {filteredFeedbacks.length}{' '}
+            {filteredFeedbacks.length > 1 ? t('comments') : t('comment')}
           </Badge>
           <Badge className="bg-yellow-100 text-yellow-700 border-yellow-200 text-xs sm:text-sm">
-            ⭐ {averageRating} moyenne
+            ⭐ {averageRating} {t('average')}
           </Badge>
         </div>
       </div>
@@ -176,7 +191,7 @@ export function FeedbackManagement({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           {
-            title: 'En attente',
+            title: tCommon('pending'),
             value: statusCounts.pending,
             icon: Clock,
             color: 'text-yellow-600',
@@ -184,7 +199,7 @@ export function FeedbackManagement({
             borderColor: 'border-yellow-200',
           },
           {
-            title: 'Approuvés',
+            title: tCommon('approved'),
             value: statusCounts.approved,
             icon: CheckCircle,
             color: 'text-green-600',
@@ -192,7 +207,7 @@ export function FeedbackManagement({
             borderColor: 'border-green-200',
           },
           {
-            title: 'Rejetés',
+            title: tCommon('rejected'),
             value: statusCounts.rejected,
             icon: XCircle,
             color: 'text-red-600',
@@ -234,7 +249,7 @@ export function FeedbackManagement({
         <CardHeader>
           <CardTitle className="text-blue-600 flex items-center gap-2 text-base sm:text-lg">
             <Filter className="w-4 sm:w-5 h-4 sm:h-5" />
-            Filtres
+            {t('filters')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -243,7 +258,7 @@ export function FeedbackManagement({
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input
-                  placeholder="Rechercher dans les commentaires..."
+                  placeholder={t('searchInComments')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 bg-slate-50 border-slate-200 text-sm"
@@ -255,22 +270,22 @@ export function FeedbackManagement({
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-3 py-2 bg-slate-50 border border-slate-200 rounded text-slate-700 text-sm"
             >
-              <option value="all">Tous les statuts</option>
-              <option value="pending">En attente</option>
-              <option value="approved">Approuvé</option>
-              <option value="rejected">Rejeté</option>
+              <option value="all">{t('allStatuses')}</option>
+              <option value="pending">{tCommon('pending')}</option>
+              <option value="approved">{tCommon('approved')}</option>
+              <option value="rejected">{tCommon('rejected')}</option>
             </select>
             <select
               value={ratingFilter}
               onChange={(e) => setRatingFilter(e.target.value)}
               className="px-3 py-2 bg-slate-50 border border-slate-200 rounded text-slate-700 text-sm"
             >
-              <option value="all">Toutes les notes</option>
-              <option value="5">5 étoiles</option>
-              <option value="4">4 étoiles</option>
-              <option value="3">3 étoiles</option>
-              <option value="2">2 étoiles</option>
-              <option value="1">1 étoile</option>
+              <option value="all">{t('allRatings')}</option>
+              <option value="5">5 {t('stars')}</option>
+              <option value="4">4 {t('stars')}</option>
+              <option value="3">3 {t('stars')}</option>
+              <option value="2">2 {t('stars')}</option>
+              <option value="1">1 {t('stars')}</option>
             </select>
           </div>
         </CardContent>
@@ -332,11 +347,7 @@ export function FeedbackManagement({
                               className={`${getStatusColor(feedback.status)} text-xs`}
                             >
                               <StatusIcon className="w-3 h-3 mr-1" />
-                              {feedback.status === 'pending'
-                                ? 'En attente'
-                                : feedback.status === 'approved'
-                                  ? 'Approuvé'
-                                  : 'Rejeté'}
+                              {getStatusText(feedback.status)}
                             </Badge>
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
@@ -353,7 +364,7 @@ export function FeedbackManagement({
                                   onClick={() => setSelectedFeedback(feedback)}
                                 >
                                   <Eye className="w-4 h-4 mr-2" />
-                                  Voir les détails
+                                  {t('viewDetails')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                   onClick={() =>
@@ -361,7 +372,7 @@ export function FeedbackManagement({
                                   }
                                 >
                                   <Reply className="w-4 h-4 mr-2" />
-                                  Répondre
+                                  {t('respond')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 {feedback.status !== 'approved' && (
@@ -374,7 +385,7 @@ export function FeedbackManagement({
                                     }
                                   >
                                     <CheckCircle className="w-4 h-4 mr-2" />
-                                    Approuver
+                                    {t('approve')}
                                   </DropdownMenuItem>
                                 )}
                                 {feedback.status !== 'rejected' && (
@@ -387,7 +398,7 @@ export function FeedbackManagement({
                                     }
                                   >
                                     <XCircle className="w-4 h-4 mr-2" />
-                                    Rejeter
+                                    {t('reject')}
                                   </DropdownMenuItem>
                                 )}
                                 <DropdownMenuSeparator />
@@ -396,7 +407,7 @@ export function FeedbackManagement({
                                   className="text-red-600"
                                 >
                                   <Trash2 className="w-4 h-4 mr-2" />
-                                  Supprimer
+                                  {tCommon('delete')}
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
@@ -424,7 +435,7 @@ export function FeedbackManagement({
                         {feedback.adminResponse && (
                           <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
                             <div className="text-xs font-medium text-blue-600 mb-1">
-                              Réponse de l'équipe:
+                              {t('teamResponse')}:
                             </div>
                             <p className="text-sm text-blue-700">
                               {feedback.adminResponse}
@@ -434,8 +445,12 @@ export function FeedbackManagement({
 
                         {/* Meta Info */}
                         <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
-                          <span>Catégorie: {feedback.category}</span>
-                          <span>Style: {feedback.style}</span>
+                          <span>
+                            {t('category')}: {feedback.category}
+                          </span>
+                          <span>
+                            {t('style')}: {feedback.style}
+                          </span>
                           <span>
                             {new Date(feedback.createdAt).toLocaleDateString(
                               'fr-FR'
@@ -460,11 +475,9 @@ export function FeedbackManagement({
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-blue-600">
-              Détails du commentaire
+              {t('feedbackDetails')}
             </DialogTitle>
-            <DialogDescription>
-              Informations complètes sur le feedback
-            </DialogDescription>
+            <DialogDescription>{t('fullFeedbackInfo')}</DialogDescription>
           </DialogHeader>
           {selectedFeedback && (
             <div className="space-y-6">
@@ -490,11 +503,7 @@ export function FeedbackManagement({
                     <Badge
                       className={`${getStatusColor(selectedFeedback.status)} text-xs`}
                     >
-                      {selectedFeedback.status === 'pending'
-                        ? 'En attente'
-                        : selectedFeedback.status === 'approved'
-                          ? 'Approuvé'
-                          : 'Rejeté'}
+                      {getStatusText(selectedFeedback.status)}
                     </Badge>
                   </div>
                 </div>
@@ -503,7 +512,7 @@ export function FeedbackManagement({
               <div className="space-y-4">
                 <div>
                   <h4 className="font-semibold text-slate-800 mb-2">
-                    Commentaire
+                    {t('userComment')}
                   </h4>
                   <div className="bg-slate-50 rounded-lg p-4">
                     <p className="text-slate-700">{selectedFeedback.comment}</p>
@@ -513,7 +522,7 @@ export function FeedbackManagement({
                 {selectedFeedback.adminResponse && (
                   <div>
                     <h4 className="font-semibold text-slate-800 mb-2">
-                      Réponse de l'équipe
+                      {t('teamResponse')}
                     </h4>
                     <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
                       <p className="text-blue-700">
@@ -525,19 +534,19 @@ export function FeedbackManagement({
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="text-slate-600">Catégorie:</span>
+                    <span className="text-slate-600">{t('category')}:</span>
                     <span className="ml-2 text-slate-800">
                       {selectedFeedback.category}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-600">Style:</span>
+                    <span className="text-slate-600">{t('style')}:</span>
                     <span className="ml-2 text-slate-800">
                       {selectedFeedback.style}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-600">Date:</span>
+                    <span className="text-slate-600">{t('date')}:</span>
                     <span className="ml-2 text-slate-800">
                       {new Date(selectedFeedback.createdAt).toLocaleDateString(
                         'fr-FR'
@@ -545,7 +554,7 @@ export function FeedbackManagement({
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-600">Note:</span>
+                    <span className="text-slate-600">{t('rating')}:</span>
                     <span className="ml-2 text-slate-800">
                       {selectedFeedback.rating}/5
                     </span>
@@ -567,11 +576,11 @@ export function FeedbackManagement({
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-blue-600">
-              Répondre au commentaire
+              {t('respondToComment')}
             </DialogTitle>
             <DialogDescription>
-              Répondre à {responseDialog.feedback?.userName} concernant "
-              {responseDialog.feedback?.logoName}"
+              {tCommon('reply')} à {responseDialog.feedback?.userName}{' '}
+              {t('concerning')} "{responseDialog.feedback?.logoName}"
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -592,12 +601,12 @@ export function FeedbackManagement({
             )}
             <div>
               <label className="text-sm font-medium text-slate-700">
-                Votre réponse
+                {t('yourResponse')}
               </label>
               <Textarea
                 value={responseText}
                 onChange={(e) => setResponseText(e.target.value)}
-                placeholder="Rédigez votre réponse..."
+                placeholder={t('writeResponse')}
                 className="mt-1"
                 rows={4}
               />
@@ -609,14 +618,14 @@ export function FeedbackManagement({
                   setResponseDialog({ open: false, feedback: null })
                 }
               >
-                Annuler
+                {tCommon('cancel')}
               </Button>
               <Button
                 onClick={handleSendResponse}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 <Reply className="w-4 h-4 mr-2" />
-                Envoyer la réponse
+                {t('sendResponse')}
               </Button>
             </div>
           </div>
@@ -630,9 +639,9 @@ export function FeedbackManagement({
           className="text-center py-12"
         >
           <MessageSquare className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <div className="text-slate-600 text-lg">Aucun commentaire trouvé</div>
+          <div className="text-slate-600 text-lg">{t('noCommentsFound')}</div>
           <p className="text-sm text-slate-500 mt-2">
-            Essayez de modifier vos critères de recherche
+            {t('modifySearchCriteria')}
           </p>
         </motion.div>
       )}

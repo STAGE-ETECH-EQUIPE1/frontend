@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -56,6 +57,9 @@ export function UsersManagement({
   onDeleteUser,
   onSendEmail,
 }: UsersManagementProps) {
+  const t = useTranslations('admin.users')
+  const tCommon = useTranslations('admin.common')
+
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [planFilter, setPlanFilter] = useState<string>('all')
@@ -93,11 +97,11 @@ export function UsersManagement({
   const getStatusText = (status: string) => {
     switch (status) {
       case 'active':
-        return 'Actif'
+        return tCommon('active')
       case 'suspended':
-        return 'Suspendu'
+        return t('suspended')
       case 'banned':
-        return 'Banni'
+        return t('banned')
       default:
         return status
     }
@@ -151,10 +155,10 @@ export function UsersManagement({
         <div className="flex items-center justify-between">
           <div className="min-w-0 flex-1">
             <h2 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-blue-600 truncate">
-              Utilisateurs
+              {t('title')}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 hidden sm:block">
-              Gérez les comptes utilisateurs
+              {t('subtitle')}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -170,7 +174,7 @@ export function UsersManagement({
       <div className="relative">
         <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
         <Input
-          placeholder="Rechercher..."
+          placeholder={t('search')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="pl-8 pr-10 h-9 text-sm bg-white border-slate-200"
@@ -203,17 +207,17 @@ export function UsersManagement({
                     onChange={(e) => setStatusFilter(e.target.value)}
                     className="px-2 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs w-full"
                   >
-                    <option value="all">Tous statuts</option>
-                    <option value="active">Actif</option>
-                    <option value="suspended">Suspendu</option>
-                    <option value="banned">Banni</option>
+                    <option value="all">{t('allStatuses')}</option>
+                    <option value="active">{tCommon('active')}</option>
+                    <option value="suspended">{t('suspended')}</option>
+                    <option value="banned">{t('banned')}</option>
                   </select>
                   <select
                     value={planFilter}
                     onChange={(e) => setPlanFilter(e.target.value)}
                     className="px-2 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs w-full"
                   >
-                    <option value="all">Tous plans</option>
+                    <option value="all">{t('allPlans')}</option>
                     <option value="gratuit">Gratuit</option>
                     <option value="premium">Premium</option>
                     <option value="entreprise">Entreprise</option>
@@ -263,7 +267,7 @@ export function UsersManagement({
                                 {user.email}
                               </div>
                               <div className="text-xs text-slate-500 mt-1">
-                                Inscrit le{' '}
+                                {t('joinedOn')}{' '}
                                 {new Date(user.joinedAt).toLocaleDateString(
                                   'fr-FR'
                                 )}
@@ -320,7 +324,7 @@ export function UsersManagement({
                                 </span>
                               </div>
                               <div className="text-xs text-slate-600 font-medium">
-                                Downloads
+                                {t('downloads')}
                               </div>
                             </div>
                             <div className="text-center">
@@ -331,7 +335,7 @@ export function UsersManagement({
                                   : user.plan.maxTokens}
                               </div>
                               <div className="text-xs text-slate-600 font-medium">
-                                Tokens
+                                {t('tokens')}
                               </div>
                             </div>
                           </div>
@@ -354,7 +358,7 @@ export function UsersManagement({
                                   className="text-sm"
                                 >
                                   <Eye className="w-4 h-4 mr-2" />
-                                  Voir les détails
+                                  {t('viewDetails')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                   onClick={() =>
@@ -363,7 +367,7 @@ export function UsersManagement({
                                   className="text-sm"
                                 >
                                   <Mail className="w-4 h-4 mr-2" />
-                                  Envoyer un email
+                                  {t('sendEmail')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 {user.status === 'active' && (
@@ -374,7 +378,7 @@ export function UsersManagement({
                                     className="text-sm"
                                   >
                                     <UserX className="w-4 h-4 mr-2" />
-                                    Suspendre
+                                    {t('suspend')}
                                   </DropdownMenuItem>
                                 )}
                                 {user.status === 'suspended' && (
@@ -385,7 +389,7 @@ export function UsersManagement({
                                     className="text-sm"
                                   >
                                     <UserCheck className="w-4 h-4 mr-2" />
-                                    Réactiver
+                                    {t('reactivate')}
                                   </DropdownMenuItem>
                                 )}
                                 <DropdownMenuItem
@@ -395,7 +399,7 @@ export function UsersManagement({
                                   className="text-sm text-red-600"
                                 >
                                   <Ban className="w-4 h-4 mr-2" />
-                                  Bannir définitivement
+                                  {t('banPermanently')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
@@ -403,7 +407,7 @@ export function UsersManagement({
                                   className="text-sm text-red-600"
                                 >
                                   <Trash2 className="w-4 h-4 mr-2" />
-                                  Supprimer le compte
+                                  {t('deleteAccount')}
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
@@ -418,7 +422,7 @@ export function UsersManagement({
           </div>
         </div>
 
-        {/* Mobile Card View - Redesigned to match the image */}
+        {/* Mobile Card View */}
         <div className="lg:hidden">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <AnimatePresence>
@@ -471,7 +475,7 @@ export function UsersManagement({
                                 className="text-sm"
                               >
                                 <Eye className="w-4 h-4 mr-2" />
-                                Voir les détails
+                                {t('viewDetails')}
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() =>
@@ -480,7 +484,7 @@ export function UsersManagement({
                                 className="text-sm"
                               >
                                 <Mail className="w-4 h-4 mr-2" />
-                                Envoyer un email
+                                {t('sendEmail')}
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               {user.status === 'active' && (
@@ -491,7 +495,7 @@ export function UsersManagement({
                                   className="text-sm"
                                 >
                                   <UserX className="w-4 h-4 mr-2" />
-                                  Suspendre
+                                  {t('suspend')}
                                 </DropdownMenuItem>
                               )}
                               {user.status === 'suspended' && (
@@ -502,7 +506,7 @@ export function UsersManagement({
                                   className="text-sm"
                                 >
                                   <UserCheck className="w-4 h-4 mr-2" />
-                                  Réactiver
+                                  {t('reactivate')}
                                 </DropdownMenuItem>
                               )}
                               <DropdownMenuItem
@@ -512,7 +516,7 @@ export function UsersManagement({
                                 className="text-sm text-red-600"
                               >
                                 <Ban className="w-4 h-4 mr-2" />
-                                Bannir définitivement
+                                {t('banPermanently')}
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem
@@ -520,7 +524,7 @@ export function UsersManagement({
                                 className="text-sm text-red-600"
                               >
                                 <Trash2 className="w-4 h-4 mr-2" />
-                                Supprimer le compte
+                                {t('deleteAccount')}
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -554,8 +558,7 @@ export function UsersManagement({
                           </div>
                         </div>
 
-                        {/* Stats Grid - Matching the image exactly */}
-                        {/* Stats Grid - Fixed text overflow */}
+                        {/* Stats Grid */}
                         <div className="grid grid-cols-3 gap-2 mb-4 flex-1">
                           {/* Logos */}
                           <div className="bg-blue-50 rounded-xl p-2 text-center flex flex-col justify-center min-h-[75px]">
@@ -579,7 +582,7 @@ export function UsersManagement({
                               </span>
                             </div>
                             <div className="text-xs text-slate-600 font-medium leading-tight truncate">
-                              Download
+                              {t('downloads')}
                             </div>
                           </div>
 
@@ -592,16 +595,16 @@ export function UsersManagement({
                                 : user.plan.maxTokens}
                             </div>
                             <div className="text-xs text-slate-600 font-medium leading-tight">
-                              Tokens
+                              {t('tokens')}
                             </div>
                           </div>
                         </div>
 
                         {/* Footer - Dates */}
                         <div className="text-xs text-slate-500 text-center pt-3 border-t border-slate-100">
-                          Inscrit le{' '}
+                          {t('joinedOn')}{' '}
                           {new Date(user.joinedAt).toLocaleDateString('fr-FR')}{' '}
-                          • Actif le{' '}
+                          • {t('activeOn')}{' '}
                           {new Date(user.lastActive).toLocaleDateString(
                             'fr-FR'
                           )}
@@ -624,9 +627,9 @@ export function UsersManagement({
           className="text-center py-12"
         >
           <Users className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <div className="text-slate-600 text-lg">Aucun utilisateur trouvé</div>
+          <div className="text-slate-600 text-lg">{t('noUsersFound')}</div>
           <p className="text-sm text-slate-500 mt-2">
-            Modifiez vos critères de recherche
+            {t('modifySearchCriteria')}
           </p>
         </motion.div>
       )}
@@ -636,10 +639,10 @@ export function UsersManagement({
         <DialogContent className="w-[95vw] max-w-md mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader className="pb-3">
             <DialogTitle className="text-blue-600 text-base">
-              Détails utilisateur
+              {t('userDetails')}
             </DialogTitle>
             <DialogDescription className="text-sm">
-              Informations complètes
+              {t('fullInfo')}
             </DialogDescription>
           </DialogHeader>
           {selectedUser && (
@@ -681,7 +684,9 @@ export function UsersManagement({
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="space-y-2">
                   <div>
-                    <span className="text-slate-600 block">Inscription</span>
+                    <span className="text-slate-600 block">
+                      {t('registration')}
+                    </span>
                     <span className="text-slate-800 font-medium">
                       {new Date(selectedUser.joinedAt).toLocaleDateString(
                         'fr-FR'
@@ -689,7 +694,7 @@ export function UsersManagement({
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-600 block">Plan</span>
+                    <span className="text-slate-600 block">{t('plan')}</span>
                     <span className="text-slate-800 font-medium">
                       {selectedUser.plan.name}
                     </span>
@@ -698,7 +703,7 @@ export function UsersManagement({
                 <div className="space-y-2">
                   <div>
                     <span className="text-slate-600 block">
-                      Dernière activité
+                      {t('lastActivity')}
                     </span>
                     <span className="text-slate-800 font-medium">
                       {new Date(selectedUser.lastActive).toLocaleDateString(
@@ -707,7 +712,7 @@ export function UsersManagement({
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-600 block">Tokens</span>
+                    <span className="text-slate-600 block">{t('tokens')}</span>
                     <span className="text-purple-600 font-medium">
                       {selectedUser.tokensUsed}/
                       {selectedUser.plan.maxTokens === 'unlimited'
@@ -724,13 +729,15 @@ export function UsersManagement({
                   <div className="text-blue-600 font-medium text-sm">
                     {selectedUser.totalLogos}
                   </div>
-                  <div className="text-xs text-slate-600">Logos créés</div>
+                  <div className="text-xs text-slate-600">
+                    {t('logosCreated')}
+                  </div>
                 </div>
                 <div className="text-center p-2 bg-green-50 rounded">
                   <div className="text-green-600 font-medium text-sm">
                     {selectedUser.totalDownloads}
                   </div>
-                  <div className="text-xs text-slate-600">Téléchargements</div>
+                  <div className="text-xs text-slate-600">{t('downloads')}</div>
                 </div>
               </div>
             </div>
@@ -748,7 +755,7 @@ export function UsersManagement({
         <DialogContent className="w-[95vw] max-w-md mx-auto">
           <DialogHeader className="pb-3">
             <DialogTitle className="text-blue-600 text-base">
-              Envoyer un email
+              {t('sendEmail')}
             </DialogTitle>
             <DialogDescription className="text-sm">
               À {emailDialog.user?.username}
@@ -757,27 +764,27 @@ export function UsersManagement({
           <div className="space-y-3">
             <div>
               <label className="text-sm font-medium text-slate-700 block mb-1">
-                Sujet
+                {t('emailSubject')}
               </label>
               <Input
                 value={emailData.subject}
                 onChange={(e) =>
                   setEmailData({ ...emailData, subject: e.target.value })
                 }
-                placeholder="Sujet..."
+                placeholder={t('emailSubject') + '...'}
                 className="text-sm h-9"
               />
             </div>
             <div>
               <label className="text-sm font-medium text-slate-700 block mb-1">
-                Message
+                {t('emailMessage')}
               </label>
               <textarea
                 value={emailData.message}
                 onChange={(e) =>
                   setEmailData({ ...emailData, message: e.target.value })
                 }
-                placeholder="Votre message..."
+                placeholder={t('yourMessage')}
                 className="w-full p-2 border border-slate-200 rounded-md text-sm resize-none"
                 rows={3}
               />
@@ -788,14 +795,14 @@ export function UsersManagement({
                 onClick={() => setEmailDialog({ open: false, user: null })}
                 className="flex-1 text-sm h-9"
               >
-                Annuler
+                {tCommon('cancel')}
               </Button>
               <Button
                 onClick={handleSendEmail}
                 className="flex-1 bg-blue-600 hover:bg-blue-700 text-sm h-9"
               >
                 <Mail className="w-3 h-3 mr-1" />
-                Envoyer
+                {tCommon('send')}
               </Button>
             </div>
           </div>
@@ -810,22 +817,22 @@ export function UsersManagement({
         <AlertDialogContent className="w-[95vw] max-w-md mx-auto">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-base">
-              Supprimer l'utilisateur
+              {t('deleteUser')}
             </AlertDialogTitle>
             <AlertDialogDescription className="text-sm">
-              Supprimer <strong>{userToDelete?.username}</strong> ? Cette action
-              est irréversible.
+              {tCommon('delete')} <strong>{userToDelete?.username}</strong> ?{' '}
+              {t('deleteConfirmation')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex gap-2 pt-4">
             <AlertDialogCancel className="flex-1 text-sm h-9">
-              Annuler
+              {tCommon('cancel')}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteUser}
               className="flex-1 bg-red-600 hover:bg-red-700 text-sm h-9"
             >
-              Supprimer
+              {tCommon('delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

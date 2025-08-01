@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import {
   Sidebar,
   SidebarContent,
@@ -40,30 +41,33 @@ export function AdminSidebar({
   activeTab,
   setActiveTab,
 }: AdminSidebarProps) {
+  const t = useTranslations('admin')
+  const tSidebar = useTranslations('admin.sidebar')
+  const tCommon = useTranslations('admin.common')
   const { state } = useSidebar()
   const isCollapsed = state === 'collapsed'
 
   const navigationItems = [
     {
-      title: 'Dashboard',
+      title: tSidebar('navigation'),
       icon: LayoutDashboard,
       value: 'dashboard',
       color: 'text-blue-600',
     },
     {
-      title: 'Plans',
+      title: tSidebar('plans'),
       icon: Package,
       value: 'plans',
       color: 'text-indigo-600',
     },
     {
-      title: 'Utilisateurs',
+      title: tSidebar('users'),
       icon: Users,
       value: 'users',
       color: 'text-purple-600',
     },
     {
-      title: 'Commentaires',
+      title: tSidebar('feedback'),
       icon: MessageSquare,
       value: 'feedback',
       color: 'text-amber-600',
@@ -112,9 +116,9 @@ export function AdminSidebar({
           {!isCollapsed && (
             <div>
               <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                ADMIN
+                {t('title').toUpperCase()}
               </h1>
-              <p className="text-xs text-slate-500">Panel</p>
+              <p className="text-xs text-slate-500">{t('panel')}</p>
             </div>
           )}
         </motion.div>
@@ -163,7 +167,7 @@ export function AdminSidebar({
               {!isCollapsed && (
                 <div className="text-xs text-slate-600">
                   <div className="flex justify-between">
-                    <span>Dernière connexion</span>
+                    <span>{tSidebar('lastLogin')}</span>
                     <span>
                       {new Date(admin.lastLogin).toLocaleDateString('fr-FR')}
                     </span>
@@ -177,7 +181,7 @@ export function AdminSidebar({
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-            Navigation
+            {tSidebar('navigation')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -218,7 +222,7 @@ export function AdminSidebar({
         {!isCollapsed && (
           <SidebarGroup>
             <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-              Système
+              {tSidebar('system')}
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <motion.div
@@ -228,13 +232,21 @@ export function AdminSidebar({
                 className="space-y-2"
               >
                 {[
-                  { name: 'API', status: 'online', color: 'text-green-500' },
                   {
-                    name: 'Base de données',
+                    name: tSidebar('api'),
                     status: 'online',
                     color: 'text-green-500',
                   },
-                  { name: 'IA', status: 'warning', color: 'text-amber-500' },
+                  {
+                    name: tSidebar('database'),
+                    status: 'online',
+                    color: 'text-green-500',
+                  },
+                  {
+                    name: tSidebar('ai'),
+                    status: 'warning',
+                    color: 'text-amber-500',
+                  },
                 ].map((service) => (
                   <div
                     key={service.name}
@@ -264,19 +276,23 @@ export function AdminSidebar({
                   ? 'text-blue-600 bg-blue-50'
                   : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50'
               }`}
-              tooltip={isCollapsed ? 'Mon Profil' : undefined}
+              tooltip={isCollapsed ? tSidebar('myProfile') : undefined}
             >
               <Settings className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-              {!isCollapsed && <span className="text-sm">Mon Profil</span>}
+              {!isCollapsed && (
+                <span className="text-sm">{tSidebar('myProfile')}</span>
+              )}
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               className="group text-red-500 hover:bg-red-50 transition-all duration-300"
-              tooltip={isCollapsed ? 'Déconnexion' : undefined}
+              tooltip={isCollapsed ? tSidebar('logout') : undefined}
             >
               <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-              {!isCollapsed && <span className="text-sm">Déconnexion</span>}
+              {!isCollapsed && (
+                <span className="text-sm">{tSidebar('logout')}</span>
+              )}
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

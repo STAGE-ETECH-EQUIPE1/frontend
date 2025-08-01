@@ -1,9 +1,9 @@
 'use client'
 
 import type React from 'react'
-
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import {
   Card,
   CardContent,
@@ -43,6 +43,9 @@ export function PlansManagement({
   onUpdatePlan,
   onDeletePlan,
 }: PlansManagementProps) {
+  const t = useTranslations('admin.plans')
+  const tCommon = useTranslations('admin.common')
+
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [editingPlan, setEditingPlan] = useState<Plan | null>(null)
   const [formData, setFormData] = useState({
@@ -114,6 +117,19 @@ export function PlansManagement({
     }
   }
 
+  const getTypeLabel = (type: string) => {
+    switch (type) {
+      case 'gratuit':
+        return t('free')
+      case 'premium':
+        return t('premium')
+      case 'entreprise':
+        return t('enterprise')
+      default:
+        return type
+    }
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -125,34 +141,32 @@ export function PlansManagement({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl sm:text-3xl font-bold text-blue-600 mb-2">
-            Gestion des Plans
+            {t('title')}
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Créez et gérez les plans d'abonnement
-          </p>
+          <p className="text-slate-600 text-sm sm:text-base">{t('subtitle')}</p>
         </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base">
               <Plus className="w-4 h-4 mr-2" />
-              <span className="hidden sm:inline">Nouveau Plan</span>
-              <span className="sm:hidden">Nouveau</span>
+              <span className="hidden sm:inline">{t('newPlan')}</span>
+              <span className="sm:hidden">{tCommon('create')}</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="bg-white border-blue-200/30 text-slate-900 max-w-lg sm:max-w-2xl mx-4">
             <DialogHeader>
               <DialogTitle className="text-blue-600 text-lg sm:text-xl">
-                Créer un nouveau plan
+                {t('createPlan')}
               </DialogTitle>
               <DialogDescription className="text-slate-600 text-sm sm:text-base">
-                Définissez les caractéristiques du nouveau plan
+                {t('subtitle')}
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="name" className="text-blue-600 text-sm">
-                    Nom du plan
+                    {t('planName')}
                   </Label>
                   <Input
                     id="name"
@@ -166,7 +180,7 @@ export function PlansManagement({
                 </div>
                 <div>
                   <Label htmlFor="type" className="text-blue-600 text-sm">
-                    Type
+                    {t('type')}
                   </Label>
                   <select
                     id="type"
@@ -176,9 +190,9 @@ export function PlansManagement({
                     }
                     className="w-full p-2 bg-slate-50 border border-slate-200 rounded text-slate-900 text-sm"
                   >
-                    <option value="gratuit">Gratuit</option>
-                    <option value="premium">Premium</option>
-                    <option value="entreprise">Entreprise</option>
+                    <option value="gratuit">{t('free')}</option>
+                    <option value="premium">{t('premium')}</option>
+                    <option value="entreprise">{t('enterprise')}</option>
                   </select>
                 </div>
               </div>
@@ -186,7 +200,7 @@ export function PlansManagement({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="price" className="text-blue-600 text-sm">
-                    Prix (€/mois)
+                    {t('price')}
                   </Label>
                   <Input
                     id="price"
@@ -203,7 +217,7 @@ export function PlansManagement({
                 </div>
                 <div>
                   <Label htmlFor="tokens" className="text-blue-600 text-sm">
-                    Tokens inclus
+                    {t('tokensIncluded')}
                   </Label>
                   <Input
                     id="tokens"
@@ -220,7 +234,7 @@ export function PlansManagement({
                 </div>
                 <div>
                   <Label htmlFor="maxTokens" className="text-blue-600 text-sm">
-                    Limite tokens
+                    {t('tokenLimit')}
                   </Label>
                   <Input
                     id="maxTokens"
@@ -239,7 +253,7 @@ export function PlansManagement({
 
               <div>
                 <Label htmlFor="features" className="text-blue-600 text-sm">
-                  Fonctionnalités (une par ligne)
+                  {t('features')}
                 </Label>
                 <Textarea
                   id="features"
@@ -264,7 +278,7 @@ export function PlansManagement({
                   }
                 />
                 <Label htmlFor="isActive" className="text-blue-600 text-sm">
-                  Plan actif
+                  {t('activePlan')}
                 </Label>
               </div>
 
@@ -278,13 +292,13 @@ export function PlansManagement({
                   }}
                   className="border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
                 >
-                  Annuler
+                  {tCommon('cancel')}
                 </Button>
                 <Button
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-sm"
                 >
-                  Créer le plan
+                  {tCommon('create')}
                 </Button>
               </div>
             </form>
@@ -320,7 +334,7 @@ export function PlansManagement({
                             {plan.name}
                           </CardTitle>
                           <CardDescription className="text-slate-600 capitalize text-sm">
-                            {plan.type}
+                            {getTypeLabel(plan.type)}
                           </CardDescription>
                         </div>
                       </div>
@@ -349,10 +363,12 @@ export function PlansManagement({
                     {/* Price */}
                     <div className="text-center">
                       <div className="text-2xl sm:text-3xl font-bold text-blue-600">
-                        {plan.price === 0 ? 'Gratuit' : `${plan.price}€`}
+                        {plan.price === 0 ? t('free') : `${plan.price}€`}
                       </div>
                       {plan.price > 0 && (
-                        <div className="text-sm text-slate-600">/mois</div>
+                        <div className="text-sm text-slate-600">
+                          {t('month')}
+                        </div>
                       )}
                     </div>
 
@@ -368,14 +384,16 @@ export function PlansManagement({
                         <div className="text-base sm:text-lg font-bold text-purple-400">
                           {plan.subscribersCount}
                         </div>
-                        <div className="text-xs text-slate-600">Abonnés</div>
+                        <div className="text-xs text-slate-600">
+                          {t('subscribers')}
+                        </div>
                       </div>
                     </div>
 
                     {/* Features */}
                     <div>
                       <h4 className="text-sm font-semibold text-blue-600 mb-2">
-                        Fonctionnalités:
+                        {t('features').split(' ')[0]}:
                       </h4>
                       <ul className="space-y-1">
                         {plan.features.slice(0, 2).map((feature, idx) => (
@@ -404,7 +422,9 @@ export function PlansManagement({
                             : 'bg-red-200 text-red-800 border-red-500 text-xs'
                         }
                       >
-                        {plan.isActive ? 'Actif' : 'Inactif'}
+                        {plan.isActive
+                          ? tCommon('active')
+                          : tCommon('inactive')}
                       </Badge>
                       <div className="text-xs text-slate-600">
                         {new Date(plan.createdAt).toLocaleDateString('fr-FR')}
@@ -423,17 +443,17 @@ export function PlansManagement({
         <DialogContent className="bg-white border-blue-200/30 text-slate-900 max-w-lg sm:max-w-2xl mx-4">
           <DialogHeader>
             <DialogTitle className="text-blue-600 text-lg sm:text-xl">
-              Modifier le plan
+              {t('editPlan')}
             </DialogTitle>
             <DialogDescription className="text-slate-600 text-sm sm:text-base">
-              Modifiez les caractéristiques du plan
+              {t('subtitle')}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="edit-name" className="text-blue-600 text-sm">
-                  Nom du plan
+                  {t('planName')}
                 </Label>
                 <Input
                   id="edit-name"
@@ -447,7 +467,7 @@ export function PlansManagement({
               </div>
               <div>
                 <Label htmlFor="edit-type" className="text-blue-600 text-sm">
-                  Type
+                  {t('type')}
                 </Label>
                 <select
                   id="edit-type"
@@ -457,9 +477,9 @@ export function PlansManagement({
                   }
                   className="w-full p-2 bg-slate-50 border border-slate-200 rounded text-slate-900 text-sm"
                 >
-                  <option value="gratuit">Gratuit</option>
-                  <option value="premium">Premium</option>
-                  <option value="entreprise">Entreprise</option>
+                  <option value="gratuit">{t('free')}</option>
+                  <option value="premium">{t('premium')}</option>
+                  <option value="entreprise">{t('enterprise')}</option>
                 </select>
               </div>
             </div>
@@ -467,7 +487,7 @@ export function PlansManagement({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <Label htmlFor="edit-price" className="text-blue-600 text-sm">
-                  Prix (€/mois)
+                  {t('price')}
                 </Label>
                 <Input
                   id="edit-price"
@@ -481,7 +501,7 @@ export function PlansManagement({
               </div>
               <div>
                 <Label htmlFor="edit-tokens" className="text-blue-600 text-sm">
-                  Tokens inclus
+                  {t('tokensIncluded')}
                 </Label>
                 <Input
                   id="edit-tokens"
@@ -498,7 +518,7 @@ export function PlansManagement({
                   htmlFor="edit-maxTokens"
                   className="text-blue-600 text-sm"
                 >
-                  Limite tokens
+                  {t('tokenLimit')}
                 </Label>
                 <Input
                   id="edit-maxTokens"
@@ -517,7 +537,7 @@ export function PlansManagement({
 
             <div>
               <Label htmlFor="edit-features" className="text-blue-600 text-sm">
-                Fonctionnalités (une par ligne)
+                {t('features')}
               </Label>
               <Textarea
                 id="edit-features"
@@ -542,7 +562,7 @@ export function PlansManagement({
                 }
               />
               <Label htmlFor="edit-isActive" className="text-blue-600 text-sm">
-                Plan actif
+                {t('activePlan')}
               </Label>
             </div>
 
@@ -556,13 +576,13 @@ export function PlansManagement({
                 }}
                 className="border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
               >
-                Annuler
+                {tCommon('cancel')}
               </Button>
               <Button
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-700 text-sm"
               >
-                Sauvegarder
+                {tCommon('save')}
               </Button>
             </div>
           </form>

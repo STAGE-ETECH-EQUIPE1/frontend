@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { AdminSidebar } from './AdminSidebar'
 import { AdminDashboard } from './AdminDashboard'
 import { PlansManagement } from './PlansManagement'
@@ -24,6 +25,7 @@ import {
 // Import the new components
 import { UsersManagement } from './UsersManagement'
 import { FeedbackManagement } from './LogoFeedbackManagement'
+import LanguageSwitcher from '../translation/LanguageSwitcher'
 
 // Mock data pour la démo
 const mockAdmin: AdminUser = {
@@ -257,6 +259,7 @@ const handleRespondToFeedback = (id: string, response: string) => {
 }
 
 export function AdminPage() {
+  const t = useTranslations('admin')
   const [activeTab, setActiveTab] = useState('dashboard')
   const [users, setUsers] = useState<User[]>(mockUsers)
   const [feedbacks, setFeedbacks] = useState<LogoFeedback[]>(mockFeedbacks)
@@ -305,17 +308,17 @@ export function AdminPage() {
   const getBreadcrumbTitle = (tab: string) => {
     switch (tab) {
       case 'dashboard':
-        return 'Dashboard'
+        return t('sidebar.navigation')
       case 'plans':
-        return 'Plans'
+        return t('sidebar.plans')
       case 'users':
-        return 'Utilisateurs'
+        return t('sidebar.users')
       case 'feedback':
-        return 'Commentaires'
+        return t('sidebar.feedback')
       case 'profile':
-        return 'Mon Profil'
+        return t('profile.title')
       default:
-        return 'Dashboard'
+        return t('sidebar.navigation')
     }
   }
 
@@ -385,7 +388,7 @@ export function AdminPage() {
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href="#" className="text-blue-600">
-                  ADMIN
+                  {t('title').toUpperCase()}
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
@@ -396,6 +399,7 @@ export function AdminPage() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
+          <LanguageSwitcher />
         </header>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-white p-4 sm:p-6">
           {renderContent()}

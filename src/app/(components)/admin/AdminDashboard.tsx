@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ import {
   Activity,
 } from 'lucide-react'
 import type { User, Plan, LogoFeedback } from '@/types/admin'
+import LanguageSwitcher from '../translation/LanguageSwitcher'
 
 interface AdminDashboardProps {
   users: User[]
@@ -27,6 +29,9 @@ interface AdminDashboardProps {
 }
 
 export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
+  const t = useTranslations('admin.dashboard')
+  const tCommon = useTranslations('admin.common')
+
   // Calculs des statistiques
   const totalUsers = users.length
   const activeUsers = users.filter((u) => u.status === 'active').length
@@ -35,9 +40,9 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
     feedbacks.reduce((sum, f) => sum + f.rating, 0) / feedbacks.length || 0
 
   const systemMetrics = [
-    { name: 'CPU', value: 45, status: 'optimal' },
-    { name: 'RAM', value: 67, status: 'warning' },
-    { name: 'Stockage', value: 23, status: 'optimal' },
+    { name: t('cpu'), value: 45, status: 'optimal' },
+    { name: t('ram'), value: 67, status: 'warning' },
+    { name: t('storage'), value: 23, status: 'optimal' },
   ]
 
   const getStatusColor = (status: string) => {
@@ -53,36 +58,51 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
     }
   }
 
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'optimal':
+        return t('optimal')
+      case 'warning':
+        return t('warning')
+      case 'critical':
+        return t('critical')
+      default:
+        return status
+    }
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="space-y-6"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.6 }}
+    className="space-y-6"
     >
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-            Dashboard Admin
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
-            Vue d'ensemble du système ORBIXUP
-          </p>
+      <header>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+              {t('title')}
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base">
+              {t('subtitle')}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+            <Badge className="bg-green-100 text-green-700 border-green-200 animate-pulse text-xs sm:text-sm">
+              <Activity className="w-3 h-3 mr-1" />
+              {tCommon('online').toUpperCase()}
+            </Badge>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-          <Badge className="bg-green-100 text-green-700 border-green-200 animate-pulse text-xs sm:text-sm">
-            <Activity className="w-3 h-3 mr-1" />
-            EN LIGNE
-          </Badge>
-        </div>
-      </div>
+      </header>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {[
           {
-            title: 'Utilisateurs',
+            title: t('users'),
             value: totalUsers,
             icon: Users,
             color: 'text-blue-600',
@@ -91,7 +111,7 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
             change: '+12%',
           },
           {
-            title: 'Actifs',
+            title: t('active'),
             value: activeUsers,
             icon: Activity,
             color: 'text-green-600',
@@ -100,7 +120,7 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
             change: '+8%',
           },
           {
-            title: 'Revenus',
+            title: t('revenue'),
             value: `${totalRevenue}€`,
             icon: DollarSign,
             color: 'text-amber-600',
@@ -109,7 +129,7 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
             change: '+23%',
           },
           {
-            title: 'Note Moy.',
+            title: t('avgRating'),
             value: avgRating.toFixed(1),
             icon: MessageSquare,
             color: 'text-purple-600',
@@ -147,7 +167,7 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
                   <TrendingUp className="w-3 h-3 text-green-600" />
                   <span className="text-green-600">{stat.change}</span>
                   <span className="text-slate-500 hidden sm:inline">
-                    vs mois dernier
+                    {t('vsLastMonth')}
                   </span>
                 </div>
               </CardContent>
@@ -167,10 +187,10 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
             <CardHeader>
               <CardTitle className="text-slate-800 flex items-center gap-2 text-base sm:text-lg">
                 <Package className="w-4 sm:w-5 h-4 sm:h-5 text-cyan-600" />
-                Métriques Système
+                {t('systemMetrics')}
               </CardTitle>
               <CardDescription className="text-slate-600 text-sm">
-                État des ressources serveur
+                {t('serverResources')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -197,7 +217,7 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
                     <Progress value={metric.value} className="h-2" />
                     <div className="mt-2 text-xs">
                       <span className={getStatusColor(metric.status)}>
-                        {metric.status.toUpperCase()}
+                        {getStatusText(metric.status)}
                       </span>
                     </div>
                   </motion.div>
@@ -217,10 +237,10 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
             <CardHeader>
               <CardTitle className="text-slate-800 flex items-center gap-2 text-base sm:text-lg">
                 <Activity className="w-4 sm:w-5 h-4 sm:h-5 text-green-600" />
-                Activité Récente
+                {t('recentActivity')}
               </CardTitle>
               <CardDescription className="text-slate-600 text-sm">
-                Dernières actions système
+                {t('lastSystemActions')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -228,25 +248,25 @@ export function AdminDashboard({ users, feedbacks }: AdminDashboardProps) {
                 {[
                   {
                     time: '14:32',
-                    action: 'Nouvel utilisateur',
+                    action: t('newUser'),
                     user: 'startup@example.com',
                     type: 'success',
                   },
                   {
                     time: '14:28',
-                    action: 'Logo généré',
+                    action: t('logoGenerated'),
                     user: 'TechCorp_CEO',
                     type: 'info',
                   },
                   {
                     time: '14:25',
-                    action: 'Paiement reçu',
+                    action: t('paymentReceived'),
                     user: 'DesignStudio',
                     type: 'success',
                   },
                   {
                     time: '14:20',
-                    action: 'Feedback soumis',
+                    action: t('feedbackSubmitted'),
                     user: 'StartupLover',
                     type: 'info',
                   },
