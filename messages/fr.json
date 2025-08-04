@@ -440,7 +440,8 @@
       "lastLogin": "Dernière connexion",
       "plans": "Plans",
       "users": "Utilisateurs",
-      "feedback": "Commentaires"
+      "feedback": "Commentaires",
+      "services": "Services"
     },
     "plans": {
       "title": "Gestion des Plans",
@@ -584,6 +585,42 @@
       "view": "Voir",
       "send": "Envoyer",
       "reply": "Répondre"
+    },
+    "services": {
+      "title": "Gestion des Services",
+      "subtitle": "Créez et gérez les services disponibles pour vos utilisateurs",
+      "newService": "Nouveau Service",
+      "createService": "Créer un Service",
+      "editService": "Modifier le Service",
+      "createDescription": "Ajoutez un nouveau service à votre plateforme",
+      "editDescription": "Modifiez les détails de ce service",
+      "serviceName": "Nom du Service",
+      "serviceNamePlaceholder": "Ex: Logo Premium, Pack Startup...",
+      "price": "Prix",
+      "tokens": "Tokens",
+      "credits": "Crédits",
+      "tokensPlaceholder": "Nombre de prompts inclus",
+      "tokensHelp": "Nombre de prompts/générations que l'utilisateur peut effectuer",
+      "description": "Description",
+      "descriptionPlaceholder": "Décrivez les fonctionnalités et avantages de ce service...",
+      "activeService": "Service Actif",
+      "totalServices": "Total Services",
+      "activeServices": "Services Actifs",
+      "totalRevenue": "Revenus Totaux",
+      "searchServices": "Rechercher dans les services...",
+      "allStatuses": "Tous les statuts",
+      "viewDetails": "Voir les détails",
+      "serviceDetails": "Détails du Service",
+      "fullServiceInfo": "Informations complètes sur ce service",
+      "createdOn": "Créé le",
+      "lastUpdate": "Dernière mise à jour",
+      "usages": "utilisations",
+      "free": "Gratuit",
+      "deleteService": "Supprimer le Service",
+      "deleteConfirmation": "Êtes-vous sûr de vouloir supprimer le service",
+      "deleteWarning": "Cette action est irréversible et supprimera toutes les données associées.",
+      "noServicesFound": "Aucun service trouvé",
+      "modifySearchCriteria": "Modifiez vos critères de recherche ou créez un nouveau service."
     }
   }
 }

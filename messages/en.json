@@ -560,7 +560,8 @@
       "logout": "Logout",
       "plans": "Packs",
       "users": "Users",
-      "feedback": "Feedbacks"
+      "feedback": "Feedbacks",
+      "services": "Services"
     },
     "common": {
       "loading": "Loading...",
@@ -586,6 +587,42 @@
       "view": "View",
       "send": "Send",
       "reply": "Reply"
+    },
+    "services": {
+      "title": "Services Management",
+      "subtitle": "Create and manage services available to your users",
+      "newService": "New Service",
+      "createService": "Create Service",
+      "editService": "Edit Service",
+      "createDescription": "Add a new service to your platform",
+      "editDescription": "Modify the details of this service",
+      "serviceName": "Service Name",
+      "serviceNamePlaceholder": "Ex: Premium Logo, Startup Pack...",
+      "price": "Price",
+      "tokens": "Tokens",
+      "credits": "Credits",
+      "tokensPlaceholder": "Number of prompts included",
+      "tokensHelp": "Number of prompts/generations the user can perform",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the features and benefits of this service...",
+      "activeService": "Active Service",
+      "totalServices": "Total Services",
+      "activeServices": "Active Services",
+      "totalRevenue": "Total Revenue",
+      "searchServices": "Search in services...",
+      "allStatuses": "All statuses",
+      "viewDetails": "View details",
+      "serviceDetails": "Service Details",
+      "fullServiceInfo": "Complete information about this service",
+      "createdOn": "Created on",
+      "lastUpdate": "Last update",
+      "usages": "usages",
+      "free": "Free",
+      "deleteService": "Delete Service",
+      "deleteConfirmation": "Are you sure you want to delete the service",
+      "deleteWarning": "This action is irreversible and will delete all associated data.",
+      "noServicesFound": "No services found",
+      "modifySearchCriteria": "Modify your search criteria or create a new service."
     }
   }
 }

@@ -26,6 +26,8 @@ import {
 import { UsersManagement } from './UsersManagement'
 import { FeedbackManagement } from './LogoFeedbackManagement'
 import LanguageSwitcher from '../translation/LanguageSwitcher'
+import { ServicesManagement } from './ServicesManagement'
+import { Service } from '@/types/service'
 
 // Mock data pour la démo
 const mockAdmin: AdminUser = {
@@ -322,6 +324,34 @@ export function AdminPage() {
     }
   }
 
+  const services: Service[] = [
+    {
+      id: '1',
+      name: 'Service A',
+      price: 100,
+      tokens: 10,
+      description: 'Description A',
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      usageCount: 0,
+    },
+  ]
+
+  const handleCreateService = (
+    service: Omit<Service, 'id' | 'createdAt' | 'updatedAt' | 'usageCount'>
+  ) => {
+    console.log('Create:', service)
+  }
+
+  const handleUpdateService = (id: string, updates: Partial<Service>) => {
+    console.log('Update:', id, updates)
+  }
+
+  const handleDeleteService = (id: string) => {
+    console.log('Delete:', id)
+  }
+
   // Mettre à jour renderContent pour utiliser les états
   const renderContent = () => {
     switch (activeTab) {
@@ -331,6 +361,15 @@ export function AdminPage() {
             users={users}
             plans={mockPlans}
             feedbacks={feedbacks}
+          />
+        )
+      case 'services':
+        return (
+          <ServicesManagement
+            services={services}
+            onCreateService={handleCreateService}
+            onUpdateService={handleUpdateService}
+            onDeleteService={handleDeleteService}
           />
         )
       case 'plans':

@@ -27,6 +27,7 @@ import {
   Activity,
   LogOut,
   Crown,
+  Wrench,
 } from 'lucide-react'
 import type { AdminUser } from '@/types/admin'
 
@@ -43,7 +44,6 @@ export function AdminSidebar({
 }: AdminSidebarProps) {
   const t = useTranslations('admin')
   const tSidebar = useTranslations('admin.sidebar')
-  const tCommon = useTranslations('admin.common')
   const { state } = useSidebar()
   const isCollapsed = state === 'collapsed'
 
@@ -53,6 +53,12 @@ export function AdminSidebar({
       icon: LayoutDashboard,
       value: 'dashboard',
       color: 'text-blue-600',
+    },
+    {
+      title: tSidebar('services'),
+      icon: Wrench,
+      value: 'services',
+      color: 'text-emerald-600',
     },
     {
       title: tSidebar('plans'),
