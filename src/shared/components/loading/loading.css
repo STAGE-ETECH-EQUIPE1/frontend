@@ -1,0 +1,45 @@
+.loading-wrapper {
+  background-color: #141414;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}
+
+.load {
+  height: 1em;
+  width: 1em;
+  background-color: rgb(107, 132, 154);
+  margin-right: 20px;
+  animation: fade 3s ease 1, rotate 1s ease 2s infinite;
+  filter: drop-shadow(0 0 15px #03bcf4);
+}
+
+.title {
+  font-size: 3em;
+  font-family: 'Poppins', sans-serif;
+  color: aliceblue;
+  animation: fade 3s ease 1;
+  filter: drop-shadow(0 0 20px #03bcf4);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(180deg);
+  }
+}

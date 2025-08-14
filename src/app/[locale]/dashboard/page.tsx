@@ -1,4 +1,4 @@
-import UserDashboard from '@/app/(components)/dashboard/UserDashboard'
+import UserDashboard from '@/features/dashboard/components/UserDashboard'
 import React from 'react'
 
 export default function Dash() {

@@ -11,6 +11,7 @@
     "confirmPassword": "Les mots de passe ne correspondent pas.",
     "successLogout": "Déconnexion réussie !"
   },
+
   "navbar": {
     "services": "Services",
     "portfolio": "Portfolio",
@@ -67,6 +68,50 @@
     "tabs": {
       "signin": "Se connecter",
       "signup": "S'inscrire"
+    },
+    "resetPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "header": {
+        "title": "Nouveau mot de passe",
+        "subtitle": "Créez un mot de passe sécurisé"
+      },
+      "fields": {
+        "newPassword": {
+          "label": "Nouveau mot de passe",
+          "placeholder": "Entrez votre nouveau mot de passe"
+        },
+        "confirmPassword": {
+          "label": "Confirmer le mot de passe",
+          "placeholder": "Confirmez votre nouveau mot de passe"
+        }
+      },
+      "strength": {
+        "title": "Force du mot de passe",
+        "weak": "Faible",
+        "medium": "Moyen",
+        "good": "Bon",
+        "excellent": "Excellent"
+      },
+      "criteria": {
+        "title": "Votre mot de passe doit contenir :",
+        "minLength": "Au moins 8 caractères",
+        "uppercase": "Une lettre majuscule",
+        "lowercase": "Une lettre minuscule",
+        "number": "Un chiffre",
+        "special": "Un caractère spécial"
+      },
+      "validation": {
+        "passwordsMatch": "Les mots de passe correspondent",
+        "passwordsDontMatch": "Les mots de passe ne correspondent pas"
+      },
+      "button": {
+        "submit": "Réinitialiser le mot de passe",
+        "loading": "Réinitialisation en cours..."
+      },
+      "footer": {
+        "text": "En réinitialisant votre mot de passe, vous pouvez",
+        "link": "récupérer votre compte"
+      }
     }
   },
   "services": {
@@ -226,59 +271,95 @@
   },
   "logoGenerator": {
     "title": "Générateur de Logos IA",
-    "subtitle": "Créez des logos uniques en quelques clics",
-    "generationSettings": "Paramètres de Génération",
-    "companyName": "Nom de l'entreprise",
-    "companyNameRequired": "Nom de l'entreprise *",
-    "companyNamePlaceholder": "Ex: TechCorp",
-    "industry": "Secteur d'activité",
-    "industryPlaceholder": "Choisir un secteur",
-    "style": "Style de logo",
-    "stylePlaceholder": "Choisir un style",
-    "colorPalette": "Palette de couleurs",
-    "description": "Description (optionnel)",
-    "descriptionPlaceholder": "Décrivez votre vision du logo...",
-    "generating": "Génération en cours...",
-    "generateLogos": "Générer des Logos",
-    "generatedLogos": "Logos Générés",
-    "readyToCreate": "Prêt à créer votre logo ?",
-    "fillInformation": "Remplissez les informations à gauche et cliquez sur \"Générer des Logos\" pour commencer.",
-    "yourSettings": "Vos paramètres :",
-    "company": "Entreprise :",
-    "sector": "Secteur :",
-    "colors": "Couleurs :",
-    "tokenLimit": "Vous avez atteint votre limite de tokens. Upgradez votre plan pour continuer.",
-    "industries": {
-      "technology": "Technologie",
-      "health": "Santé",
-      "finance": "Finance",
-      "education": "Éducation",
-      "commerce": "Commerce",
-      "restaurant": "Restaurant",
-      "fashion": "Mode",
-      "sport": "Sport",
-      "realEstate": "Immobilier",
-      "other": "Autre"
+    "subtitle": "Créez des logos professionnels en quelques clics",
+    "form": {
+      "title": "Paramètres de génération",
+      "companyName": "Nom de l'entreprise",
+      "companyNamePlaceholder": "Ex: TechCorp, MonEntreprise...",
+      "industry": "Secteur d'activité",
+      "industryPlaceholder": "Sélectionnez un secteur",
+      "style": "Style de logo",
+      "stylePlaceholder": "Choisissez un style",
+      "colorPalette": "Palette de couleurs",
+      "colors": "Couleurs",
+      "description": "Description (optionnel)",
+      "descriptionPlaceholder": "Décrivez votre vision du logo..."
     },
-    "styles": {
-      "modern": "Moderne",
-      "minimalist": "Minimaliste",
-      "vintage": "Vintage",
-      "professional": "Professionnel",
-      "creative": "Créatif",
-      "elegant": "Élégant",
-      "dynamic": "Dynamique",
-      "classic": "Classique"
+    "preview": {
+      "title": "Aperçu de votre sélection",
+      "preview": "Aperçu",
+      "emptyState": {
+        "title": "Votre sélection s'affichera ici",
+        "subtitle": "Commencez par saisir le nom de votre entreprise"
+      }
     },
-    "colorSchemes": {
-      "blueWhite": "Bleu et Blanc",
-      "redBlack": "Rouge et Noir",
-      "greenWhite": "Vert et Blanc",
-      "purplePink": "Violet et Rose",
-      "blackWhite": "Noir et Blanc",
-      "orangeBlue": "Orange et Bleu",
-      "custom": "Personnalisé"
-    }
+    "results": {
+      "title": "Logos générés",
+      "logosGenerated": "{count} logo(s) généré(s)",
+      "noLogos": "Aucun logo disponible"
+    },
+    "status": {
+      "creatingProject": "Création du projet en cours...",
+      "generatingLogos": "Génération des logos en cours...",
+      "generatingTime": "Cela peut prendre quelques minutes",
+      "generationInProgress": "Génération en cours...",
+      "generationInProgressDetails": "Les logos sont en cours de création pour le projet #{projectId}",
+      "generationTime": "Cela peut prendre 2-5 minutes selon la complexité",
+      "aiProcessing": "Traitement par l'IA en cours..."
+    },
+    "actions": {
+      "generateLogos": "Générer les logos",
+      "generating": "Génération en cours...",
+      "clearCache": "Vider le cache et recommencer",
+      "checking": "Vérification...",
+      "checkNow": "Vérifier maintenant",
+      "forceRefresh": "Forcer l'actualisation"
+    },
+    "errors": {
+      "quotaExceeded": "Le service de génération de logos a atteint sa limite quotidienne. Veuillez réessayer dans quelques heures ou demain.",
+      "serverError": "Erreur du serveur lors de la génération. Veuillez réessayer dans quelques minutes.",
+      "generalError": "Une erreur s'est produite lors de la génération des logos. Veuillez réessayer.",
+      "loadingLogos": "Erreur lors du chargement des logos"
+    },
+    "defaultDescription": "Logo pour {companyName} dans le secteur {industry}"
+  },
+  "industries": {
+    "technology": "Technologie",
+    "health": "Santé",
+    "finance": "Finance",
+    "education": "Éducation",
+    "commerce": "Commerce",
+    "restaurant": "Restaurant",
+    "fashion": "Mode",
+    "sport": "Sport",
+    "realEstate": "Immobilier",
+    "other": "Autre"
+  },
+  "styles": {
+    "modern": "Moderne",
+    "minimalist": "Minimaliste",
+    "vintage": "Vintage",
+    "professional": "Professionnel",
+    "creative": "Créatif",
+    "elegant": "Élégant",
+    "dynamic": "Dynamique",
+    "classic": "Classique"
+  },
+  "colors": {
+    "blueWhite": "Bleu & Blanc",
+    "redBlack": "Rouge & Noir",
+    "greenWhite": "Vert & Blanc",
+    "purplePink": "Violet & Rose",
+    "blackWhite": "Noir & Blanc",
+    "orangeBlue": "Orange & Bleu",
+    "custom": "Personnalisé"
+  },
+  "commonBranding": {
+    "tokens": "tokens",
+    "retry": "Réessayer",
+    "refresh": "Actualiser",
+    "download": "Télécharger",
+    "copyUrl": "Copier URL"
   },
   "colorPicker": {
     "customColors": "Couleurs personnalisées",
@@ -325,6 +406,7 @@
     "personalInfo": "Informations Personnelles",
     "fullName": "Nom complet",
     "email": "Email",
+    "phone": "Numéro téléphone",
     "mySubscription": "Mon Abonnement",
     "free": "Gratuit",
     "upgrade": "Upgrader",
@@ -532,6 +614,7 @@
       "personalInfo": "Informations Personnelles",
       "editBasicInfo": "Modifiez vos informations de base",
       "fullName": "Nom complet",
+      "phone": "Numéro téléphone",
       "changePassword": "Changer le Mot de Passe",
       "secureAccount": "Mettez à jour votre mot de passe pour sécuriser votre compte",
       "currentPassword": "Mot de passe actuel",

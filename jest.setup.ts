@@ -18,6 +18,20 @@ global.fetch = jest.fn(() =>
   })
 ) as jest.Mock
 
+// Ajoutez ce mock global
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+    back: jest.fn(),
+    forward: jest.fn(),
+  }),
+  usePathname: () => '/',
+  useSearchParams: () => new URLSearchParams(),
+}));
+
 // Mock pour matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

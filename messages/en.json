@@ -67,6 +67,50 @@
     "tabs": {
       "signin": "Sign In",
       "signup": "Sign Up"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "header": {
+        "title": "New Password",
+        "subtitle": "Create a secure password"
+      },
+      "fields": {
+        "newPassword": {
+          "label": "New Password",
+          "placeholder": "Enter your new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm your new password"
+        }
+      },
+      "strength": {
+        "title": "Password Strength",
+        "weak": "Weak",
+        "medium": "Medium",
+        "good": "Good",
+        "excellent": "Excellent"
+      },
+      "criteria": {
+        "title": "Your password must contain:",
+        "minLength": "At least 8 characters",
+        "uppercase": "One uppercase letter",
+        "lowercase": "One lowercase letter",
+        "number": "One number",
+        "special": "One special character"
+      },
+      "validation": {
+        "passwordsMatch": "Passwords match",
+        "passwordsDontMatch": "Passwords don't match"
+      },
+      "button": {
+        "submit": "Reset Password",
+        "loading": "Resetting..."
+      },
+      "footer": {
+        "text": "By resetting your password, you can",
+        "link": "recover your account"
+      }
     }
   },
   "services": {
@@ -230,59 +274,95 @@
   },
   "logoGenerator": {
     "title": "AI Logo Generator",
-    "subtitle": "Create unique logos in just a few clicks",
-    "generationSettings": "Generation Settings",
-    "companyName": "Company name",
-    "companyNameRequired": "Company name *",
-    "companyNamePlaceholder": "Ex: TechCorp",
-    "industry": "Industry",
-    "industryPlaceholder": "Choose an industry",
-    "style": "Logo style",
-    "stylePlaceholder": "Choose a style",
-    "colorPalette": "Color palette",
-    "description": "Description (optional)",
-    "descriptionPlaceholder": "Describe your logo vision...",
-    "generating": "Generating...",
-    "generateLogos": "Generate Logos",
-    "generatedLogos": "Generated Logos",
-    "readyToCreate": "Ready to create your logo?",
-    "fillInformation": "Fill in the information on the left and click \"Generate Logos\" to start.",
-    "yourSettings": "Your settings:",
-    "company": "Company:",
-    "sector": "Sector:",
-    "colors": "Colors:",
-    "tokenLimit": "You have reached your token limit. Upgrade your plan to continue.",
-    "industries": {
-      "technology": "Technology",
-      "health": "Health",
-      "finance": "Finance",
-      "education": "Education",
-      "commerce": "Commerce",
-      "restaurant": "Restaurant",
-      "fashion": "Fashion",
-      "sport": "Sport",
-      "realEstate": "Real Estate",
-      "other": "Other"
+    "subtitle": "Create professional logos in just a few clicks",
+    "form": {
+      "title": "Generation Parameters",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "Ex: TechCorp, MyCompany...",
+      "industry": "Industry",
+      "industryPlaceholder": "Select an industry",
+      "style": "Logo Style",
+      "stylePlaceholder": "Choose a style",
+      "colorPalette": "Color Palette",
+      "colors": "Colors",
+      "description": "Description (optional)",
+      "descriptionPlaceholder": "Describe your logo vision..."
     },
-    "styles": {
-      "modern": "Modern",
-      "minimalist": "Minimalist",
-      "vintage": "Vintage",
-      "professional": "Professional",
-      "creative": "Creative",
-      "elegant": "Elegant",
-      "dynamic": "Dynamic",
-      "classic": "Classic"
+    "preview": {
+      "title": "Preview of Your Selection",
+      "preview": "Preview",
+      "emptyState": {
+        "title": "Your selection will appear here",
+        "subtitle": "Start by entering your company name"
+      }
     },
-    "colorSchemes": {
-      "blueWhite": "Blue and White",
-      "redBlack": "Red and Black",
-      "greenWhite": "Green and White",
-      "purplePink": "Purple and Pink",
-      "blackWhite": "Black and White",
-      "orangeBlue": "Orange and Blue",
-      "custom": "Custom"
-    }
+    "results": {
+      "title": "Generated Logos",
+      "logosGenerated": "{count} logo(s) generated",
+      "noLogos": "No logos available"
+    },
+    "status": {
+      "creatingProject": "Creating project...",
+      "generatingLogos": "Generating logos...",
+      "generatingTime": "This may take a few minutes",
+      "generationInProgress": "Generation in progress...",
+      "generationInProgressDetails": "Logos are being created for project #{projectId}",
+      "generationTime": "This may take 2-5 minutes depending on complexity",
+      "aiProcessing": "AI processing in progress..."
+    },
+    "actions": {
+      "generateLogos": "Generate Logos",
+      "generating": "Generating...",
+      "clearCache": "Clear cache and start over",
+      "checking": "Checking...",
+      "checkNow": "Check Now",
+      "forceRefresh": "Force Refresh"
+    },
+    "errors": {
+      "quotaExceeded": "The logo generation service has reached its daily limit. Please try again in a few hours or tomorrow.",
+      "serverError": "Server error during generation. Please try again in a few minutes.",
+      "generalError": "An error occurred while generating logos. Please try again.",
+      "loadingLogos": "Error loading logos"
+    },
+    "defaultDescription": "Logo for {companyName} in the {industry} sector"
+  },
+  "industries": {
+    "technology": "Technology",
+    "health": "Health",
+    "finance": "Finance",
+    "education": "Education",
+    "commerce": "Commerce",
+    "restaurant": "Restaurant",
+    "fashion": "Fashion",
+    "sport": "Sports",
+    "realEstate": "Real Estate",
+    "other": "Other"
+  },
+  "styles": {
+    "modern": "Modern",
+    "minimalist": "Minimalist",
+    "vintage": "Vintage",
+    "professional": "Professional",
+    "creative": "Creative",
+    "elegant": "Elegant",
+    "dynamic": "Dynamic",
+    "classic": "Classic"
+  },
+  "colors": {
+    "blueWhite": "Blue & White",
+    "redBlack": "Red & Black",
+    "greenWhite": "Green & White",
+    "purplePink": "Purple & Pink",
+    "blackWhite": "Black & White",
+    "orangeBlue": "Orange & Blue",
+    "custom": "Custom"
+  },
+  "commonBranding": {
+    "tokens": "tokens",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "download": "Download",
+    "copyUrl": "Copy URL"
   },
   "colorPicker": {
     "customColors": "Custom colors",
@@ -329,6 +409,7 @@
     "personalInfo": "Personal Information",
     "fullName": "Full name",
     "email": "Email",
+    "phone": "Phone Number",
     "mySubscription": "My Subscription",
     "free": "Free",
     "upgrade": "Upgrade",
@@ -520,6 +601,7 @@
       "personalInfo": "Personal Information",
       "editBasicInfo": "Edit your basic information",
       "fullName": "Full name",
+      "phone": "Phone Number",
       "changePassword": "Change Password",
       "secureAccount": "Update your password to secure your account",
       "currentPassword": "Current password",

@@ -1,4 +1,4 @@
-import { AdminPage } from '@/app/(components)/admin/Admin'
+import { AdminPage } from '@/features/admin/components/Admin'
 import React from 'react'
 
 export default function AdminDash() {

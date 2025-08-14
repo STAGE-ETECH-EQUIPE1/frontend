@@ -2,8 +2,8 @@ import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { setToken } from '@/features/authSlice'
-import authReducer from '@/features/authSlice'
+import { setToken } from '@/store/slice/slice'
+import authReducer from '@/store/slice/slice'
 import SignUp from '@/app/(components)/auth/SignUp'
 import { useSignupMutation } from '@/store/api/authApi'
 import { authApi } from '@/store/api/authApi'
@@ -96,15 +96,6 @@ jest.mock('@/app/(components)/googlebutton/GoogleLoginButton', () => ({
   default: () =>
     React.createElement('div', { 'data-testid': 'mock-google-button' }),
 }))
-
-jest.mock('@/store/api/authApi', () => {
-  const originalModule = jest.requireActual('@/store/api/authApi')
-  return {
-    __esModule: true,
-    ...originalModule,
-    useSignupMutation: jest.fn(),
-  }
-})
 
 describe('SignUp Component', () => {
   const mockDispatch = jest.fn()
