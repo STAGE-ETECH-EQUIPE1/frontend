@@ -27,7 +27,7 @@ export const brandingApi = createApi({
     // Récupérer tous les projets de branding
     getBrandingProjects: builder.query<BrandingProject[], void>({
       query: () => ({
-        url: API_ENDPOINTS.BRANDING.PROJECTS,
+        url: API_ENDPOINTS.BRANDING.PROJECTS_GET,
         method: "GET",
       }),
       providesTags: ["BrandingProject"],

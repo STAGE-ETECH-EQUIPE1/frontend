@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Palette, Zap, Settings, Eye, Trash2, Image } from 'lucide-react'
+import { Palette, Zap, Settings, Eye, Trash2 } from 'lucide-react'
 import {
   useCreateBrandingProjectMutation,
   useGetProjectLogosQuery,
@@ -24,6 +24,7 @@ import {
 import React from 'react'
 import type { Logo } from '../types/branding'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 
 export interface GeneratedLogo {
   id: number
@@ -59,7 +60,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
     colors: '',
     description: '',
   })
-  const [createProject, { isLoading: isGenerating, error: createError }] =
+  const [createProject, { isLoading: isGenerating}] =
     useCreateBrandingProjectMutation()
   const [projectId, setProjectId] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -322,16 +323,25 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
           backendResponse: result,
         })
       )
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error generating logos:', error)
       if (
-        error?.status === 429 ||
-        error?.data?.message?.includes('quota') ||
-        error?.data?.message?.includes('RESOURCE_EXHAUSTED')
+        typeof error === 'object' &&
+        error !== null &&
+        ('status' in error || 'data' in error)
       ) {
-        setErrorMessage(t('errors.quotaExceeded'))
-      } else if (error?.status === 500) {
-        setErrorMessage(t('errors.serverError'))
+        const err = error as { status?: number; data?: { message?: string } }
+        if (
+          err.status === 429 ||
+          err.data?.message?.includes('quota') ||
+          err.data?.message?.includes('RESOURCE_EXHAUSTED')
+        ) {
+          setErrorMessage(t('errors.quotaExceeded'))
+        } else if (err.status === 500) {
+          setErrorMessage(t('errors.serverError'))
+        } else {
+          setErrorMessage(t('errors.generalError'))
+        }
       } else {
         setErrorMessage(t('errors.generalError'))
       }
@@ -496,19 +506,6 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
               </p>
             </div>
           )}
-        </div>
-
-        {/* Bouton de génération dans l'aperçu */}
-        <div className="text-center pt-4 border-t border-slate-200">
-          <Button
-            onClick={handleGenerate}
-            disabled={!canGenerate || isGenerating || !formData.companyName}
-            className="bg-blue-600 hover:bg-blue-700 text-white w-full"
-          >
-            {isGenerating
-              ? t('actions.generating')
-              : t('actions.generateLogos')}
-          </Button>
         </div>
       </div>
     )
@@ -771,9 +768,11 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                             className="flex flex-col items-center p-3 border border-slate-200 rounded-lg hover:border-blue-300 transition-colors"
                           >
                             <div className="w-32 h-32 flex items-center justify-center bg-slate-50 rounded-lg mb-2 relative">
-                              <img
+                              <Image
                                 src={logo.url || '/placeholder.svg'}
                                 alt={logo.name}
+                                width={128}
+                                height={128}
                                 className="max-w-full max-h-full object-contain rounded"
                                 onError={(e) => {
                                   console.error(
@@ -868,7 +867,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                     projectId &&
                     !isGenerating && (
                       <div className="text-center py-8">
-                        {logosData?.totalElements === 0 ? (
+                        {logosData?.data?.length === 0 ? (
                           <div className="space-y-3">
                             <div className="animate-pulse">
                               <Palette className="w-12 h-12 mx-auto mb-3 text-blue-400" />
@@ -907,7 +906,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                                       'Manual refetch result:',
                                       result
                                     )
-                                    if (result.data?.totalElements === 0) {
+                                    if (Array.isArray(result.data?.data) && result.data.data.length === 0) {
                                       console.log(
                                         'Still no logos after manual refetch'
                                       )

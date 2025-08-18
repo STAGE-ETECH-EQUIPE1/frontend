@@ -2,309 +2,245 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { useMediaQuery } from 'usehooks-ts'
+
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import {
   History,
   Search,
   Filter,
-  MoreHorizontal,
-  RefreshCw,
   Calendar,
-  Clock,
-  Palette,
-  Download,
-  Heart,
   Eye,
-  Trash2,
-  Copy,
-  Wand2,
-  TrendingUp,
-  BarChart3,
+  Loader2,
+  ImageIcon,
+  Download,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
+import {
+  useGetBrandingProjectsQuery,
+  useGetProjectLogosQuery,
+} from '../services/brandingApi'
+import type {
+  BrandingProject,
+  Logo as BrandingLogo,
+  ProjectLogosResponse,
+} from '../types/branding'
+import Image from 'next/image'
 
-interface GenerationRecord {
-  id: string
-  timestamp: string
-  companyName: string
-  industry: string
-  style: string
-  colors: string[]
-  colorSchemeName: string
-  description?: string
-  generatedLogos: {
-    id: string
-    url: string
-    downloaded: boolean
-    favorited: boolean
-  }[]
-  tokensUsed: number
-  status: 'completed' | 'failed' | 'in-progress'
-  duration: number // en secondes
-}
+function ProjectLogos({ projectId }: { projectId: number }) {
+  const [start, setStart] = useState(0)
 
-const mockGenerationHistory: GenerationRecord[] = [
-  {
-    id: 'gen-1',
-    timestamp: '2024-01-30T14:30:00Z',
-    companyName: 'TechCorp',
-    industry: 'Technologie',
-    style: 'Moderne',
-    colors: ['#3B82F6', '#FFFFFF', '#1E40AF'],
-    colorSchemeName: 'Bleu et Blanc',
-    description: 'Logo pour une startup tech innovante',
-    generatedLogos: [
-      {
-        id: 'logo-1',
-        url: '/placeholder.svg?height=200&width=200&text=TechCorp1',
-        downloaded: true,
-        favorited: true,
-      },
-      {
-        id: 'logo-2',
-        url: '/placeholder.svg?height=200&width=200&text=TechCorp2',
-        downloaded: false,
-        favorited: false,
-      },
-      {
-        id: 'logo-3',
-        url: '/placeholder.svg?height=200&width=200&text=TechCorp3',
-        downloaded: true,
-        favorited: false,
-      },
-      {
-        id: 'logo-4',
-        url: '/placeholder.svg?height=200&width=200&text=TechCorp4',
-        downloaded: false,
-        favorited: true,
-      },
-    ],
-    tokensUsed: 3,
-    status: 'completed',
-    duration: 45,
-  },
-  {
-    id: 'gen-2',
-    timestamp: '2024-01-29T16:15:00Z',
-    companyName: 'Restaurant Saveurs',
-    industry: 'Restaurant',
-    style: 'Élégant',
-    colors: ['#10B981', '#FFFFFF', '#059669'],
-    colorSchemeName: 'Vert et Blanc',
-    generatedLogos: [
-      {
-        id: 'logo-5',
-        url: '/placeholder.svg?height=200&width=200&text=Saveurs1',
-        downloaded: true,
-        favorited: false,
-      },
-      {
-        id: 'logo-6',
-        url: '/placeholder.svg?height=200&width=200&text=Saveurs2',
-        downloaded: false,
-        favorited: true,
-      },
-      {
-        id: 'logo-7',
-        url: '/placeholder.svg?height=200&width=200&text=Saveurs3',
-        downloaded: false,
-        favorited: false,
-      },
-      {
-        id: 'logo-8',
-        url: '/placeholder.svg?height=200&width=200&text=Saveurs4',
-        downloaded: true,
-        favorited: false,
-      },
-    ],
-    tokensUsed: 3,
-    status: 'completed',
-    duration: 38,
-  },
-  {
-    id: 'gen-3',
-    timestamp: '2024-01-28T10:45:00Z',
-    companyName: 'Fitness Pro',
-    industry: 'Sport',
-    style: 'Dynamique',
-    colors: ['#EF4444', '#000000', '#DC2626'],
-    colorSchemeName: 'Rouge et Noir',
-    description: 'Logo énergique pour salle de sport',
-    generatedLogos: [
-      {
-        id: 'logo-9',
-        url: '/placeholder.svg?height=200&width=200&text=FitnessPro1',
-        downloaded: true,
-        favorited: true,
-      },
-      {
-        id: 'logo-10',
-        url: '/placeholder.svg?height=200&width=200&text=FitnessPro2',
-        downloaded: false,
-        favorited: false,
-      },
-      {
-        id: 'logo-11',
-        url: '/placeholder.svg?height=200&width=200&text=FitnessPro3',
-        downloaded: true,
-        favorited: true,
-      },
-      {
-        id: 'logo-12',
-        url: '/placeholder.svg?height=200&width=200&text=FitnessPro4',
-        downloaded: false,
-        favorited: false,
-      },
-    ],
-    tokensUsed: 3,
-    status: 'completed',
-    duration: 52,
-  },
-  {
-    id: 'gen-4',
-    timestamp: '2024-01-27T09:20:00Z',
-    companyName: 'EcoVert',
-    industry: 'Environnement',
-    style: 'Minimaliste',
-    colors: ['#10B981', '#FFFFFF'],
-    colorSchemeName: 'Personnalisé',
-    generatedLogos: [
-      {
-        id: 'logo-13',
-        url: '/placeholder.svg?height=200&width=200&text=EcoVert1',
-        downloaded: false,
-        favorited: false,
-      },
-      {
-        id: 'logo-14',
-        url: '/placeholder.svg?height=200&width=200&text=EcoVert2',
-        downloaded: true,
-        favorited: false,
-      },
-    ],
-    tokensUsed: 2,
-    status: 'failed',
-    duration: 15,
-  },
-]
+  const {
+    data: logosResp,
+    isLoading,
+    error,
+  } = useGetProjectLogosQuery(String(projectId))
 
-export function GenerationHistory() {
-  const t = useTranslations('generationHistory')
-  const tCommon = useTranslations('common')
-  const [history, setHistory] = useState<GenerationRecord[]>(
-    mockGenerationHistory
+  const logos: BrandingLogo[] = Array.isArray(
+    (logosResp as ProjectLogosResponse)?.data
   )
-  const [searchQuery, setSearchQuery] = useState('')
-  const [filterStatus, setFilterStatus] = useState<string>('all')
-  const [filterPeriod, setFilterPeriod] = useState<string>('all')
-  const [selectedGeneration, setSelectedGeneration] =
-    useState<GenerationRecord | null>(null)
+    ? (logosResp as ProjectLogosResponse).data
+    : []
 
-  const filteredHistory = history.filter((record) => {
-    const matchesSearch =
-      record.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      record.industry.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      record.style.toLowerCase().includes(searchQuery.toLowerCase())
+  const isSm = useMediaQuery('(max-width: 640px)')
+  const isMd = useMediaQuery('(max-width: 1024px)')
 
-    const matchesStatus =
-      filterStatus === 'all' || record.status === filterStatus
+  const VISIBLE = isSm ? 1 : isMd ? 2 : 4
 
-    let matchesPeriod = true
-    if (filterPeriod !== 'all') {
-      const recordDate = new Date(record.timestamp)
-      const now = new Date()
-      const daysDiff = Math.floor(
-        (now.getTime() - recordDate.getTime()) / (1000 * 60 * 60 * 24)
-      )
+  const total = logos.length
+  const visible = Array.from(
+    { length: Math.min(VISIBLE, total) },
+    (_, i) => logos[(start + i) % total]
+  )
 
-      switch (filterPeriod) {
-        case 'today':
-          matchesPeriod = daysDiff === 0
-          break
-        case 'week':
-          matchesPeriod = daysDiff <= 7
-          break
-        case 'month':
-          matchesPeriod = daysDiff <= 30
-          break
+  const prev = () => setStart((s) => (s - 1 + total) % total)
+  const next = () => setStart((s) => (s + 1) % total)
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center gap-2">
+        <Loader2 className="w-4 h-4 animate-spin" />
+        <span className="text-xs text-slate-400">Chargement...</span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="text-xs text-slate-400 italic">Erreur de chargement</div>
+    )
+  }
+
+  if (logos.length === 0) {
+    return (
+      <div className="text-xs text-slate-400 italic">Aucun logo généré</div>
+    )
+  }
+
+  const getImageUrl = (
+    logo: BrandingLogo &
+      Partial<
+        Record<
+          | 'imageUrl'
+          | 'image_url'
+          | 'logoUrl'
+          | 'image'
+          | 'file_path'
+          | 'path'
+          | 'assertUrl',
+          string
+        >
+      >
+  ) => {
+    const rawUrl =
+      logo.imageUrl ||
+      logo.image_url ||
+      logo.assertUrl ||
+      logo.logoUrl ||
+      logo.image ||
+      logo.file_path ||
+      logo.path
+
+    if (!rawUrl) {
+      return null
+    }
+
+    if (rawUrl.startsWith('http')) {
+      return rawUrl
+    }
+
+    const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/+$/, '')
+    if (apiBase) {
+      try {
+        const api = new URL(apiBase)
+        const origin = `${api.protocol}//${api.host}`
+        const withLeadingSlash = rawUrl.startsWith('/') ? rawUrl : `/${rawUrl}`
+        const publicIdx = withLeadingSlash.indexOf('/public/')
+        if (publicIdx !== -1) {
+          const withoutPublic = withLeadingSlash.replace(/^\/public\//, '/')
+          return `${origin}${withoutPublic}`
+        }
+        if (withLeadingSlash.startsWith('/api/')) {
+          return `${origin}${withLeadingSlash}`
+        }
+        return `${apiBase}${withLeadingSlash}`
+      } catch {
+        return null
       }
     }
+    return rawUrl
+  }
 
-    return matchesSearch && matchesStatus && matchesPeriod
+  return (
+    <div className="relative w-full">
+      {total > VISIBLE && (
+        <>
+          <Button
+            size="icon"
+            variant="secondary"
+            className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full shadow z-10"
+            onClick={prev}
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </Button>
+          <Button
+            size="icon"
+            variant="secondary"
+            className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full shadow z-10"
+            onClick={next}
+          >
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </>
+      )}
+
+      {/* Logos */}
+      <div className="flex gap-3 overflow-hidden justify-center px-10">
+        {visible.map((logo: BrandingLogo) => {
+          const imageUrl = getImageUrl(logo)
+
+          return (
+            <div
+              key={logo.id}
+              className="relative group cursor-pointer flex-shrink-0"
+              title={`Logo ${logo.id}`}
+            >
+              <a
+                href={imageUrl || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={imageUrl || '/placeholder.svg'}
+                  alt={`Logo ${logo.id}`}
+                  width={128}
+                  height={128}
+                  unoptimized
+                  className="w-32 h-32 rounded-2xl border border-slate-200 object-cover hover:border-blue-300 transition-colors"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href={imageUrl || undefined}
+                download
+                className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                title="Télécharger"
+              >
+                <Button
+                  size="icon"
+                  variant="secondary"
+                  className="rounded-full shadow"
+                >
+                  <Download className="w-4 h-4" />
+                </Button>
+              </a>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function GenerationHistory() {
+  const { data: projectsRaw, isLoading } = useGetBrandingProjectsQuery()
+  const projects: BrandingProject[] = Array.isArray(projectsRaw)
+    ? projectsRaw
+    : ((projectsRaw as unknown as { data?: BrandingProject[] })?.data ?? [])
+
+  const [selectedProject, setSelectedProject] =
+    useState<BrandingProject | null>(null)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const filteredProjects = projects.filter((p) => {
+    const q = searchQuery.toLowerCase()
+    return (
+      (p.description || '').toLowerCase().includes(q) ||
+      (p.slogan || '').toLowerCase().includes(q) ||
+      (p.id ? String(p.id) : '').toLowerCase().includes(q)
+    )
   })
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'bg-green-100 text-green-700 border-green-200'
-      case 'failed':
-        return 'bg-red-100 text-red-700 border-red-200'
-      case 'in-progress':
-        return 'bg-blue-100 text-blue-700 border-blue-200'
-      default:
-        return 'bg-gray-100 text-gray-700 border-gray-200'
-    }
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
   }
-
-  const getStatusText = (status: string) => {
-    return t(`status.${status}`)
-  }
-
-  const regenerateWithSameParams = (record: GenerationRecord) => {
-    console.log('Régénération avec les paramètres:', record)
-    // Ici, vous pourriez appeler votre fonction de génération avec les mêmes paramètres
-  }
-
-  const copyParameters = (record: GenerationRecord) => {
-    const params = {
-      companyName: record.companyName,
-      industry: record.industry,
-      style: record.style,
-      colors: record.colorSchemeName,
-      description: record.description || '',
-    }
-    navigator.clipboard.writeText(JSON.stringify(params, null, 2))
-  }
-
-  // Statistiques
-  const totalGenerations = history.length
-  const successfulGenerations = history.filter(
-    (r) => r.status === 'completed'
-  ).length
-  const totalTokensUsed = history.reduce(
-    (sum, record) => sum + record.tokensUsed,
-    0
-  )
-  const averageDuration = Math.round(
-    history
-      .filter((r) => r.status === 'completed')
-      .reduce((sum, record) => sum + record.duration, 0) / successfulGenerations
-  )
 
   return (
     <motion.div
@@ -317,76 +253,18 @@ export function GenerationHistory() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
-            {t('title')}
+            Projets de Branding
           </h2>
-          <p className="text-slate-600">{t('subtitle')}</p>
+          <p className="text-slate-600">
+            Gérez tous vos projets et leurs logos
+          </p>
         </div>
         <div className="flex items-center gap-4">
           <Badge className="bg-blue-100 text-blue-700 border-blue-200">
             <History className="w-3 h-3 mr-1" />
-            {filteredHistory.length}{' '}
-            {filteredHistory.length > 1 ? t('generations') : t('generation')}
+            {filteredProjects.length} projets
           </Badge>
         </div>
-      </div>
-
-      {/* Statistiques */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          {
-            label: t('totalGenerations'),
-            value: totalGenerations,
-            icon: BarChart3,
-            color: 'text-blue-500',
-            bg: 'bg-blue-50',
-          },
-          {
-            label: t('successful'),
-            value: successfulGenerations,
-            icon: TrendingUp,
-            color: 'text-green-500',
-            bg: 'bg-green-50',
-          },
-          {
-            label: t('tokensUsed'),
-            value: totalTokensUsed,
-            icon: Palette,
-            color: 'text-purple-500',
-            bg: 'bg-purple-50',
-          },
-          {
-            label: t('averageDuration'),
-            value: `${averageDuration}s`,
-            icon: Clock,
-            color: 'text-orange-500',
-            bg: 'bg-orange-50',
-          },
-        ].map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <Card className="bg-white border-slate-200 shadow-sm">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`w-10 h-10 rounded-lg ${stat.bg} flex items-center justify-center`}
-                  >
-                    <stat.icon className={`w-5 h-5 ${stat.color}`} />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-600">{stat.label}</p>
-                    <p className={`text-xl font-bold ${stat.color}`}>
-                      {stat.value}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
       </div>
 
       {/* Filtres */}
@@ -394,7 +272,7 @@ export function GenerationHistory() {
         <CardHeader>
           <CardTitle className="text-blue-600 flex items-center gap-2">
             <Filter className="w-5 h-5" />
-            {t('filters')}
+            Filtres
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -403,319 +281,129 @@ export function GenerationHistory() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input
-                  placeholder={t('searchPlaceholder')}
+                  placeholder="Rechercher par description, slogan ou ID..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 bg-slate-50 border-slate-200"
                 />
               </div>
             </div>
-            <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-48 bg-slate-50 border-slate-200">
-                <SelectValue placeholder={t('allStatuses')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('allStatuses')}</SelectItem>
-                <SelectItem value="completed">{t('completed')}</SelectItem>
-                <SelectItem value="failed">{t('failed')}</SelectItem>
-                <SelectItem value="in-progress">{t('inProgress')}</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={filterPeriod} onValueChange={setFilterPeriod}>
-              <SelectTrigger className="w-48 bg-slate-50 border-slate-200">
-                <SelectValue placeholder={t('allPeriods')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t('allPeriods')}</SelectItem>
-                <SelectItem value="today">{t('today')}</SelectItem>
-                <SelectItem value="week">{t('thisWeek')}</SelectItem>
-                <SelectItem value="month">{t('thisMonth')}</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
         </CardContent>
       </Card>
 
-      {/* Liste des générations */}
-      <div className="space-y-4">
-        <AnimatePresence>
-          {filteredHistory.map((record, index) => (
-            <motion.div
-              key={record.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-            >
-              <Card className="bg-white border-slate-200 hover:border-blue-300 transition-all duration-300 shadow-sm hover:shadow-md">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-slate-800">
-                          {record.companyName}
-                        </h3>
-                        <Badge className={getStatusColor(record.status)}>
-                          {getStatusText(record.status)}
-                        </Badge>
-                        <Badge variant="outline" className="text-xs">
-                          {record.tokensUsed}{' '}
-                          {record.tokensUsed > 1 ? 'tokens' : 'token'}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-slate-600 mb-3">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {new Date(record.timestamp).toLocaleDateString(
-                            'fr-FR',
-                            {
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric',
-                            }
-                          )}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {new Date(record.timestamp).toLocaleTimeString(
-                            'fr-FR',
-                            {
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            }
-                          )}
-                        </span>
-                        {record.status === 'completed' && (
-                          <span className="flex items-center gap-1">
-                            <TrendingUp className="w-4 h-4" />
-                            {record.duration}s
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        <Badge variant="outline">{record.industry}</Badge>
-                        <Badge variant="outline">{record.style}</Badge>
-                        <div className="flex items-center gap-1">
-                          <span className="text-xs text-slate-600">
-                            {record.colorSchemeName}:
-                          </span>
-                          <div className="flex">
-                            {record.colors.slice(0, 3).map((color, index) => (
-                              <div
-                                key={index}
-                                className="w-4 h-4 rounded-full border border-white -ml-1 first:ml-0"
-                                style={{ backgroundColor: color }}
-                              />
-                            ))}
+      {/* Loading State */}
+      {isLoading && (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+          <span className="ml-2 text-slate-600">Chargement...</span>
+        </div>
+      )}
+
+      {!isLoading && (
+        <div className="grid grid-cols-1 gap-6">
+          <AnimatePresence>
+            {filteredProjects.map((project, index) => {
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.6, delay: index * 0.05 }}
+                >
+                  <Card className="bg-white border-slate-200 hover:border-blue-300 transition-all duration-300 shadow-sm hover:shadow-md">
+                    <CardContent className="p-6">
+                      <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1fr] md:items-start md:gap-8">
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-lg font-semibold text-slate-700">
+                              Projet #{project.id}
+                            </span>
+                          </div>
+
+                          <div className="text-sm text-slate-600">
+                            <p className="line-clamp-3">
+                              {project.description}
+                            </p>
+                          </div>
+
+                          <div className="text-xs text-slate-500 space-y-2">
+                            {project.createdAt && (
+                              <div className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                Créé: {formatDate(project.createdAt)}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="pt-4 border-t">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                setSelectedProject(project)
+                                setIsDialogOpen(true)
+                              }}
+                            >
+                              <Eye className="w-4 h-4 mr-1" />
+                              Voir détails
+                            </Button>
                           </div>
                         </div>
-                      </div>
-                      {record.description && (
-                        <p className="text-sm text-slate-600 italic">
-                          {record.description}
-                        </p>
-                      )}
-                    </div>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem
-                          onClick={() => regenerateWithSameParams(record)}
-                        >
-                          <RefreshCw className="w-4 h-4 mr-2" />
-                          {tCommon('regenerate')}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => copyParameters(record)}
-                        >
-                          <Copy className="w-4 h-4 mr-2" />
-                          {t('copyParameters')}
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-red-600">
-                          <Trash2 className="w-4 h-4 mr-2" />
-                          {tCommon('delete')}
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
 
-                  {/* Logos générés */}
-                  {record.status === 'completed' &&
-                    record.generatedLogos.length > 0 && (
-                      <div className="border-t pt-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <h4 className="font-medium text-slate-800">
-                            {t('logosGenerated')} (
-                            {record.generatedLogos.length})
-                          </h4>
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => setSelectedGeneration(record)}
-                              >
-                                <Eye className="w-4 h-4 mr-2" />
-                                {t('viewAll')}
-                              </Button>
-                            </DialogTrigger>
-                            <DialogContent className="max-w-4xl">
-                              <DialogHeader>
-                                <DialogTitle className="text-blue-600">
-                                  {t('logosGenerated')} - {record.companyName}
-                                </DialogTitle>
-                                <DialogDescription>
-                                  {t('generatedOn')}{' '}
-                                  {new Date(
-                                    record.timestamp
-                                  ).toLocaleDateString('fr-FR')}
-                                </DialogDescription>
-                              </DialogHeader>
-                              {selectedGeneration && (
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                  {selectedGeneration.generatedLogos.map(
-                                    (logo) => (
-                                      <div
-                                        key={logo.id}
-                                        className="group relative"
-                                      >
-                                        <div className="aspect-square bg-slate-50 rounded-lg p-4 mb-2">
-                                          <img
-                                            src={logo.url || '/placeholder.svg'}
-                                            alt={`Logo ${logo.id}`}
-                                            className="w-full h-full object-contain"
-                                          />
-                                        </div>
-                                        <div className="flex items-center justify-center gap-2">
-                                          <Button
-                                            size="sm"
-                                            variant="ghost"
-                                            className={
-                                              logo.favorited
-                                                ? 'text-red-500'
-                                                : ''
-                                            }
-                                          >
-                                            <Heart
-                                              className={`w-4 h-4 ${logo.favorited ? 'fill-red-500' : ''}`}
-                                            />
-                                          </Button>
-                                          <Button
-                                            size="sm"
-                                            variant="ghost"
-                                            className={
-                                              logo.downloaded
-                                                ? 'text-green-500'
-                                                : ''
-                                            }
-                                          >
-                                            <Download className="w-4 h-4" />
-                                          </Button>
-                                        </div>
-                                      </div>
-                                    )
-                                  )}
-                                </div>
-                              )}
-                            </DialogContent>
-                          </Dialog>
-                        </div>
-                        <div className="grid grid-cols-4 gap-2">
-                          {record.generatedLogos.slice(0, 4).map((logo) => (
-                            <div key={logo.id} className="group relative">
-                              <div className="aspect-square bg-slate-50 rounded-lg p-2">
-                                <img
-                                  src={logo.url || '/placeholder.svg'}
-                                  alt={`Logo ${logo.id}`}
-                                  className="w-full h-full object-contain"
-                                />
-                              </div>
-                              <div className="absolute top-1 right-1 flex gap-1">
-                                {logo.favorited && (
-                                  <div className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                                    <Heart className="w-2 h-2 text-white fill-white" />
-                                  </div>
-                                )}
-                                {logo.downloaded && (
-                                  <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                                    <Download className="w-2 h-2 text-white" />
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          ))}
+                        <div className="space-y-2 md:justify-self-end w-full">
+                          <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                            <ImageIcon className="w-4 h-4" />
+                            Logos
+                          </div>
+                          <ProjectLogos projectId={Number(project.id)} />
                         </div>
                       </div>
-                    )}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </div>
+      )}
 
-                  {/* Actions rapides */}
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t">
-                    <div className="flex items-center gap-2">
-                      {record.status === 'completed' && (
-                        <>
-                          <span className="text-sm text-slate-600">
-                            {
-                              record.generatedLogos.filter((l) => l.downloaded)
-                                .length
-                            }{' '}
-                            {t('downloaded')}
-                            {record.generatedLogos.filter((l) => l.downloaded)
-                              .length > 1
-                              ? 's'
-                              : ''}
-                          </span>
-                          <span className="text-slate-300">•</span>
-                          <span className="text-sm text-slate-600">
-                            {
-                              record.generatedLogos.filter((l) => l.favorited)
-                                .length
-                            }{' '}
-                            {t('favorited')}
-                            {record.generatedLogos.filter((l) => l.favorited)
-                              .length > 1
-                              ? 's'
-                              : ''}
-                          </span>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => regenerateWithSameParams(record)}
-                        disabled={record.status !== 'completed'}
-                      >
-                        <Wand2 className="w-4 h-4 mr-2" />
-                        {tCommon('regenerate')}
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {filteredHistory.length === 0 && (
+      {!isLoading && filteredProjects.length === 0 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center py-12"
         >
           <History className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <div className="text-slate-600 text-lg">{t('noGenerationFound')}</div>
+          <div className="text-slate-600 text-lg">Aucun projet trouvé</div>
           <p className="text-sm text-slate-500 mt-2">
-            {t('noGenerationFoundDesc')}
+            Créez votre premier projet de branding pour commencer
           </p>
         </motion.div>
       )}
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-blue-600">
+              Projet #{selectedProject?.id}
+            </DialogTitle>
+            <DialogDescription>
+              {selectedProject?.createdAt &&
+                formatDate(selectedProject.createdAt)}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedProject && (
+            <div className="space-y-4">
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="font-semibold mb-2">Description</h3>
+                <p className="text-slate-600">{selectedProject.description}</p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </motion.div>
   )
 }

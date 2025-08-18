@@ -61,7 +61,6 @@ export default function UserDashboard() {
   const [activeTab, setActiveTab] = useState('generate')
   const { user, loading } = useAuth()
   const router = useRouter()
-
   useEffect(() => {
     if (!loading && (!user || !user.roles.includes('ROLE_USER'))) {
       router.push('/')
@@ -102,6 +101,7 @@ export default function UserDashboard() {
         return <UserProfile />
       case 'history':
         return <GenerationHistory />
+
       case 'settings':
         return (
           <div className="flex items-center justify-center h-96">
