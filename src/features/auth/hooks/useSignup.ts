@@ -1,4 +1,4 @@
-import { useSignupMutation } from '../services/authApi' 
+import { useSignupMutation } from '../services/authApi'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signupSchema, SignupFormData } from '../schema/signupSchema'

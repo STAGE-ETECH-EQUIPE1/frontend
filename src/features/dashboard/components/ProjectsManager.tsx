@@ -37,6 +37,7 @@ import {
   Trash2,
   FolderOpen,
 } from 'lucide-react'
+import Image from 'next/image'
 
 interface Project {
   id: string
@@ -312,7 +313,7 @@ export function ProjectsManager() {
                 <CardContent className="space-y-4">
                   {/* Logo Preview */}
                   <div className="aspect-square bg-slate-50 rounded-lg overflow-hidden p-4">
-                    <img
+                    <Image
                       src={project.logoUrl || '/placeholder.svg'}
                       alt={project.name}
                       className="w-full h-full object-contain"
@@ -383,7 +384,7 @@ export function ProjectsManager() {
                           <div className="space-y-6">
                             {/* Logo Preview */}
                             <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
-                              <img
+                              <Image
                                 src={
                                   selectedProject.logoUrl || '/placeholder.svg'
                                 }

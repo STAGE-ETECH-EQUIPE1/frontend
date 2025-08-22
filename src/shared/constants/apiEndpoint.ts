@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
     ME: 'client/me',
   },
   BRANDING: {
-    PROJECTS: "/branding-project",
-    PROJECT_LOGOS: (id: string) => `/branding-project/${id}/logos`
+    PROJECTS: '/branding-project',
+    PROJECT_LOGOS: (id: string) => `/branding-project/${id}/logos`,
   },
-} as const;
+} as const

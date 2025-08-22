@@ -16,7 +16,7 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(userApi.middleware)
-      .concat(brandingApi.middleware),   
+      .concat(brandingApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

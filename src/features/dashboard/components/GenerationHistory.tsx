@@ -47,6 +47,7 @@ import {
   TrendingUp,
   BarChart3,
 } from 'lucide-react'
+import Image from 'next/image'
 
 interface GenerationRecord {
   id: string
@@ -216,9 +217,7 @@ const mockGenerationHistory: GenerationRecord[] = [
 export function GenerationHistory() {
   const t = useTranslations('generationHistory')
   const tCommon = useTranslations('common')
-  const [history, setHistory] = useState<GenerationRecord[]>(
-    mockGenerationHistory
-  )
+  const [history] = useState<GenerationRecord[]>(mockGenerationHistory)
   const [searchQuery, setSearchQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<string>('all')
   const [filterPeriod, setFilterPeriod] = useState<string>('all')
@@ -585,7 +584,7 @@ export function GenerationHistory() {
                                         className="group relative"
                                       >
                                         <div className="aspect-square bg-slate-50 rounded-lg p-4 mb-2">
-                                          <img
+                                          <Image
                                             src={logo.url || '/placeholder.svg'}
                                             alt={`Logo ${logo.id}`}
                                             className="w-full h-full object-contain"
@@ -629,7 +628,7 @@ export function GenerationHistory() {
                           {record.generatedLogos.slice(0, 4).map((logo) => (
                             <div key={logo.id} className="group relative">
                               <div className="aspect-square bg-slate-50 rounded-lg p-2">
-                                <img
+                                <Image
                                   src={logo.url || '/placeholder.svg'}
                                   alt={`Logo ${logo.id}`}
                                   className="w-full h-full object-contain"

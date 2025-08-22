@@ -1,7 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQuery } from '@/shared/api/baseQuery';
-import { AuthResponse, GoogleAuthRequest, LoginRequest, SignupRequest } from '../types/auth';
-import { API_ENDPOINTS } from '@/shared/constants/apiEndpoint';
+import { baseQuery } from '@/shared/api/baseQuery'
+import {
+  AuthResponse,
+  GoogleAuthRequest,
+  LoginRequest,
+  SignupRequest,
+} from '../types/auth'
+import { API_ENDPOINTS } from '@/shared/constants/apiEndpoint'
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery,
@@ -37,15 +42,23 @@ export const authApi = createApi({
         body: { email },
       }),
     }),
-    resetPassword: builder.mutation<void, { token: string; newPassword: string; confirmPassword: string }>({
+    resetPassword: builder.mutation<
+      void,
+      { token: string; newPassword: string; confirmPassword: string }
+    >({
       query: ({ token, newPassword, confirmPassword }) => ({
         url: API_ENDPOINTS.AUTH.RESET_PASSWORD(token),
         method: 'POST',
-        body: {currentPassword: token, newPassword, confirmPassword },
+        body: { currentPassword: token, newPassword, confirmPassword },
       }),
     }),
-}),
+  }),
 })
 
-export const { useSignupMutation, useLoginMutation, useGoogleAuthMutation, useResetPasswordMutation, useForgotPasswordMutation } =
-  authApi
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useGoogleAuthMutation,
+  useResetPasswordMutation,
+  useForgotPasswordMutation,
+} = authApi

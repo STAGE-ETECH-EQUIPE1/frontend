@@ -37,6 +37,7 @@ import {
   Trash2,
 } from 'lucide-react'
 import type { LogoFeedback } from '@/features/admin/types/admin'
+import Image from 'next/image'
 
 interface FeedbackManagementProps {
   feedbacks: LogoFeedback[]
@@ -310,7 +311,7 @@ export function FeedbackManagement({
                       {/* Logo Preview */}
                       <div className="flex-shrink-0">
                         <div className="w-16 h-16 bg-slate-100 rounded-lg overflow-hidden">
-                          <img
+                          <Image
                             src={feedback.logoUrl || '/placeholder.svg'}
                             alt={feedback.logoName}
                             className="w-full h-full object-contain"
@@ -483,7 +484,7 @@ export function FeedbackManagement({
             <div className="space-y-6">
               <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
                 <div className="w-20 h-20 bg-white rounded-lg overflow-hidden shadow-sm">
-                  <img
+                  <Image
                     src={selectedFeedback.logoUrl || '/placeholder.svg'}
                     alt={selectedFeedback.logoName}
                     className="w-full h-full object-contain"
@@ -580,7 +581,7 @@ export function FeedbackManagement({
             </DialogTitle>
             <DialogDescription>
               {tCommon('reply')} à {responseDialog.feedback?.userName}{' '}
-              {t('concerning')} "{responseDialog.feedback?.logoName}"
+              {t('concerning')} {responseDialog.feedback?.logoName}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -595,7 +596,7 @@ export function FeedbackManagement({
                   </span>
                 </div>
                 <p className="text-sm text-slate-700 italic">
-                  "{responseDialog.feedback.comment}"
+                  {responseDialog.feedback.comment}
                 </p>
               </div>
             )}

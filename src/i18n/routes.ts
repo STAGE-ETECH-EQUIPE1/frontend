@@ -1,12 +1,14 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'
 import { useRouter } from 'next/navigation'
-
 
 type DecodedToken = {
   roles: string[]
 }
 
-export function redirectAccordingToRole(token: string, router: ReturnType<typeof useRouter>) {
+export function redirectAccordingToRole(
+  token: string,
+  router: ReturnType<typeof useRouter>
+) {
   if (!token || typeof token !== 'string') {
     console.error('Token invalide fourni à redirectAccordingToRole:', token)
     return

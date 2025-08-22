@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {jwtDecode} from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import { getToken } from '../../../shared/utils/localStorage'
 import { DecodedToken } from '../types/auth'
 

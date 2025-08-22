@@ -13,9 +13,8 @@ export interface LoginRequest {
 }
 
 export interface AuthResponse {
-  token: string,
+  token: string
   roles: ('ROLE_ADMIN' | 'ROLE_CLIENT' | 'ROLE_USER')[]
-
 }
 
 export interface GoogleAuthRequest {
@@ -34,4 +33,3 @@ export interface DecodedToken {
   exp: number
   sub: string
 }
-

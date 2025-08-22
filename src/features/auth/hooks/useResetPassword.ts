@@ -1,12 +1,15 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useResetPasswordMutation } from '../services/authApi'
-import { ResetPasswordFormData, resetPasswordSchema } from '../schema/resetPasswordSchema'
+import {
+  ResetPasswordFormData,
+  resetPasswordSchema,
+} from '../schema/resetPasswordSchema'
 import toast from 'react-hot-toast'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 export const useResetPasswordForm = (tokenParam?: string) => {
-  const router = useRouter() 
+  const router = useRouter()
   const searchParams = useSearchParams()
   const token = tokenParam || searchParams.get('token') || ''
   const [resetPassword, { isLoading }] = useResetPasswordMutation()
@@ -20,7 +23,6 @@ export const useResetPasswordForm = (tokenParam?: string) => {
   })
 
   const onSubmit = async (data: ResetPasswordFormData) => {
-     
     try {
       await resetPassword({
         token,
