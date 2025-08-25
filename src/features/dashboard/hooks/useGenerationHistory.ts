@@ -1,19 +1,24 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import { useGetGenerationHistoryQuery } from "../services/generationHistoryApi"
-import { skipToken } from "@reduxjs/toolkit/query"
+import { useState, useMemo } from 'react'
+import { useGetGenerationHistoryQuery } from '../services/generationHistoryApi'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 interface UseGenerationHistoryProps {
   projectId?: number | null
   initialSize?: number
 }
 
-export function useGenerationHistory({ projectId, initialSize = 20 }: UseGenerationHistoryProps) {
+export function useGenerationHistory({
+  projectId,
+  initialSize = 20,
+}: UseGenerationHistoryProps) {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(initialSize)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "inactive">("all")
+  const [searchQuery, setSearchQuery] = useState('')
+  const [statusFilter, setStatusFilter] = useState<
+    'all' | 'active' | 'inactive'
+  >('all')
 
   const {
     data: response,
@@ -21,9 +26,7 @@ export function useGenerationHistory({ projectId, initialSize = 20 }: UseGenerat
     error,
     refetch,
   } = useGetGenerationHistoryQuery(
-    projectId
-      ? { id: projectId, size: pageSize, page: currentPage }
-      : skipToken
+    projectId ? { id: projectId, size: pageSize, page: currentPage } : skipToken
   )
 
   // Filtrage local des logos selon status et recherche
@@ -34,10 +37,10 @@ export function useGenerationHistory({ projectId, initialSize = 20 }: UseGenerat
 
     let filtered = response.logos
 
-    if (statusFilter !== "all") {
+    if (statusFilter !== 'all') {
       filtered = filtered.filter((logo) => {
         if (!logo) return false
-        return logo.approved === (statusFilter === "active")
+        return logo.approved === (statusFilter === 'active')
       })
     }
 
@@ -58,7 +61,7 @@ export function useGenerationHistory({ projectId, initialSize = 20 }: UseGenerat
       totalPages: response?.totalPages || 1,
       totalElements: response?.total || 0,
     }),
-    [response],
+    [response]
   )
 
   const goToPage = (page: number) => setCurrentPage(page)

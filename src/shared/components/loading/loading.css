@@ -17,7 +17,9 @@
   width: 1em;
   background-color: rgb(107, 132, 154);
   margin-right: 20px;
-  animation: fade 3s ease 1, rotate 1s ease 2s infinite;
+  animation:
+    fade 3s ease 1,
+    rotate 1s ease 2s infinite;
   filter: drop-shadow(0 0 15px #03bcf4);
 }
 

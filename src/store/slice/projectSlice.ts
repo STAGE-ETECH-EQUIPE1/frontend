@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface ProjectState {
   selectedProjectId: number | null
@@ -11,15 +11,18 @@ const initialState: ProjectState = {
 }
 
 const projectSlice = createSlice({
-  name: "project",
+  name: 'project',
   initialState,
   reducers: {
-    setSelectedProject: (state, action: PayloadAction<{ id: number; name?: string }>) => {
+    setSelectedProject: (
+      state,
+      action: PayloadAction<{ id: number; name?: string }>
+    ) => {
       if (action.payload.id && action.payload.id > 0) {
         state.selectedProjectId = action.payload.id
         state.projectName = action.payload.name || null
       } else {
-        console.warn("Attempted to set invalid project ID:", action.payload.id)
+        console.warn('Attempted to set invalid project ID:', action.payload.id)
       }
     },
     clearSelectedProject: (state) => {

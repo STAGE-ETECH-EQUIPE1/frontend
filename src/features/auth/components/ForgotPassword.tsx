@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
-import { useForgotPasswordMutation } from '../services/authApi' 
+import { useForgotPasswordMutation } from '../services/authApi'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')

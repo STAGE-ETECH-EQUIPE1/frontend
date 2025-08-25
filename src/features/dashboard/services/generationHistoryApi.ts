@@ -1,23 +1,29 @@
-import { createApi } from "@reduxjs/toolkit/query/react"
-import { baseQuery } from "@/shared/api/baseQuery"
-import { API_ENDPOINTS } from "@/shared/constants/apiEndpoint"
-import type { GenerationHistoryResponse, GenerationHistoryParams } from "../types/generationHistory"
-import type { BrandingProject } from "../types/branding"
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQuery } from '@/shared/api/baseQuery'
+import { API_ENDPOINTS } from '@/shared/constants/apiEndpoint'
+import type {
+  GenerationHistoryResponse,
+  GenerationHistoryParams,
+} from '../types/generationHistory'
+import type { BrandingProject } from '../types/branding'
 
 export const generationHistoryApi = createApi({
-  reducerPath: "generationHistoryApi",
+  reducerPath: 'generationHistoryApi',
   baseQuery,
-  tagTypes: ["GenerationHistory", "BrandingProject"],
+  tagTypes: ['GenerationHistory', 'BrandingProject'],
   endpoints: (builder) => ({
-    getGenerationHistory: builder.query<GenerationHistoryResponse, GenerationHistoryParams>({
+    getGenerationHistory: builder.query<
+      GenerationHistoryResponse,
+      GenerationHistoryParams
+    >({
       query: ({ id, size = 10, page = 1 }: GenerationHistoryParams) => ({
         url: API_ENDPOINTS.BRANDING.PROJECT_LOGOS(String(id)),
-        method: "GET",
+        method: 'GET',
         params: { size, page },
       }),
       providesTags: (result, error, { id }) => [
-        { type: "GenerationHistory", id },
-        "GenerationHistory",
+        { type: 'GenerationHistory', id },
+        'GenerationHistory',
       ],
     }),
 
@@ -25,19 +31,19 @@ export const generationHistoryApi = createApi({
     getBrandingProjects: builder.query<BrandingProject[], void>({
       query: () => ({
         url: API_ENDPOINTS.BRANDING.PROJECTS_GET,
-        method: "GET",
+        method: 'GET',
       }),
-      providesTags: ["BrandingProject"],
+      providesTags: ['BrandingProject'],
     }),
 
     // Supprimer un logo
     deleteLogo: builder.mutation<void, { projectId: number; logoId: number }>({
       query: ({ projectId, logoId }) => ({
         url: `${API_ENDPOINTS.BRANDING.PROJECTS_GET}/${projectId}/logos/${logoId}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
       invalidatesTags: (result, error, { projectId }) => [
-        { type: "GenerationHistory", id: projectId },
+        { type: 'GenerationHistory', id: projectId },
       ],
     }),
 
@@ -45,10 +51,10 @@ export const generationHistoryApi = createApi({
     approveLogo: builder.mutation<void, { projectId: number; logoId: number }>({
       query: ({ projectId, logoId }) => ({
         url: `${API_ENDPOINTS.BRANDING.PROJECTS}/${projectId}/logos/${logoId}/approve`,
-        method: "POST",
+        method: 'POST',
       }),
       invalidatesTags: (result, error, { projectId }) => [
-        { type: "GenerationHistory", id: projectId },
+        { type: 'GenerationHistory', id: projectId },
       ],
     }),
   }),

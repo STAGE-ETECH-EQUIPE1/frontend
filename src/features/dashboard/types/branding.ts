@@ -31,7 +31,13 @@ export interface BrandingApiError {
 }
 
 // Types pour les styles de logo
-export type LogoStyle = "modern" | "classic" | "minimalist" | "creative" | "corporate" | "playful"
+export type LogoStyle =
+  | 'modern'
+  | 'classic'
+  | 'minimalist'
+  | 'creative'
+  | 'corporate'
+  | 'playful'
 
 // Types pour les mots-clés de marque
 export interface BrandKeyword {
@@ -50,8 +56,8 @@ export interface Logo {
 }
 
 export interface ProjectLogosResponse {
-  data: Logo[];
-  message: string;
+  data: Logo[]
+  message: string
 }
 
 export interface CreateBrandingProjectResponse {

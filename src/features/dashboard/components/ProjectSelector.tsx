@@ -1,6 +1,6 @@
 'use client'
 
-import { useSelectedProject } from '../hooks/useSelectedProject' 
+import { useSelectedProject } from '../hooks/useSelectedProject'
 import {
   Select,
   SelectContent,

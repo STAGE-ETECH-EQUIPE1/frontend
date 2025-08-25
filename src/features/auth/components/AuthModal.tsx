@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Button } from '@/components/ui/button'
-import SignIn from './SignIn' 
-import SignUp from './SignUp' 
+import SignIn from './SignIn'
+import SignUp from './SignUp'
 import { useTranslations } from 'next-intl'
 
 interface AuthModalProps {

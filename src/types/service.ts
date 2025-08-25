@@ -12,7 +12,9 @@ export interface Service {
 
 export interface ServicesManagementProps {
   services: Service[]
-  onCreateService: (service: Omit<Service, "id" | "createdAt" | "updatedAt" | "usageCount">) => void
+  onCreateService: (
+    service: Omit<Service, 'id' | 'createdAt' | 'updatedAt' | 'usageCount'>
+  ) => void
   onUpdateService: (id: string, updates: Partial<Service>) => void
   onDeleteService: (id: string) => void
 }

@@ -5,7 +5,7 @@ import projectReducer from '@/store/slice/projectSlice'
 import { authApi } from '@/features/auth/services/authApi'
 import { userApi } from '@/features/dashboard/services/userApi'
 import { brandingApi } from '@/features/dashboard/services/brandingApi'
-import { generationHistoryApi } from "@/features/dashboard/services/generationHistoryApi"
+import { generationHistoryApi } from '@/features/dashboard/services/generationHistoryApi'
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -20,7 +20,7 @@ export const store = configureStore({
       .concat(authApi.middleware)
       .concat(userApi.middleware)
       .concat(brandingApi.middleware)
-      .concat(generationHistoryApi.middleware),   
+      .concat(generationHistoryApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

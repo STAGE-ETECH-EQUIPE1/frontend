@@ -30,7 +30,7 @@ jest.mock('next/navigation', () => ({
   }),
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
-}));
+}))
 
 // Mock pour matchMedia
 Object.defineProperty(window, 'matchMedia', {
