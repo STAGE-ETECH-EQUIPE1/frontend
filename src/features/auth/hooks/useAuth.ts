@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import {jwtDecode} from 'jwt-decode'
-import { getToken } from '../../../shared/utils/localStorage'
+import { jwtDecode } from 'jwt-decode'
+import { getToken, removeToken } from '../../../shared/utils/localStorage'
 import { DecodedToken } from '../types/auth'
 
 export const useAuth = () => {
@@ -9,6 +9,7 @@ export const useAuth = () => {
 
   useEffect(() => {
     const token = getToken()
+
     if (!token) {
       setUser(null)
       setLoading(false)
@@ -20,6 +21,7 @@ export const useAuth = () => {
       if (decoded.exp * 1000 > Date.now()) {
         setUser(decoded)
       } else {
+        removeToken()
         setUser(null)
       }
     } catch {

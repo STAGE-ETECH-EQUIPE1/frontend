@@ -100,9 +100,8 @@ export function UserSidebar({
   const t = useTranslations()
   const { state } = useSidebar()
   const isCollapsed = state === 'collapsed'
-  const logout = useLogout()
+  const logout = useLogout(userProp?.id)
 
-  // Appel API utilisateur courant
   const {
     data: apiUser,
     isLoading,

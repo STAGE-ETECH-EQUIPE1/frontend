@@ -37,6 +37,7 @@ import {
   Trash2,
   FolderOpen,
 } from 'lucide-react'
+import Image from 'next/image'
 
 interface Project {
   id: string
@@ -207,7 +208,7 @@ export function ProjectsManager() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2 text-xl sm:text-2xl lg:text-3xl">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2 sm:text-2xl lg:text-3xl">
             {t('title')}
           </h2>
           <p className="text-slate-600 text-sm sm:text-base">{t('subtitle')}</p>
@@ -312,7 +313,9 @@ export function ProjectsManager() {
                 <CardContent className="space-y-4">
                   {/* Logo Preview */}
                   <div className="aspect-square bg-slate-50 rounded-lg overflow-hidden p-4">
-                    <img
+                    <Image
+                      width={200}
+                      height={200}
                       src={project.logoUrl || '/placeholder.svg'}
                       alt={project.name}
                       className="w-full h-full object-contain"
@@ -383,7 +386,7 @@ export function ProjectsManager() {
                           <div className="space-y-6">
                             {/* Logo Preview */}
                             <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
-                              <img
+                              <Image
                                 src={
                                   selectedProject.logoUrl || '/placeholder.svg'
                                 }
@@ -404,7 +407,7 @@ export function ProjectsManager() {
                             {/* Add Comment */}
                             <div className="space-y-4 p-4 bg-blue-50 rounded-lg">
                               <div>
-                                <label className="text-sm font-medium text-slate-700 text-sm sm:text-base">
+                                <label className="text-sm font-medium text-slate-700 sm:text-base">
                                   {t('yourRating')}
                                 </label>
                                 <div className="flex mt-1">
@@ -412,7 +415,7 @@ export function ProjectsManager() {
                                 </div>
                               </div>
                               <div>
-                                <label className="text-sm font-medium text-slate-700 text-sm sm:text-base">
+                                <label className="text-sm font-medium text-slate-700 sm:text-base">
                                   {t('comment')}
                                 </label>
                                 <Textarea
@@ -462,13 +465,13 @@ export function ProjectsManager() {
                                         <div className="flex">
                                           {renderStars(comment.rating)}
                                         </div>
-                                        <span className="text-xs text-slate-500 text-sm sm:text-base">
+                                        <span className="text-xs text-slate-500 sm:text-base">
                                           {new Date(
                                             comment.createdAt
                                           ).toLocaleDateString('fr-FR')}
                                         </span>
                                       </div>
-                                      <p className="text-sm text-slate-700 text-sm sm:text-base">
+                                      <p className="text-slate-700 text-sm sm:text-base">
                                         {comment.content}
                                       </p>
                                     </div>
@@ -480,7 +483,7 @@ export function ProjectsManager() {
                                   <p className="text-sm sm:text-base">
                                     {t('noComments')}
                                   </p>
-                                  <p className="text-sm text-sm sm:text-base">
+                                  <p className="text-sm sm:text-base">
                                     {t('beFirst')}
                                   </p>
                                 </div>
@@ -505,10 +508,10 @@ export function ProjectsManager() {
           className="text-center py-12"
         >
           <FolderOpen className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <div className="text-slate-600 text-lg text-sm sm:text-base">
+          <div className="text-slate-600 text-lg  sm:text-base">
             {t('noProjectFound')}
           </div>
-          <p className="text-sm text-slate-500 mt-2 text-sm sm:text-base">
+          <p className="text-sm text-slate-500 mt-2  sm:text-base">
             {t('noProjectFoundDesc')}
           </p>
         </motion.div>

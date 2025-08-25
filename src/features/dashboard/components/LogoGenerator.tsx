@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -36,15 +36,13 @@ export interface GeneratedLogo {
 
 interface LogoGeneratorProps {
   user: {
+    id: string
     plan: {
       tokensUsed: number
       maxTokens: number | 'unlimited'
     }
   }
 }
-
-const CACHE_KEY = 'logo-generator-form-data'
-const CACHE_EXPIRY_HOURS = 24
 
 export function LogoGenerator({ user }: LogoGeneratorProps) {
   const t = useTranslations('logoGenerator')
@@ -60,12 +58,11 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
     colors: '',
     description: '',
   })
-  const [createProject, { isLoading: isGenerating}] =
+  const [createProject, { isLoading: isGenerating }] =
     useCreateBrandingProjectMutation()
   const [projectId, setProjectId] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [customColors, setCustomColors] = useState<string[]>([])
-
   const [isCacheLoaded, setIsCacheLoaded] = useState(false)
 
   const {
@@ -78,103 +75,20 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
     pollingInterval: projectId ? 3000 : 0,
   })
 
-  useEffect(() => {
-    const loadCachedData = () => {
-      try {
-        const cachedData = localStorage.getItem(CACHE_KEY)
-        console.log('Tentative de chargement du cache:', cachedData)
-
-        if (cachedData) {
-          const parsed = JSON.parse(cachedData)
-          console.log('Données parsées du cache:', parsed)
-
-          const now = new Date().getTime()
-          const cacheAge = (now - parsed.timestamp) / (1000 * 60 * 60) // en heures
-
-          if (cacheAge < CACHE_EXPIRY_HOURS) {
-            // Restaurer les données avec des valeurs par défaut
-            const restoredFormData = {
-              companyName: parsed.formData?.companyName || '',
-              industry: parsed.formData?.industry || '',
-              style: parsed.formData?.style || '',
-              colors: parsed.formData?.colors || '',
-              description: parsed.formData?.description || '',
-            }
-
-            console.log('Restauration des données:', restoredFormData)
-            setFormData(restoredFormData)
-            setCustomColors(parsed.customColors || [])
-
-            // Restaurer aussi le projectId si disponible
-            if (parsed.projectId) {
-              console.log('Restauration du projectId:', parsed.projectId)
-              setProjectId(parsed.projectId)
-            }
-
-            console.log('✅ Données chargées depuis le cache avec succès')
-          } else {
-            console.log('Cache expiré, suppression...')
-            localStorage.removeItem(CACHE_KEY)
-          }
-        } else {
-          console.log('Aucun cache trouvé')
-        }
-      } catch (error) {
-        console.error('❌ Erreur lors du chargement du cache:', error)
-        localStorage.removeItem(CACHE_KEY)
-      } finally {
-        setIsCacheLoaded(true)
-        console.log('Cache loading terminé')
-      }
-    }
-
-    loadCachedData()
-  }, [])
+  const CACHE_EXPIRY_HOURS = 24
+  const CACHE_KEY = user.id ? `logo-generator-form-data_${user.id}` : null
+  const prevUserIdRef = useRef<string | null>(null)
 
   useEffect(() => {
-    if (!isCacheLoaded) {
-      console.log('Cache pas encore chargé, skip sauvegarde')
-      return
-    }
+    if (!user.id) return
 
-    // Ne sauvegarder que si au moins un champ est rempli
-    const hasData =
-      formData.companyName ||
-      formData.industry ||
-      formData.style ||
-      formData.colors ||
-      formData.description ||
-      customColors.length > 0
+    const cacheKey = `logo-generator-form-data_${user.id}`
 
-    if (!hasData) {
-      console.log('Aucune donnée à sauvegarder')
-      return
-    }
-
-    const saveToCache = () => {
-      try {
-        const dataToCache = {
-          formData,
-          customColors,
-          projectId,
-          timestamp: new Date().getTime(),
-        }
-
-        console.log('💾 Sauvegarde dans le cache:', dataToCache)
-        localStorage.setItem(CACHE_KEY, JSON.stringify(dataToCache))
-        console.log('✅ Données sauvegardées avec succès')
-      } catch (error) {
-        console.error('❌ Erreur lors de la sauvegarde du cache:', error)
-      }
-    }
-
-    const timeoutId = setTimeout(saveToCache, 500)
-    return () => clearTimeout(timeoutId)
-  }, [formData, customColors, projectId, isCacheLoaded])
-
-  const clearCache = () => {
-    try {
-      localStorage.removeItem(CACHE_KEY)
+    // Si on a un utilisateur précédent différent, on supprime son cache
+    if (prevUserIdRef.current && prevUserIdRef.current !== user.id) {
+      sessionStorage.removeItem(
+        `logo-generator-form-data_${prevUserIdRef.current}`
+      )
       setFormData({
         companyName: '',
         industry: '',
@@ -184,28 +98,128 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
       })
       setCustomColors([])
       setProjectId(null)
-      console.log('🗑️ Cache vidé avec succès')
+    }
+    prevUserIdRef.current = user.id
+
+    // Charger le cache du nouvel utilisateur
+    const cachedData = sessionStorage.getItem(cacheKey)
+    if (cachedData) {
+      try {
+        const parsed = JSON.parse(cachedData)
+        const now = Date.now()
+        const cacheAge = (now - parsed.timestamp) / (1000 * 60 * 60)
+        if (cacheAge < CACHE_EXPIRY_HOURS) {
+          setFormData(parsed.formData)
+          setCustomColors(parsed.customColors || [])
+          setProjectId(parsed.projectId || null)
+        } else {
+          sessionStorage.removeItem(cacheKey)
+        }
+      } catch {
+        sessionStorage.removeItem(cacheKey)
+      }
+    }
+
+    setIsCacheLoaded(true)
+  }, [user.id])
+
+  useEffect(() => {
+    if (!CACHE_KEY) return
+    const loadCachedData = () => {
+      try {
+        const cachedData = sessionStorage.getItem(CACHE_KEY)
+        if (!cachedData) return
+
+        if (cachedData) {
+          const parsed = JSON.parse(cachedData)
+
+          const now = new Date().getTime()
+          const cacheAge = (now - parsed.timestamp) / (1000 * 60 * 60) // en heures
+
+          if (cacheAge < CACHE_EXPIRY_HOURS) {
+            const restoredFormData = {
+              companyName: parsed.formData?.companyName || '',
+              industry: parsed.formData?.industry || '',
+              style: parsed.formData?.style || '',
+              colors: parsed.formData?.colors || '',
+              description: parsed.formData?.description || '',
+            }
+
+            setFormData(restoredFormData)
+            setCustomColors(parsed.customColors || [])
+
+            if (parsed.projectId) {
+              setProjectId(parsed.projectId)
+            }
+          } else {
+            sessionStorage.removeItem(CACHE_KEY)
+          }
+        }
+      } catch (error) {
+        console.error(error)
+        sessionStorage.removeItem(CACHE_KEY)
+      } finally {
+        setIsCacheLoaded(true)
+      }
+    }
+
+    loadCachedData()
+  }, [CACHE_KEY])
+
+  useEffect(() => {
+    if (!isCacheLoaded || !CACHE_KEY) {
+      return
+    }
+    const hasData =
+      formData.companyName ||
+      formData.industry ||
+      formData.style ||
+      formData.colors ||
+      formData.description ||
+      customColors.length > 0
+
+    if (!hasData) return
+
+    const saveToCache = () => {
+      try {
+        const dataToCache = {
+          formData,
+          customColors,
+          projectId,
+          timestamp: new Date().getTime(),
+        }
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(dataToCache))
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    const timeoutId = setTimeout(saveToCache, 500)
+    return () => clearTimeout(timeoutId)
+  }, [formData, customColors, projectId, isCacheLoaded, CACHE_KEY])
+
+  const clearCache = () => {
+    if (!CACHE_KEY) return
+    try {
+      sessionStorage.removeItem(CACHE_KEY)
+      setFormData({
+        companyName: '',
+        industry: '',
+        style: '',
+        colors: '',
+        description: '',
+      })
+      setCustomColors([])
+      setProjectId(null)
     } catch (error) {
-      console.error('❌ Erreur lors du vidage du cache:', error)
+      console.error(error)
     }
   }
 
   useEffect(() => {
-    if (logosData?.data?.length && logosData.data.length > 0) {
-      console.log('Logos found, stopping active polling')
-    }
-  }, [logosData?.data?.length])
-
-  useEffect(() => {
     if (projectId) {
-      console.log('Project ID set:', projectId)
-      console.log('Current logosData:', logosData)
-      console.log('Is loading logos:', isLoadingLogos)
-      console.log('Logos error:', logosError)
-
       const initialTimer = setTimeout(() => {
         refetchLogos()
-        console.log('Initial refetch for project:', projectId)
       }, 2000)
 
       return () => clearTimeout(initialTimer)
@@ -312,7 +326,6 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
         throw new Error('Project ID not found in response')
       }
 
-      console.log('Backend Project ID:', projectIdFromResponse)
       setProjectId(projectIdFromResponse)
 
       localStorage.setItem(
@@ -349,19 +362,12 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
   }
 
   const generatedLogos = React.useMemo(() => {
-    console.log('Processing logos data:', logosData)
-    console.log('Full API response:', JSON.stringify(logosData, null, 2))
-
     if (!logosData?.data || !Array.isArray(logosData.data)) {
-      console.log('No logos data available or not an array')
       return []
     }
 
     return logosData.data.map((logo: Logo) => {
       let logoUrl = logo.assertUrl
-
-      console.log('Original logo URL:', logoUrl)
-      console.log('Logo object:', logo)
 
       if (logoUrl) {
         if (logoUrl.startsWith('public/')) {
@@ -377,8 +383,6 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
             : `${baseUrl}/${logoUrl}`
         }
       }
-
-      console.log('Final processed logo URL:', logoUrl)
 
       return {
         id: logo.id,
@@ -906,7 +910,10 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
                                       'Manual refetch result:',
                                       result
                                     )
-                                    if (Array.isArray(result.data?.data) && result.data.data.length === 0) {
+                                    if (
+                                      Array.isArray(result.data?.data) &&
+                                      result.data.data.length === 0
+                                    ) {
                                       console.log(
                                         'Still no logos after manual refetch'
                                       )

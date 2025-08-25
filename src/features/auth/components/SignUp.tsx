@@ -19,7 +19,7 @@ import { Label } from '@radix-ui/react-label'
 import { useTranslations } from 'next-intl'
 import { useDispatch } from 'react-redux'
 import { setToken } from '@/store/slice/slice'
-import GoogleLoginButton from './GoogleLoginButton'
+import GoogleLoginButton from '../../../shared/components/googlebutton/GoogleLoginButton'
 import { redirectAccordingToRole } from '@/i18n/routes'
 import { useRouter } from 'next/navigation'
 import { SignupFormData } from '../schema/signupSchema'
@@ -70,10 +70,11 @@ const SignUp = () => {
       const res = await signup(data).unwrap()
       dispatch(setToken(res.token))
       redirectAccordingToRole(res.token, router)
-      if (authMethod !== 'google') {
+      if (authMethod === 'google') {
         toast.success(toastMessage('successSignupGoogle'))
+      } else {
+        toast.success(toastMessage('successSignup'))
       }
-      toast.success(toastMessage('successSignup'))
     } catch (err) {
       toast.error(toastMessage('errorSignup'))
       console.error(err)
@@ -376,7 +377,6 @@ const SignUp = () => {
             </span>
           </div>
         </div>
-
         <GoogleLoginButton setAuthMethod={setAuthMethod} authContext="signup" />
       </div>
     </div>

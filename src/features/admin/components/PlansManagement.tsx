@@ -186,7 +186,7 @@ export function PlansManagement({
                     id="type"
                     value={formData.type}
                     onChange={(e) =>
-                      setFormData({ ...formData, type: e.target.value as any })
+                      setFormData({ ...formData, type: e.target.value as 'gratuit' | 'premium' | 'entreprise' })
                     }
                     className="w-full p-2 bg-slate-50 border border-slate-200 rounded text-slate-900 text-sm"
                   >
@@ -473,7 +473,7 @@ export function PlansManagement({
                   id="edit-type"
                   value={formData.type}
                   onChange={(e) =>
-                    setFormData({ ...formData, type: e.target.value as any })
+                    setFormData({ ...formData, type: e.target.value as 'gratuit' | 'premium' | 'entreprise' })
                   }
                   className="w-full p-2 bg-slate-50 border border-slate-200 rounded text-slate-900 text-sm"
                 >
