@@ -1,36 +1,22 @@
-// 🧪 SignUp.test.tsx
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import SignIn from '@/features/auth/components/SignIn'
+import { useLoginMutation } from '@/features/auth/services/authApi'
+import { setToken } from '@/store/slice/authSlice'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { setToken } from '@/store/slice/slice'
-import authReducer from '@/store/slice/slice'
-import SignUp from '@/app/(components)/auth/SignUp'
-import { useSignupMutation } from '@/store/api/authApi'
-import { authApi } from '@/store/api/authApi'
+import authReducer from '@/store/slice/authSlice'
+import { authApi } from '@/features/auth/services/authApi'
 import toast from 'react-hot-toast'
 import '@testing-library/jest-dom'
+import * as ReactModule from 'react'
+global.React = ReactModule
 
-// Mocks
+jest.mock('@/shared/api/baseQuery', () => ({
+  baseQuery: jest.fn(),
+}))
 
-jest.mock('@/store/api/authApi', () => {
-  const originalModule = jest.requireActual('@/store/api/authApi')
-  return {
-    __esModule: true,
-    ...originalModule,
-    useSignupMutation: jest.fn(),
-    authApi: {
-      reducerPath: 'authApi',
-      reducer:
-        () =>
-        (state = {}) =>
-          state,
-      middleware:
-        () => (next: (action: unknown) => unknown) => (action: unknown) =>
-          next(action),
-    },
-  }
-})
+jest.mock('@/features/auth/services/authApi')
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -46,54 +32,47 @@ jest.mock('react-hot-toast', () => ({
 }))
 
 jest.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => {
-    const translations: Record<string, string> = {
-      'auth.signup.email': 'email',
-      'auth.signup.phone': 'phone',
-      'auth.signup.fullName': 'fullName',
-      'auth.signup.username': 'username',
-      'auth.signup.password': 'password',
-      'auth.signup.confirmPassword': 'confirmPassword',
-      'toast.successSignup': 'successSignup',
-      'toast.errorSignup': 'errorSignup',
-      'toast.confirmPassword': 'Passwords do not match',
-    }
-    return translations[key] || key
-  },
+  useTranslations: () => (key: string) => key,
 }))
 
-jest.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-  }),
-}))
+//Mock button Google
+jest.mock('@/shared/components/googlebutton/GoogleLoginButton', () => {
+  const MockGoogleButton = () => <div data-testid="mock-google-button" />
+  MockGoogleButton.displayName = 'MockGoogleLoginButton'
+  return {
+    __esModule: true,
+    default: MockGoogleButton,
+  }
+})
 
-// Mock GoogleLoginButton
-jest.mock('@/app/(components)/googlebutton/GoogleLoginButton', () => ({
-  __esModule: true,
-  default: () =>
-    React.createElement('div', { 'data-testid': 'mock-google-button' }),
-}))
-
-describe('SignUp Component', () => {
+describe('SignIn Component', () => {
   const mockDispatch = jest.fn()
-  const mockSignup = jest.fn()
+  const mockLogin = jest.fn()
 
-  const store = configureStore({
+  const mockStore = configureStore({
     reducer: {
-      auth: authReducer,
       [authApi.reducerPath]: () => ({}),
+      auth: authReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    middleware: (gDM) => gDM(),
   })
 
   beforeEach(() => {
     jest.spyOn(console, 'error').mockImplementation(() => {})
     ;(useDispatch as unknown as jest.Mock).mockReturnValue(mockDispatch)
-    ;(useSignupMutation as jest.Mock).mockReturnValue([
-      mockSignup,
+    ;(useLoginMutation as jest.Mock).mockReturnValue([
+      mockLogin,
       { isLoading: false },
     ])
+
+    global.fetch = jest.fn(() =>
+      Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,
+          headers: { 'Content-type': 'application/json' },
+        })
+      )
+    ) as unknown as jest.MockedFunction<typeof fetch>
   })
 
   afterEach(() => {
@@ -102,96 +81,50 @@ describe('SignUp Component', () => {
   })
 
   const renderWithProvider = (ui: React.ReactElement) =>
-    render(<Provider store={store}>{ui}</Provider>)
+    render(<Provider store={mockStore}>{ui}</Provider>)
 
-  it('navigue entre les étapes et soumet le formulaire avec succès', async () => {
-    mockSignup.mockReturnValue({
+  it('soumet le formulaire et affiche un toast de succès', async () => {
+    mockLogin.mockReturnValue({
       unwrap: () => Promise.resolve({ token: 'fake-token' }),
     })
 
-    renderWithProvider(<SignUp />)
+    renderWithProvider(<SignIn />)
 
-    // Step 1
-    fireEvent.change(screen.getByLabelText('email'), {
-      target: { value: 'john@example.com' },
+    fireEvent.change(screen.getByPlaceholderText('votre@email.com'), {
+      target: { value: 'test@example.com' },
     })
-    fireEvent.change(screen.getByLabelText('phone'), {
-      target: { value: '+261123456789' },
+    fireEvent.change(screen.getByPlaceholderText('••••••••'), {
+      target: { value: 'password123' },
     })
-    fireEvent.click(screen.getByRole('button', { name: /next/i }))
-
-    // Step 2
-    fireEvent.change(screen.getByLabelText('fullName'), {
-      target: { value: 'John Doe' },
-    })
-    fireEvent.change(screen.getByLabelText('username'), {
-      target: { value: 'johndoe' },
-    })
-    fireEvent.click(screen.getByRole('button', { name: /next/i }))
-
-    // Step 3
-    fireEvent.change(screen.getByLabelText('password'), {
-      target: { value: '12345678' },
-    })
-    fireEvent.change(screen.getByLabelText('confirmPassword'), {
-      target: { value: '12345678' },
-    })
-
-    // Check the box for the conditions
-    fireEvent.click(screen.getByLabelText(/acceptTerms/i))
-
-    fireEvent.click(screen.getByRole('button', { name: /createAccount/i }))
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }))
 
     await waitFor(() => {
-      expect(mockSignup).toHaveBeenCalledWith({
-        email: 'john@example.com',
-        phone: '+261123456789',
-        fullName: 'John Doe',
-        username: 'johndoe',
-        password: '12345678',
-        confirmPassword: '12345678',
+      expect(mockLogin).toHaveBeenCalledWith({
+        email: 'test@example.com',
+        password: 'password123',
       })
       expect(mockDispatch).toHaveBeenCalledWith(setToken('fake-token'))
-      expect(toast.success).toHaveBeenCalledWith('successSignup')
+      expect(toast.success)
     })
   })
 
-  it('affiche une erreur toast si la mutation échoue', async () => {
-    mockSignup.mockReturnValue({
-      unwrap: () => Promise.reject(new Error('Signup failed')),
+  it('affiche un toast d’erreur si la mutation échoue', async () => {
+    mockLogin.mockReturnValue({
+      unwrap: () => Promise.reject(new Error('Invalid credentials')),
     })
 
-    renderWithProvider(<SignUp />)
+    renderWithProvider(<SignIn />)
 
-    fireEvent.change(screen.getByLabelText('email'), {
+    fireEvent.change(screen.getByPlaceholderText('votre@email.com'), {
       target: { value: 'bad@example.com' },
     })
-    fireEvent.change(screen.getByLabelText('phone'), {
-      target: { value: '+261000000000' },
+    fireEvent.change(screen.getByPlaceholderText('••••••••'), {
+      target: { value: 'wrongpass' },
     })
-    fireEvent.click(screen.getByRole('button', { name: /next/i }))
-
-    fireEvent.change(screen.getByLabelText('fullName'), {
-      target: { value: 'Bad User' },
-    })
-    fireEvent.change(screen.getByLabelText('username'), {
-      target: { value: 'baduser' },
-    })
-    fireEvent.click(screen.getByRole('button', { name: /next/i }))
-
-    fireEvent.change(screen.getByLabelText('password'), {
-      target: { value: '12345678' },
-    })
-    fireEvent.change(screen.getByLabelText('confirmPassword'), {
-      target: { value: '12345678' },
-    })
-
-    fireEvent.click(screen.getByLabelText(/acceptTerms/i))
-
-    fireEvent.click(screen.getByRole('button', { name: /createAccount/i }))
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }))
 
     await waitFor(() => {
-      expect(toast.error).toHaveBeenCalledWith('errorSignup')
+      expect(toast.error).toHaveBeenCalledWith('errorLogin')
     })
   })
 })
