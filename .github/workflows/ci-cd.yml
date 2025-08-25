@@ -29,7 +29,6 @@ jobs:
           npm config set fetch-retries 5
           npm ci
 
-
       - name: Run ESLint
         run: npm run lint
 
