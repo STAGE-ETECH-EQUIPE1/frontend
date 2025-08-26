@@ -16,6 +16,26 @@ const nextConfig: NextConfig = {
         port: '8000',
         pathname: '/**',
       },
+       {
+        protocol: 'https',
+        hostname: 'backend-preprod-fx1t.onrender.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'backend-prod-vlro.onrender.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'orbixup-preprod.onrender.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'orbixup.onrender.com',
+        pathname: '/**',
+      },
     ],
   },
 }
