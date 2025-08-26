@@ -112,15 +112,16 @@ function ProjectLogos({ projectId }: { projectId: number }) {
       logo.file_path ||
       logo.path
 
-    if (!rawUrl) {
-      return null
-    }
+    if (!rawUrl) return null
 
     if (rawUrl.startsWith('http')) {
       return rawUrl
     }
 
-    const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/+$/, '')
+    const apiBase = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(
+      /\/+$/,
+      ''
+    )
     if (apiBase) {
       try {
         const api = new URL(apiBase)
