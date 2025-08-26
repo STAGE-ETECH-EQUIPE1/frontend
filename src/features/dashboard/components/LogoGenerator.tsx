@@ -25,6 +25,7 @@ import React from 'react'
 import type { Logo } from '../types/branding'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { useMercure } from '@/shared/hooks/useMercure'
 
 export interface GeneratedLogo {
   id: number
@@ -78,6 +79,24 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
   const CACHE_EXPIRY_HOURS = 24
   const CACHE_KEY = user.id ? `logo-generator-form-data_${user.id}` : null
   const prevUserIdRef = useRef<string | null>(null)
+
+  const [localGeneratedLogos, setLocalGeneratedLogos] = useState<
+    GeneratedLogo[]
+  >([])
+
+  useMercure(projectId || '', (data: unknown) => {
+    const newLogo = data as Logo
+    setLocalGeneratedLogos((prev) => [
+      ...prev,
+      {
+        id: newLogo.id,
+        url: newLogo.assertUrl,
+        name: `${formData.companyName} - Version ${newLogo.id}`,
+        style: formData.style || 'modern',
+        colors: customColors.length > 0 ? customColors : [],
+      },
+    ])
+  })
 
   useEffect(() => {
     if (!user.id) return
@@ -363,7 +382,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
 
   const generatedLogos = React.useMemo(() => {
     if (!logosData?.data || !Array.isArray(logosData.data)) {
-      return []
+      return localGeneratedLogos
     }
 
     return logosData.data.map((logo: Logo) => {
@@ -392,7 +411,13 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
         colors: customColors.length > 0 ? customColors : [],
       }
     })
-  }, [logosData, formData.companyName, formData.style, customColors])
+  }, [
+    logosData,
+    formData.companyName,
+    formData.style,
+    customColors,
+    localGeneratedLogos,
+  ])
 
   const tokensUsed = user.plan.tokensUsed
   const maxTokens = user.plan.maxTokens
