@@ -1,9 +1,10 @@
 'use client'
 import Header from './(landing)/components/header/Header'
 import Navbar from '@/shared/components/layout/navbar/Navbar'
-import Pricing from './(landing)/components/packs/Pricing'
 import Services from './(landing)/components/service/Services'
 import Footer from '@/shared/components/layout/footer/Footer'
+import { DynamicPricing } from './(landing)/components/packs/DynamicPricing'
+import Portfolio from './(landing)/components/portfolio/Portfolio'
 
 export default function HomePage() {
   return (
@@ -11,7 +12,8 @@ export default function HomePage() {
       <Navbar />
       <Header />
       <Services />
-      <Pricing />
+      <Portfolio />
+      <DynamicPricing />
       <Footer />
     </div>
   )

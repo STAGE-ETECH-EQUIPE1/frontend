@@ -19,7 +19,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import {
-  LayoutDashboard,
   Package,
   Users,
   MessageSquare,
@@ -137,12 +136,6 @@ export function AdminSidebar({
 
   const navigationItems = [
     {
-      title: tSidebar('navigation'),
-      icon: LayoutDashboard,
-      value: 'dashboard',
-      color: 'text-blue-600',
-    },
-    {
       title: tSidebar('services'),
       icon: Wrench,
       value: 'services',
@@ -218,8 +211,8 @@ export function AdminSidebar({
     .slice(0, 2)
 
   return (
-    <Sidebar className="border-r border-blue-200 bg-white backdrop-blur-xl shadow-lg">
-      <SidebarHeader className="p-4 sm:p-6 border-b border-blue-100">
+    <Sidebar className="bg-white">
+      <SidebarHeader className="bg-white sm:p-6 border-b border-blue-100">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -243,7 +236,7 @@ export function AdminSidebar({
         </motion.div>
       </SidebarHeader>
 
-      <SidebarContent className="px-3 sm:px-4">
+      <SidebarContent className="px-3 sm:px-4 bg-white">
         {/* Admin Profile Section */}
         <SidebarGroup>
           <SidebarGroupContent>
@@ -251,7 +244,7 @@ export function AdminSidebar({
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 mb-4 sm:mb-6 shadow-sm"
+              className="p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl mt-4 border border-blue sm:mb-6 shadow-sm"
             >
               {isLoading ? (
                 <div className="flex items-center gap-3">
@@ -418,7 +411,7 @@ export function AdminSidebar({
         )}
       </SidebarContent>
 
-      <SidebarFooter className="p-3 sm:p-4 border-t border-blue-100">
+      <SidebarFooter className="p-3 bg-white sm:p-4 border-t border-blue-100">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton

@@ -22,7 +22,6 @@ import {
   Palette,
   UserIcon,
   FolderOpen,
-  Settings,
   LogOut,
   Zap,
   Crown,
@@ -134,12 +133,6 @@ export function UserSidebar({
       value: 'profile',
       color: 'text-blue-600',
     },
-    {
-      title: t('navigation.settings'),
-      icon: Settings,
-      value: 'settings',
-      color: 'text-slate-600',
-    },
   ]
 
   const getPlanIcon = (type: string) => {
@@ -206,8 +199,8 @@ export function UserSidebar({
     .slice(0, 2)
 
   return (
-    <Sidebar className="border-r border-blue-200 bg-white backdrop-blur-xl shadow-lg">
-      <SidebarHeader className="p-4 sm:p-6 border-b border-blue-100">
+    <Sidebar className="border-r  border-blue-200 bg-white backdrop-blur-xl shadow-lg">
+      <SidebarHeader className="p-4 bg-white sm:p-6 border-b border-blue-100">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -233,7 +226,7 @@ export function UserSidebar({
         </motion.div>
       </SidebarHeader>
 
-      <SidebarContent className="px-3 sm:px-4">
+      <SidebarContent className="px-3 bg-white sm:px-4">
         {/* User Profile Section */}
         <SidebarGroup>
           <SidebarGroupContent>
@@ -241,7 +234,7 @@ export function UserSidebar({
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-slate-50 rounded-xl border border-blue-100 mb-4 sm:mb-6 shadow-sm"
+              className="p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-slate-50 rounded-xl border border-blue-100 mt-4 sm:mb-6 shadow-sm"
             >
               {/* Loading / Error messages intégrés dans le bloc profil */}
               {isLoading ? (
@@ -408,7 +401,7 @@ export function UserSidebar({
         )}
       </SidebarContent>
 
-      <SidebarFooter className="p-3 sm:p-4 border-t border-blue-100">
+      <SidebarFooter className="p-3 sm:p-4 border-t border-blue-100 bg-white">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton

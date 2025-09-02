@@ -30,9 +30,9 @@ const Header = () => {
       </div>
 
       <div className="relative z-10 text-center text-white px-6 max-w-6xl mx-auto">
-        <div className="flex items-center justify-center gap-2 mb-6">
+        <div className="flex items-center justify-center gap-2 pt-20 mb-6">
           <Sparkles className="w-6 h-6 text-accent" />
-          <span className="text-accent font-medium tracking-wide uppercase text-sm">
+          <span className="text-accent font-medium tracking-wide uppercase  text-sm">
             {t('tagline')}
           </span>
         </div>

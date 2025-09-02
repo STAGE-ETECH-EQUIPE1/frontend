@@ -8,11 +8,7 @@ const compilerOptions = tsconfig.compilerOptions
 const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
+
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: '<rootDir>/',

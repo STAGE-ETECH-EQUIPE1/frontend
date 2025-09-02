@@ -17,7 +17,8 @@
     "pricing": "Pricing",
     "contact": "Contact",
     "signin": "Sign In",
-    "start": "Get Started"
+    "start": "Get Started",
+    "profile": "My Profile"
   },
   "Header": {
     "tagline": "Premium Platform",
@@ -159,56 +160,34 @@
     }
   },
   "pricing": {
-    "title": "Plans",
-    "subtitle": "Choose the offer that fits your ambition",
-    "free": {
-      "title": "Free",
-      "description": "Perfect for discovering our tools",
-      "features": {
-        "tokens": "10 tokens per day",
-        "tools": "Basic tools",
-        "community": "Community support",
-        "watermark": "Watermark on exports"
-      },
-      "button": "Start for free"
-    },
-    "premium": {
-      "title": "Premium",
-      "description": "Our most popular plan",
-      "features": {
-        "tokens": "1000 tokens per month",
-        "logo": "Logo + 3 variations",
-        "concepts": "Unlimited concepts",
-        "revisions": "Unlimited revisions",
-        "formats": "All formats (PNG, JPG, SVG, AI)",
-        "charter": "Brand guidelines",
-        "mockups": "Mockups included",
-        "delivery": "3-day delivery"
-      },
-      "popular": "Most popular",
-      "button": "Choose this plan"
-    },
-    "enterprise": {
-      "title": "Enterprise",
-      "description": "Complete solution for businesses",
-      "features": {
-        "tokens": "Unlimited tokens",
-        "identity": "Complete visual identity",
-        "logo": "Logo + variations",
-        "charter": "Detailed brand guidelines",
-        "cards": "Business cards",
-        "stationery": "Corporate stationery",
-        "templates": "Social media templates",
-        "designer": "Dedicated designer",
-        "delivery": "24h delivery",
-        "support": "Priority support"
-      },
-      "button": "Choose this plan"
-    },
-    "customMessage": "Need a custom solution?",
-    "requestQuote": "Request a personalized quote"
+    "popular": "Popular",
+    "free": "Free",
+    "perPack": "/pack",
+    "servicesIncluded": "{count} service{count, plural, one {} other {s}} included",
+    "customServices": "Custom services included",
+    "startFree": "Start for free",
+    "choosePack": "Choose this pack",
+    "validity": "Valid from {start} to {end}",
+    "tokens": "Tokens: {value}"
   },
-
+  "portfolio": {
+    "title": "Our Trusted Clients",
+    "subtitle": "We are proud to collaborate with leading companies who trust us for their digital solutions and innovative projects.",
+    "prevClients": "Previous clients",
+    "nextClients": "Next clients",
+    "slideLabel": "Go to slide {index}",
+    "ctaText": "Join these leading companies and discover how we can help you",
+    "ctaButton": "Discover our services"
+  },
+  "dynamicPricing": {
+    "comingSoonTitle": "Our offers are coming soon",
+    "comingSoonText": "We are preparing exceptional packages for you. Check back soon!",
+    "chooseTitle": "Choose your",
+    "chooseHighlight": "perfect pack",
+    "chooseSubtitle": "Solutions tailored to all your needs, with premium services and exceptional support.",
+    "customSolution": "Need a custom solution?",
+    "contactTeam": "Contact our team →"
+  },
   "Footer": {
     "description": "Your trusted partner for outstanding digital services. We turn your ideas into memorable visual experiences using AI.",
     "servicesTitle": "Services",
@@ -517,17 +496,22 @@
       "subtitle": "Create and manage subscription plans",
       "newPlan": "New Plan",
       "createPlan": "Create a new plan",
+      "search": "Search...",
       "editPlan": "Edit plan",
       "planName": "Plan name",
       "type": "Type",
       "price": "Price (€/month)",
+      "totalPacks": "Total plans",
+      "totalRevenue": "Total revenue",
       "tokensIncluded": "Tokens included",
       "tokenLimit": "Token limit",
       "features": "Features (one per line)",
       "activePlan": "Active plan",
       "free": "Free",
+      "pro": "Pro",
       "premium": "Premium",
       "enterprise": "Enterprise",
+      "all": "All",
       "month": "/month",
       "subscribers": "Subscribers"
     },
@@ -561,7 +545,12 @@
       "emailMessage": "Message",
       "yourMessage": "Your message...",
       "deleteUser": "Delete user",
-      "deleteConfirmation": "This action is irreversible."
+      "deleteConfirmation": "This action is irreversible.",
+      "allRoles": "All roles",
+      "roleUsers": "Users",
+      "roleAdmins": "Admins",
+      "roleClients": "Clients",
+      "subscription": "Subscription"
     },
     "feedback": {
       "title": "Feedback Management",
@@ -698,6 +687,8 @@
       "lastUpdate": "Last update",
       "usages": "usages",
       "free": "Free",
+      "pro": "Pro",
+      "enterprise": "Enterprise",
       "deleteService": "Delete Service",
       "deleteConfirmation": "Are you sure you want to delete the service",
       "deleteWarning": "This action is irreversible and will delete all associated data.",
