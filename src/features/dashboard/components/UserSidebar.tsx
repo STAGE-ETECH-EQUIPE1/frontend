@@ -21,7 +21,6 @@ import { Progress } from '@/components/ui/progress'
 import {
   Palette,
   UserIcon,
-  FolderOpen,
   LogOut,
   Zap,
   Crown,
@@ -119,12 +118,6 @@ export function UserSidebar({
       title: t('navigation.history'),
       icon: History,
       value: 'history',
-      color: 'text-blue-600',
-    },
-    {
-      title: t('navigation.projects'),
-      icon: FolderOpen,
-      value: 'projects',
       color: 'text-blue-600',
     },
     {

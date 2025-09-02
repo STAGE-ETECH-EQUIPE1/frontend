@@ -21,7 +21,6 @@ import { Badge } from '@/components/ui/badge'
 import {
   Package,
   Users,
-  MessageSquare,
   Settings,
   Shield,
   Activity,
@@ -152,12 +151,6 @@ export function AdminSidebar({
       icon: Users,
       value: 'users',
       color: 'text-purple-600',
-    },
-    {
-      title: tSidebar('feedback'),
-      icon: MessageSquare,
-      value: 'feedback',
-      color: 'text-amber-600',
     },
   ]
 

@@ -115,7 +115,7 @@ export function PacksManagement() {
   const getPackCategory = (pack: Pack): string => {
     const totalPrice = calculatePackTotalPrice(pack)
     if (totalPrice === 0) return 'gratuit'
-    if (totalPrice <= 1000) return 'pro'
+    if (totalPrice <= 20) return 'pro'
     return 'entreprise'
   }
 
