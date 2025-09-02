@@ -57,7 +57,7 @@ export default function GoogleLoginButton({
         }
       },
     })
-  }, [authContext, dispatch, googleAuth, setAuthMethod, t])
+  }, [authContext, dispatch, googleAuth, setAuthMethod, t, router])
 
   const handleClick = () => {
     if (!tokenClientRef.current) {

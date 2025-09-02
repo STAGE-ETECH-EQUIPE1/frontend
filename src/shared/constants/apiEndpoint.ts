@@ -17,5 +17,6 @@ export const API_ENDPOINTS = {
   },
   PAYMENT: {
     PAYMENT_SECURE_ACCEPTANCE: (id: string | number) => `/secure-acceptance/init/${id}`,
+    GET_PAYMENT_RESUME: '/payment/resume',
   }
 } as const
