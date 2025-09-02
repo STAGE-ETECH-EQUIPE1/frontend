@@ -19,7 +19,10 @@ const Footer = () => {
   const footerLinks = messages?.Footer?.footerLinks as string[]
 
   return (
-    <footer className="relative bg-gradient-to-br to-primary/80 absolute  text-white overflow-hidden">
+    <section
+      id="contact"
+      className="relative bg-gradient-to-br to-primary/80 absolute  text-white overflow-hidden"
+    >
       <div className="absolute inset-0 hero-gradient"></div>
       <div
         className="absolute inset-0 opacity-20"
@@ -144,7 +147,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </section>
   )
 }
 

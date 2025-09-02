@@ -3,15 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { AdminSidebar } from './AdminSidebar'
-import { AdminDashboard } from './AdminDashboard'
-import { PlansManagement } from './PlansManagement'
+import { PacksManagement } from './PacksManagement'
 import { AdminProfile } from './AdminProfile'
-import type {
-  AdminUser,
-  Plan,
-  User,
-  LogoFeedback,
-} from '@/features/admin/types/admin'
+import type { AdminUser, LogoFeedback } from '@/features/admin/types/admin'
 import {
   SidebarInset,
   SidebarProvider,
@@ -28,14 +22,13 @@ import {
 } from '@/components/ui/breadcrumb'
 
 // Import the new components
-import { UsersManagement } from './UsersManagement'
 import { FeedbackManagement } from './LogoFeedbackManagement'
 import LanguageSwitcher from '../../../shared/components/translation/LanguageSwitcher'
-import { ServicesManagement } from './ServicesManagement'
-import { Service } from '@/types/service'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/features/auth/hooks/useAuth'
 import LoadingAnimation from '@/shared/components/loading/LoadingAnimation'
+import ServicesPage from './ServicePage'
+import { UsersManagementContainer } from './UsersManagementContainer'
 
 // Mock data pour la démo
 const mockAdmin: AdminUser = {
@@ -48,128 +41,6 @@ const mockAdmin: AdminUser = {
   lastLogin: new Date().toISOString(),
   createdAt: '2024-01-01T00:00:00Z',
 }
-
-const mockPlans: Plan[] = [
-  {
-    id: 'plan-1',
-    name: 'Starter',
-    type: 'gratuit',
-    price: 0,
-    tokens: 10,
-    maxTokens: 10,
-    features: ['10 logos par mois', 'Formats PNG/JPG', 'Support email'],
-    isActive: true,
-    subscribersCount: 1247,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
-  },
-  {
-    id: 'plan-2',
-    name: 'Pro',
-    type: 'premium',
-    price: 29,
-    tokens: 100,
-    maxTokens: 100,
-    features: [
-      '100 logos par mois',
-      'Tous formats',
-      'Support prioritaire',
-      'API access',
-    ],
-    isActive: true,
-    subscribersCount: 456,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
-  },
-  {
-    id: 'plan-3',
-    name: 'Enterprise',
-    type: 'entreprise',
-    price: 99,
-    tokens: 'unlimited',
-    maxTokens: 'unlimited',
-    features: [
-      'Logos illimités',
-      'Tous formats',
-      'Support 24/7',
-      'API access',
-      'White-label',
-    ],
-    isActive: true,
-    subscribersCount: 89,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
-  },
-]
-
-// Add more mock users data
-const mockUsers: User[] = [
-  {
-    id: 'user-1',
-    username: 'startup_ceo',
-    email: 'ceo@startup.com',
-    avatar: '/placeholder.svg?height=40&width=40&text=SC',
-    status: 'active',
-    plan: mockPlans[1],
-    joinedAt: '2024-01-15T00:00:00Z',
-    lastActive: '2024-01-30T14:32:00Z',
-    totalLogos: 45,
-    totalDownloads: 123,
-    tokensUsed: 67,
-  },
-  {
-    id: 'user-2',
-    username: 'design_studio',
-    email: 'hello@designstudio.com',
-    avatar: '/placeholder.svg?height=40&width=40&text=DS',
-    status: 'active',
-    plan: mockPlans[2],
-    joinedAt: '2024-01-10T00:00:00Z',
-    lastActive: '2024-01-30T12:15:00Z',
-    totalLogos: 156,
-    totalDownloads: 445,
-    tokensUsed: 234,
-  },
-  {
-    id: 'user-3',
-    username: 'freelancer_pro',
-    email: 'pro@freelance.com',
-    avatar: '/placeholder.svg?height=40&width=40&text=FP',
-    status: 'suspended',
-    plan: mockPlans[0],
-    joinedAt: '2024-01-20T00:00:00Z',
-    lastActive: '2024-01-28T09:45:00Z',
-    totalLogos: 12,
-    totalDownloads: 34,
-    tokensUsed: 8,
-  },
-  {
-    id: 'user-4',
-    username: 'marketing_agency',
-    email: 'contact@agency.com',
-    avatar: '/placeholder.svg?height=40&width=40&text=MA',
-    status: 'active',
-    plan: mockPlans[1],
-    joinedAt: '2024-01-05T00:00:00Z',
-    lastActive: '2024-01-30T16:20:00Z',
-    totalLogos: 89,
-    totalDownloads: 267,
-    tokensUsed: 78,
-  },
-  {
-    id: 'user-5',
-    username: 'tech_startup',
-    email: 'founder@techstartup.io',
-    avatar: '/placeholder.svg?height=40&width=40&text=TS',
-    status: 'banned',
-    plan: mockPlans[0],
-    joinedAt: '2024-01-25T00:00:00Z',
-    lastActive: '2024-01-26T11:30:00Z',
-    totalLogos: 3,
-    totalDownloads: 5,
-    tokensUsed: 3,
-  },
-]
 
 // Add more mock feedbacks data
 const mockFeedbacks: LogoFeedback[] = [
@@ -259,11 +130,6 @@ const mockFeedbacks: LogoFeedback[] = [
   },
 ]
 
-// Add handler functions
-const handleSendEmail = (userId: string, subject: string, message: string) => {
-  console.log('Sending email to user:', userId, { subject, message })
-}
-
 const handleRespondToFeedback = (id: string, response: string) => {
   console.log('Responding to feedback:', id, response)
 }
@@ -271,7 +137,6 @@ const handleRespondToFeedback = (id: string, response: string) => {
 export function AdminPage() {
   const t = useTranslations('admin')
   const [activeTab, setActiveTab] = useState('dashboard')
-  const [users, setUsers] = useState<User[]>(mockUsers)
   const [feedbacks, setFeedbacks] = useState<LogoFeedback[]>(mockFeedbacks)
   const { user, loading } = useAuth()
   const router = useRouter()
@@ -293,18 +158,6 @@ export function AdminPage() {
     return null
   }
 
-  const handleUpdateUser = (id: string, updates: Partial<User>) => {
-    setUsers((prev) =>
-      prev.map((user) => (user.id === id ? { ...user, ...updates } : user))
-    )
-    console.log('Updating user:', id, updates)
-  }
-
-  const handleDeleteUser = (id: string) => {
-    setUsers((prev) => prev.filter((user) => user.id !== id))
-    console.log('Deleting user:', id)
-  }
-
   const handleUpdateFeedback = (id: string, updates: Partial<LogoFeedback>) => {
     setFeedbacks((prev) =>
       prev.map((feedback) =>
@@ -317,20 +170,6 @@ export function AdminPage() {
   const handleDeleteFeedback = (id: string) => {
     setFeedbacks((prev) => prev.filter((feedback) => feedback.id !== id))
     console.log('Deleting feedback:', id)
-  }
-
-  const handleCreatePlan = (
-    plan: Omit<Plan, 'id' | 'createdAt' | 'updatedAt' | 'subscribersCount'>
-  ) => {
-    console.log('Creating plan:', plan)
-  }
-
-  const handleUpdatePlan = (id: string, updates: Partial<Plan>) => {
-    console.log('Updating plan:', id, updates)
-  }
-
-  const handleDeletePlan = (id: string) => {
-    console.log('Deleting plan:', id)
   }
 
   const getBreadcrumbTitle = (tab: string) => {
@@ -350,72 +189,15 @@ export function AdminPage() {
     }
   }
 
-  const services: Service[] = [
-    {
-      id: '1',
-      name: 'Service A',
-      price: 100,
-      tokens: 10,
-      description: 'Description A',
-      isActive: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      usageCount: 0,
-    },
-  ]
-
-  const handleCreateService = (
-    service: Omit<Service, 'id' | 'createdAt' | 'updatedAt' | 'usageCount'>
-  ) => {
-    console.log('Create:', service)
-  }
-
-  const handleUpdateService = (id: string, updates: Partial<Service>) => {
-    console.log('Update:', id, updates)
-  }
-
-  const handleDeleteService = (id: string) => {
-    console.log('Delete:', id)
-  }
-
   // Mettre à jour renderContent pour utiliser les états
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
-        return (
-          <AdminDashboard
-            users={users}
-            plans={mockPlans}
-            feedbacks={feedbacks}
-          />
-        )
       case 'services':
-        return (
-          <ServicesManagement
-            services={services}
-            onCreateService={handleCreateService}
-            onUpdateService={handleUpdateService}
-            onDeleteService={handleDeleteService}
-          />
-        )
+        return <ServicesPage />
       case 'plans':
-        return (
-          <PlansManagement
-            plans={mockPlans}
-            onCreatePlan={handleCreatePlan}
-            onUpdatePlan={handleUpdatePlan}
-            onDeletePlan={handleDeletePlan}
-          />
-        )
+        return <PacksManagement />
       case 'users':
-        return (
-          <UsersManagement
-            users={users}
-            onUpdateUser={handleUpdateUser}
-            onDeleteUser={handleDeleteUser}
-            onSendEmail={handleSendEmail}
-          />
-        )
+        return <UsersManagementContainer />
       case 'feedback':
         return (
           <FeedbackManagement
@@ -428,13 +210,7 @@ export function AdminPage() {
       case 'profile':
         return <AdminProfile admin={mockAdmin} />
       default:
-        return (
-          <AdminDashboard
-            users={users}
-            plans={mockPlans}
-            feedbacks={feedbacks}
-          />
-        )
+        return <ServicesPage />
     }
   }
 

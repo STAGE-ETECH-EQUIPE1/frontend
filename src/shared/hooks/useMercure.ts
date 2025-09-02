@@ -1,34 +1,76 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
+import { API_ENDPOINTS } from '../constants/apiEndpoint'
 
-const MERCURE_HUB_URL = process.env.NEXT_PUBLIC_MERCURE_HUB as string
-
-export const useMercure = (
-  topic: string,
-  onMessage: (data: unknown) => void,
-  jwt?: string
-) => {
-  const eventSourceRef = useRef<EventSource | null>(null)
+export default function useMercure(projectId: string) {
+  const [isConnected, setIsConnected] = useState(false)
+  const [lastMessage, setLastMessage] = useState(null)
 
   useEffect(() => {
-    const url = new URL(MERCURE_HUB_URL)
-    url.searchParams.append('topic', topic)
-    if (jwt) url.searchParams.append('jwt', jwt)
+    if (!projectId) return
 
-    const es = new EventSource(url.toString())
-    eventSourceRef.current = es
-
-    es.onmessage = (event) => {
+    const initMercure = async () => {
       try {
-        onMessage(JSON.parse(event.data))
-      } catch {
-        onMessage(event.data)
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}${API_ENDPOINTS.MERCURE.TOKEN}`,
+          {
+            credentials: 'include',
+          }
+        )
+
+        if (!res.ok) {
+          throw new Error(`Failed to get Mercure token: ${res.status}`)
+        }
+
+        const { token } = await res.json()
+
+        const url = new URL(
+          `${process.env.NEXT_PUBLIC_MERCURE_HUB}/.well-known/mercure`
+        )
+        url.searchParams.append(
+          'topic',
+          `https://example.com/project/${projectId}`
+        )
+        url.searchParams.append('token', token)
+
+        const eventSource = new EventSource(url.toString())
+
+        eventSource.onopen = () => {
+          console.log('[v0] Mercure connection opened')
+          setIsConnected(true)
+        }
+
+        eventSource.onmessage = (event) => {
+          const data = JSON.parse(event.data)
+          console.log('[v0] Mercure message received:', data)
+          setLastMessage(data)
+        }
+
+        eventSource.onerror = (err) => {
+          console.log('[v0] Mercure connection error:', err)
+          setIsConnected(false)
+          eventSource.close()
+        }
+
+        return () => {
+          eventSource.close()
+          setIsConnected(false)
+        }
+      } catch (err) {
+        console.log('[v0] Failed to connect to Mercure:', err)
+        setIsConnected(false)
       }
     }
 
-    return () => es.close()
-  }, [topic, jwt, onMessage])
+    const cleanup = initMercure()
 
-  return eventSourceRef
+    return () => {
+      if (cleanup instanceof Promise) {
+        cleanup.then((cleanupFn) => cleanupFn?.())
+      }
+    }
+  }, [projectId])
+
+  return { isConnected, lastMessage }
 }

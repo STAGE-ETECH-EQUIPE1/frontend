@@ -18,7 +18,8 @@
     "pricing": "Tarifs",
     "contact": "Contact",
     "signin": "Connexion",
-    "start": "Commencer"
+    "start": "Commencer",
+    "profile": "Mon Profil"
   },
   "Header": {
     "tagline": "Plateforme Premium",
@@ -160,56 +161,34 @@
     }
   },
   "pricing": {
-    "title": "Formules",
-    "subtitle": "Choisissez l’offre adaptée à votre ambition",
-    "free": {
-      "title": "Gratuit",
-      "description": "Parfait pour découvrir nos outils",
-      "features": {
-        "tokens": "10 jetons par jour",
-        "tools": "Outils de base",
-        "community": "Support communautaire",
-        "watermark": "Filigrane sur les exports"
-      },
-      "button": "Commencer gratuitement"
-    },
-    "premium": {
-      "title": "Premium",
-      "description": "Notre formule la plus populaire",
-      "features": {
-        "tokens": "1000 jetons par mois",
-        "logo": "Logo + 3 variantes",
-        "concepts": "Concepts illimités",
-        "revisions": "Révisions illimitées",
-        "formats": "Tous formats (PNG, JPG, SVG, AI)",
-        "charter": "Charte graphique",
-        "mockups": "Mockups inclus",
-        "delivery": "Livraison en 3 jours"
-      },
-      "popular": "Le plus populaire",
-      "button": "Choisir cette offre"
-    },
-    "enterprise": {
-      "title": "Entreprise",
-      "description": "Solution complète pour les entreprises",
-      "features": {
-        "tokens": "Jetons illimités",
-        "identity": "Identité visuelle complète",
-        "logo": "Logo + variantes",
-        "charter": "Charte graphique détaillée",
-        "cards": "Cartes de visite",
-        "stationery": "Papeterie d’entreprise",
-        "templates": "Templates réseaux sociaux",
-        "designer": "Designer dédié",
-        "delivery": "Livraison en 24h",
-        "support": "Support prioritaire"
-      },
-      "button": "Choisir cette offre"
-    },
-    "customMessage": "Besoin d'une solution sur-mesure ?",
-    "requestQuote": "Demander un devis personnalisé"
+    "popular": "Populaire",
+    "free": "Gratuit",
+    "perPack": "/pack",
+    "servicesIncluded": "{count} service{count, plural, one {} other {s}} inclus",
+    "customServices": "Services personnalisés inclus",
+    "startFree": "Commencer gratuitement",
+    "choosePack": "Choisir ce pack",
+    "validity": "Valide du {start} au {end}",
+    "tokens": "Tokens: {value}"
   },
-
+  "portfolio": {
+    "title": "Nos Clients de Confiance",
+    "subtitle": "Nous sommes fiers de collaborer avec des entreprises leaders qui nous font confiance pour leurs solutions digitales et leurs projets innovants.",
+    "prevClients": "Clients précédents",
+    "nextClients": "Clients suivants",
+    "slideLabel": "Aller à la slide {index}",
+    "ctaText": "Rejoignez ces entreprises leaders et découvrez comment nous pouvons vous aider",
+    "ctaButton": "Découvrir nos services"
+  },
+  "dynamicPricing": {
+    "comingSoonTitle": "Nos offres arrivent bientôt",
+    "comingSoonText": "Nous préparons des packs exceptionnels pour vous. Revenez bientôt !",
+    "chooseTitle": "Choisissez votre",
+    "chooseHighlight": "pack parfait",
+    "chooseSubtitle": "Des solutions adaptées à tous vos besoins, avec des services premium et un support exceptionnel.",
+    "customSolution": "Besoin d'une solution sur mesure ?",
+    "contactTeam": "Contactez notre équipe →"
+  },
   "Footer": {
     "description": "Votre partenaire de confiance pour des services digitaux d'exception. Nous transformons vos idées en réalités visuelles mémorables avec l'IA.",
     "servicesTitle": "Services",
@@ -525,22 +504,27 @@
       "services": "Services"
     },
     "plans": {
-      "title": "Gestion des Plans",
-      "subtitle": "Créez et gérez les plans d'abonnement",
+      "title": "Gestion des Packs",
+      "subtitle": "Créez et gérez les packs d'abonnement",
       "newPlan": "Nouveau Plan",
-      "createPlan": "Créer un nouveau plan",
-      "editPlan": "Modifier le plan",
-      "planName": "Nom du plan",
+      "createPlan": "Créer un nouveau pack",
+      "search": "Rechercher...",
+      "editPlan": "Modifier le pack",
+      "planName": "Nom du pack",
       "type": "Type",
       "price": "Prix (€/mois)",
+      "totalPacks": "Total packs",
+      "totalRevenue": "Revenu total",
       "tokensIncluded": "Tokens inclus",
       "tokenLimit": "Limite tokens",
       "features": "Fonctionnalités (une par ligne)",
       "activePlan": "Plan actif",
       "subscribers": "Abonnés",
       "free": "Gratuit",
+      "pro": "Pro",
       "premium": "Premium",
       "enterprise": "Entreprise",
+      "all": "Tous",
       "month": "/mois",
       "unlimited": "Illimité"
     },
@@ -550,18 +534,13 @@
       "search": "Rechercher...",
       "allStatuses": "Tous statuts",
       "allPlans": "Tous plans",
-      "suspended": "Suspendu",
-      "banned": "Banni",
       "viewDetails": "Voir les détails",
       "sendEmail": "Envoyer un email",
-      "suspend": "Suspendre",
-      "reactivate": "Réactiver",
-      "banPermanently": "Bannir définitivement",
       "deleteAccount": "Supprimer le compte",
       "userDetails": "Détails utilisateur",
       "fullInfo": "Informations complètes",
       "registration": "Inscription",
-      "plan": "Plan",
+      "plan": "Packs",
       "lastActivity": "Dernière activité",
       "tokens": "Tokens",
       "logosCreated": "Logos créés",
@@ -574,7 +553,12 @@
       "deleteConfirmation": "Cette action est irréversible.",
       "emailSubject": "Sujet",
       "emailMessage": "Message",
-      "yourMessage": "Votre message..."
+      "yourMessage": "Votre message...",
+      "allRoles": "Tous les rôles",
+      "roleUsers": "Utilisateurs",
+      "roleAdmins": "Administrateurs",
+      "roleClients": "Clients",
+      "subscription": "Abonnement"
     },
     "feedback": {
       "title": "Gestion des Commentaires",
@@ -698,6 +682,8 @@
       "lastUpdate": "Dernière mise à jour",
       "usages": "utilisations",
       "free": "Gratuit",
+      "pro": "Pro",
+      "enterprise": "Entreprise",
       "deleteService": "Supprimer le Service",
       "deleteConfirmation": "Êtes-vous sûr de vouloir supprimer le service",
       "deleteWarning": "Cette action est irréversible et supprimera toutes les données associées.",
