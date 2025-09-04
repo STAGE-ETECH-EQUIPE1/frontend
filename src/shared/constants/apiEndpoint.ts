@@ -17,7 +17,8 @@ export const API_ENDPOINTS = {
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
   },
   PAYMENT: {
-    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) => `/secure-acceptance/init/${id}`,
+    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>
+      `/secure-acceptance/init/${id}`,
     GET_PAYMENT_RESUME: '/payment/resume',
   },
   SERVICES: {

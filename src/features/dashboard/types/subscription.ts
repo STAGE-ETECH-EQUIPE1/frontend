@@ -1,7 +1,7 @@
 export interface CreateSubscriptionRequest {
   name: string
   reference: string
-  status: "active" | "inactive" | "pending"
+  status: 'active' | 'inactive' | 'pending'
   startedAt: string
   endedAt: string
   paymentId: number
@@ -13,7 +13,7 @@ export interface Subscription {
   id: number
   name: string
   reference: string
-  status: "active" | "inactive" | "pending"
+  status: 'active' | 'inactive' | 'pending'
   startedAt: string
   endedAt: string
   paymentId: number
