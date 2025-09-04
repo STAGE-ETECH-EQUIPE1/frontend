@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Check, Crown, Star } from 'lucide-react'
 import type { Pack, Service } from '@/features/admin/types/pack'
 import { useTranslations } from 'next-intl'
+import { useParams, useRouter } from 'next/navigation'
 
 interface DynamicPricingCardProps {
   pack: Pack
@@ -27,8 +28,17 @@ export function DynamicPricingCard({
 }: DynamicPricingCardProps) {
   const t = useTranslations('pricing')
 
+  const params = useParams()
+  const locale = params.locale as string
+
+  const router = useRouter()
+
   const services = getServicesFromPack(pack)
   const totalPrice = calculatePackTotalPrice(pack)
+
+  const redirectToPayment = (id: number): void => {
+    router.replace(`/${locale}/payment/${id}`)
+  }
 
   const getCategoryStyles = () => {
     switch (category) {
@@ -146,6 +156,7 @@ export function DynamicPricingCard({
         <Button
           className={`w-full py-3 text-base font-semibold transition-all duration-200 ${styles.button}`}
           size="lg"
+          onClick={() => redirectToPayment(pack.id)}
         >
           {totalPrice === 0 ? t('startFree') : t('choosePack')}
         </Button>

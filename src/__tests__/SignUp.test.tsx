@@ -135,7 +135,7 @@ describe('SignUp Component', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
-     // Step 3
+    // Step 3
     await waitFor(() => {
       expect(screen.getByLabelText('companyName')).toBeInTheDocument()
     })
@@ -147,7 +147,6 @@ describe('SignUp Component', () => {
       target: { value: 'industrie' },
     })
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
-
 
     // Step 4
     await waitFor(() => {

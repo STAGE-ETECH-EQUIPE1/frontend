@@ -1,29 +1,36 @@
-import { createApi } from "@reduxjs/toolkit/query/react"
-import { baseQuery } from "@/shared/api/baseQuery"
-import { CreateSubscriptionRequest, Subscription } from "../types/subscription"
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQuery } from '@/shared/api/baseQuery'
+import { CreateSubscriptionRequest, Subscription } from '../types/subscription'
 
 export const subscriptionApi = createApi({
-  reducerPath: "subscriptionApi",
+  reducerPath: 'subscriptionApi',
   baseQuery,
-  tagTypes: ["Subscription"],
+  tagTypes: ['Subscription'],
   endpoints: (builder) => ({
-    createSubscription: builder.mutation<Subscription, CreateSubscriptionRequest>({
+    createSubscription: builder.mutation<
+      Subscription,
+      CreateSubscriptionRequest
+    >({
       query: (subscription) => ({
-        url: "/subscription/create",
-        method: "POST",
+        url: '/subscription/create',
+        method: 'POST',
         body: subscription,
       }),
-      invalidatesTags: ["Subscription"],
+      invalidatesTags: ['Subscription'],
     }),
     getSubscriptions: builder.query<Subscription[], void>({
-      query: () => "/subscriptions",
-      providesTags: ["Subscription"],
+      query: () => '/subscriptions',
+      providesTags: ['Subscription'],
     }),
     getSubscriptionById: builder.query<Subscription, number>({
       query: (id) => `/subscription/${id}`,
-      providesTags: ["Subscription"],
+      providesTags: ['Subscription'],
     }),
   }),
 })
 
-export const { useCreateSubscriptionMutation, useGetSubscriptionsQuery, useGetSubscriptionByIdQuery } = subscriptionApi
+export const {
+  useCreateSubscriptionMutation,
+  useGetSubscriptionsQuery,
+  useGetSubscriptionByIdQuery,
+} = subscriptionApi
