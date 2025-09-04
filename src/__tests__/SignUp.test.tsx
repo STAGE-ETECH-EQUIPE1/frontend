@@ -135,7 +135,21 @@ describe('SignUp Component', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
-    // Step 3
+     // Step 3
+    await waitFor(() => {
+      expect(screen.getByLabelText('companyName')).toBeInTheDocument()
+    })
+
+    fireEvent.change(await screen.findByLabelText('companyName'), {
+      target: { value: 'OrbixUp' },
+    })
+    fireEvent.change(screen.getByLabelText('companyArea'), {
+      target: { value: 'industrie' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /next/i }))
+
+
+    // Step 4
     await waitFor(() => {
       expect(screen.getByLabelText('password')).toBeInTheDocument()
     })
@@ -157,6 +171,8 @@ describe('SignUp Component', () => {
         phone: '+261123456789',
         fullName: 'John Doe',
         username: 'johndoe',
+        companyName: 'OrbixUp',
+        companyArea: 'industrie',
         password: '12345678',
         confirmPassword: '12345678',
       })
@@ -189,6 +205,18 @@ describe('SignUp Component', () => {
       target: { value: 'Bad User' },
     })
     fireEvent.change(screen.getByLabelText('username'), {
+      target: { value: 'baduser' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /next/i }))
+
+    await waitFor(() => {
+      expect(screen.getByLabelText('companyName')).toBeInTheDocument()
+    })
+
+    fireEvent.change(await screen.findByLabelText('companyName'), {
+      target: { value: 'Bad User' },
+    })
+    fireEvent.change(screen.getByLabelText('companyArea'), {
       target: { value: 'baduser' },
     })
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
