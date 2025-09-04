@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
   },
   USER: {
     ME: 'client/me',
+    CURRENT_USER_SUBSCRIPTION: 'client/subscription',
     LIST: '/user/showAll',
   },
   BRANDING: {
@@ -17,7 +18,8 @@ export const API_ENDPOINTS = {
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
   },
   PAYMENT: {
-    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) => `/secure-acceptance/init/${id}`,
+    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>
+      `/secure-acceptance/init/${id}`,
     GET_PAYMENT_RESUME: '/payment/resume',
   },
   SERVICES: {
@@ -31,6 +33,7 @@ export const API_ENDPOINTS = {
     CREATE: '/pack/create',
     UPDATE: (id: number) => `/pack/edit/${id}`,
     DELETE: (id: number) => `/pack/delete/${id}`,
+    GET_BY_ID: (id: number) => `/packs/${id}`,
   },
   MERCURE: {
     TOKEN: '/mercure/token',

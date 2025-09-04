@@ -10,13 +10,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import {
   UserIcon,
   Crown,
@@ -26,7 +19,6 @@ import {
   Download,
   Heart,
   Palette,
-  CreditCard,
   Settings,
   Upload,
   Save,
@@ -35,6 +27,7 @@ import {
 
 // Import de votre service RTK Query (adaptez le chemin si nécessaire)
 import { useGetCurrentUserQuery } from '../services/userApi'
+import SubscriptionCard from './SubscriptionCard'
 
 function normalize(value?: string | null) {
   const v = (value ?? '').trim()
@@ -115,33 +108,6 @@ const mockUser = {
   },
 }
 
-const plans = [
-  {
-    name: 'starter',
-    type: 'gratuit' as const,
-    price: 0,
-    tokens: 10,
-    popular: false,
-    featureCount: 3,
-  },
-  {
-    name: 'pro',
-    type: 'premium' as const,
-    price: 29,
-    tokens: 100,
-    popular: true,
-    featureCount: 5,
-  },
-  {
-    name: 'enterprise',
-    type: 'entreprise' as const,
-    price: 99,
-    tokens: 'unlimited' as const,
-    popular: false,
-    featureCount: 6,
-  },
-]
-
 export function UserProfile() {
   const t = useTranslations('userProfile')
   const tCommon = useTranslations('common')
@@ -161,7 +127,6 @@ export function UserProfile() {
     email: user.email,
     phone: user.phone,
   })
-  const [isUpgradeDialogOpen, setIsUpgradeDialogOpen] = useState(false)
 
   // Hydrate les champs disponibles depuis l’API User
   useEffect(() => {
@@ -232,21 +197,7 @@ export function UserProfile() {
     }
   }
 
-  const getPlanFeatures = (planName: string, featureCount: number) => {
-    const features: string[] = []
-    for (let i = 1; i <= featureCount; i++) {
-      const featureKey = `planFeatures.${planName}.feature${i}`
-      features.push(t(featureKey))
-    }
-    return features
-  }
-
   const PlanIcon = getPlanIcon(user.plan.type)
-
-  const tokensPercentage = (() => {
-    const maxTokens = user.plan.maxTokens as number | 'unlimited'
-    return maxTokens === 'unlimited' ? 0 : (user.tokensUsed / maxTokens) * 100
-  })()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -441,170 +392,7 @@ export function UserProfile() {
           </Card>
 
           {/* Subscription */}
-          <Card className="bg-white border-blue-200/50 shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-blue-600 flex items-center gap-2">
-                <CreditCard className="w-5 h-5" />
-                {t('mySubscription')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`w-12 h-12 rounded-lg bg-gradient-to-r ${getPlanColor(user.plan.type)} flex items-center justify-center`}
-                  >
-                    <PlanIcon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-800">
-                      {user.plan.name}
-                    </h3>
-                    <p className="text-sm text-slate-600">
-                      {user.plan.price === 0
-                        ? t('free')
-                        : `${user.plan.price}€${t('perMonth')}`}
-                    </p>
-                  </div>
-                </div>
-
-                <Dialog
-                  open={isUpgradeDialogOpen}
-                  onOpenChange={setIsUpgradeDialogOpen}
-                >
-                  <DialogTrigger asChild>
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                      {user.plan.type === 'gratuit'
-                        ? t('upgrade')
-                        : t('changePlan')}
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-[95vw] sm:max-w-[85vw] lg:max-w-[80vw] xl:max-w-[75vw] max-h-screen overflow-y-auto bg-background/95 backdrop-blur-md border border-border/50 rounded-2xl p-0 [&>button]:right-2 [&>button]:top-2 [&>button]:w-4 [&>button]:h-4 [&>button]:rounded-full [&>button]:bg-muted/80 [&>button]:hover:bg-muted [&>button]:opacity-100">
-                    <DialogTitle></DialogTitle>
-                    <div className="flex flex-wrap sm:gap-6 justify-center p-2 sm:p-4">
-                      {plans.map((plan) => {
-                        const Icon = getPlanIcon(plan.type)
-                        const isCurrentPlan = plan.type === user.plan.type
-                        const planFeatures = getPlanFeatures(
-                          plan.name,
-                          plan.featureCount
-                        )
-                        return (
-                          <Card
-                            key={plan.type}
-                            className={`relative w-[68vw] max-w-[500px] p-5 sm:w-[260px] md:w-[280px] mx-auto my-5 ${
-                              plan.popular
-                                ? 'border-blue-500 shadow-lg'
-                                : 'border-slate-200'
-                            } ${isCurrentPlan ? 'ring-2 ring-blue-500' : ''}`}
-                          >
-                            {plan.popular && (
-                              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                                <Badge className="bg-blue-600 text-white px-2 py-1 text-xs">
-                                  {t('popular')}
-                                </Badge>
-                              </div>
-                            )}
-                            {isCurrentPlan && (
-                              <div className="absolute -top-3 right-4">
-                                <Badge className="bg-blue-600 text-white px-2 py-1 text-xs">
-                                  {t('current')}
-                                </Badge>
-                              </div>
-                            )}
-
-                            <CardHeader className="text-center p-4">
-                              <div
-                                className={`w-14 h-14 mx-auto rounded-lg bg-gradient-to-r ${getPlanColor(plan.type)} flex items-center justify-center mb-3`}
-                              >
-                                <Icon className="w-6 h-6 text-white" />
-                              </div>
-                              <CardTitle className="text-lg sm:text-xl">
-                                {t(`plans.${plan.name.toLowerCase()}`)}
-                              </CardTitle>
-                              <div className="text-2xl sm:text-3xl font-bold text-slate-800">
-                                {plan.price === 0
-                                  ? t('free')
-                                  : `${plan.price}€`}
-                              </div>
-                              {plan.price > 0 && (
-                                <p className="text-xs sm:text-sm text-slate-600">
-                                  {t('perMonth')}
-                                </p>
-                              )}
-                            </CardHeader>
-                            <CardContent className="p-4 sm:p-6">
-                              <ul className="space-y-2 mb-4">
-                                {planFeatures.map((feature, index) => (
-                                  <li
-                                    key={index}
-                                    className="flex items-start gap-2 text-xs sm:text-sm"
-                                  >
-                                    <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5" />
-                                    <span>{feature}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                              <Button
-                                className={`w-full text-sm py-2 ${isCurrentPlan ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'}`}
-                                disabled={isCurrentPlan}
-                              >
-                                {isCurrentPlan
-                                  ? t('currentPlan')
-                                  : t('choosePlan')}
-                              </Button>
-                            </CardContent>
-                          </Card>
-                        )
-                      })}
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-600">{t('tokenUsage')}</span>
-                  <span className="text-blue-600">
-                    {user.tokensUsed}/
-                    {(user.plan.maxTokens as number | 'unlimited') ===
-                    'unlimited'
-                      ? '∞'
-                      : (user.plan.maxTokens as number)}
-                  </span>
-                </div>
-                {(user.plan.maxTokens as number | 'unlimited') !==
-                  'unlimited' && (
-                  <Progress value={tokensPercentage} className="h-2" />
-                )}
-              </div>
-
-              <div className="text-sm text-slate-600">
-                <p>
-                  <Calendar className="w-4 h-4 inline mr-1" />
-                  {t('renewalDate')}{' '}
-                  {new Date(user.plan.renewalDate).toLocaleDateString('fr-FR')}
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="font-medium text-slate-800">
-                  {t('includedFeatures')}
-                </h4>
-                <ul className="space-y-1">
-                  {user.plan.features.map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center gap-2 text-sm text-slate-600"
-                    >
-                      <div className="w-1 h-1 bg-blue-600 rounded-full" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
+          <SubscriptionCard user={user} />
         </div>
 
         {/* Stats & Activity */}

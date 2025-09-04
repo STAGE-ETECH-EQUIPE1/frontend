@@ -18,3 +18,12 @@ export interface ServicesManagementProps {
   onUpdateService: (id: string, updates: Partial<Service>) => void
   onDeleteService: (id: string) => void
 }
+
+export interface PackResponse {
+  id: number
+  name: string
+  price: string
+  createdAt: string
+  startedAt: string
+  expiredAt: string
+}

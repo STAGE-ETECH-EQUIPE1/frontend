@@ -45,13 +45,15 @@ const SignUp = () => {
     } else if (currentStep === 2) {
       fieldsToValidate = ['fullName', 'username']
     } else if (currentStep === 3) {
+      fieldsToValidate = ['companyName', 'companyArea']
+    } else if (currentStep === 4) {
       fieldsToValidate = ['password', 'confirmPassword']
     }
 
     const isValid = await methods.trigger(fieldsToValidate)
     if (!isValid) return
 
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       setCurrentStep(currentStep + 1)
     } else {
       methods.handleSubmit(onSubmit)()
@@ -61,7 +63,7 @@ const SignUp = () => {
   const onSubmit = async (data: SignupFormData) => {
     setAuthMethod('form')
 
-    if (currentStep < 3) {
+    if (currentStep < 4) {
       setCurrentStep(currentStep + 1)
       return
     }
@@ -96,7 +98,7 @@ const SignUp = () => {
 
       {/* Step Indicator */}
       <div className="flex items-center justify-center mb-8">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-5">
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
               currentStep >= 1
@@ -129,6 +131,18 @@ const SignUp = () => {
             }`}
           >
             3
+          </div>
+          <div
+            className={`w-8 h-1 rounded-full transition-colors ${currentStep >= 4 ? 'bg-primary' : 'bg-muted'}`}
+          ></div>
+          <div
+            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
+              currentStep >= 4
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted text-muted-foreground'
+            }`}
+          >
+            4
           </div>
         </div>
       </div>
@@ -229,6 +243,51 @@ const SignUp = () => {
           )}
 
           {currentStep === 3 && (
+            <>
+              <div className="space-y-2">
+                <Label
+                  htmlFor="companyName"
+                  className="text-sm font-medium text-foreground"
+                >
+                  {t('companyName')}
+                </Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    id="companyName"
+                    type="text"
+                    placeholder="Nom de l'entreprise"
+                    {...methods.register('companyName')}
+                    className="pl-10 h-12 bg-background/50 border-border/50 focus:border-primary focus:ring-primary/20"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Username Field */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="companyArea"
+                  className="text-sm font-medium text-foreground"
+                >
+                  {t('companyArea')}
+                </Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    id="companyArea"
+                    type="text"
+                    placeholder="votre Secteur d'activite"
+                    {...methods.register('companyArea')}
+                    className="pl-10 h-12 bg-background/50 border-border/50 focus:border-primary focus:ring-primary/20"
+                    required
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
+          {currentStep === 4 && (
             <>
               {/* Step 3: Security */}
               <div className="space-y-4">
@@ -350,10 +409,10 @@ const SignUp = () => {
               className={`h-12 btn-premium text-base font-semibold ${currentStep === 1 ? 'w-full' : 'flex-1'}`}
               disabled={signupState.isLoading}
             >
-              {signupState.isLoading && currentStep === 3 && (
+              {signupState.isLoading && currentStep === 4 && (
                 <span className="w-5 h-5 border-2 border-t-transparent border-white rounded-full animate-spin" />
               )}
-              {currentStep === 3 ? (
+              {currentStep === 4 ? (
                 t('createAccount')
               ) : (
                 <>

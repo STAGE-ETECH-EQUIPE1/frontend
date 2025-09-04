@@ -53,6 +53,8 @@
       "phone": "Phone number *",
       "fullName": "Full name *",
       "username": "Username *",
+      "companyName": "Company Name *",
+      "companyArea": "Company Area *",
       "password": "Password *",
       "confirmPassword": "Confirm password *",
       "acceptTerms": "I accept the",
