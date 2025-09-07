@@ -137,19 +137,6 @@ describe('SignUp Component', () => {
 
     // Step 3
     await waitFor(() => {
-      expect(screen.getByLabelText('companyName')).toBeInTheDocument()
-    })
-
-    fireEvent.change(await screen.findByLabelText('companyName'), {
-      target: { value: 'OrbixUp' },
-    })
-    fireEvent.change(screen.getByLabelText('companyArea'), {
-      target: { value: 'industrie' },
-    })
-    fireEvent.click(screen.getByRole('button', { name: /next/i }))
-
-    // Step 4
-    await waitFor(() => {
       expect(screen.getByLabelText('password')).toBeInTheDocument()
     })
     fireEvent.change(screen.getByLabelText('password'), {

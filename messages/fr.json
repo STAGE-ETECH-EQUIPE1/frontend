@@ -54,8 +54,6 @@
       "phone": "Numéro de téléphone *",
       "fullName": "Nom complet *",
       "username": "Nom d'utilisateur *",
-      "companyName": "Nom de l'Entreprise",
-      "companyArea": "Secteur d'activité *",
       "password": "Mot de passe *",
       "confirmPassword": "Confirmer le mot de passe *",
       "acceptTerms": "J'accepte les",
