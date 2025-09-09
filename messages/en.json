@@ -240,7 +240,13 @@
     "profile": "My Profile",
     "settings": "Settings",
     "logout": "Logout",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "visualIdentity": {
+      "visualIdentity": "Visual Identity",
+      "logoGeneration": "Generate Logo",
+      "colorPaletteGeneration": "Generate Logo Color Palette",
+      "typographieGeneration": "Generate Typographie"
+    }
   },
   "dashboard": {
     "title": "ORBIXUP",

@@ -237,7 +237,13 @@
     "profile": "Mon Profil",
     "settings": "Paramètres",
     "logout": "Déconnexion",
-    "statistics": "Statistiques"
+    "statistics": "Statistiques",
+    "visualIdentity": {
+      "visualIdentity": "Identité Visuelle",
+      "logoGeneration": "Génération de logo",
+      "colorPaletteGeneration": "Palette de couleur",
+      "typographieGeneration": "Typographie"
+    }
   },
   "dashboard": {
     "title": "ORBIXUP",

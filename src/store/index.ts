@@ -6,8 +6,8 @@ import { authApi } from '@/features/auth/services/authApi'
 import { userApi } from '@/features/dashboard/services/userApi'
 import { brandingApi } from '@/features/dashboard/services/brandingApi'
 import { generationHistoryApi } from '@/features/dashboard/services/generationHistoryApi'
-import { mercureApi } from '@/shared/services/mercureApi'
 import { packApi } from '@/features/admin/services/packApi'
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -16,7 +16,6 @@ export const store = configureStore({
     [usersApi.reducerPath]: usersApi.reducer,
     [brandingApi.reducerPath]: brandingApi.reducer,
     [generationHistoryApi.reducerPath]: generationHistoryApi.reducer,
-    [mercureApi.reducerPath]: mercureApi.reducer,
     [packApi.reducerPath]: packApi.reducer,
     project: projectReducer,
   },
@@ -26,7 +25,6 @@ export const store = configureStore({
       .concat(userApi.middleware)
       .concat(brandingApi.middleware)
       .concat(generationHistoryApi.middleware)
-      .concat(mercureApi.middleware)
       .concat(packApi.middleware)
       .concat(usersApi.middleware),
 })
