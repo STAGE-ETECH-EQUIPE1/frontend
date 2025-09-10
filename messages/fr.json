@@ -231,13 +231,12 @@
     "regenerate": "Régénérer"
   },
   "navigation": {
-    "generate": "Générer un Logo",
     "history": "Historique",
     "projects": "Mes Projets",
     "profile": "Mon Profil",
-    "settings": "Paramètres",
     "logout": "Déconnexion",
     "statistics": "Statistiques",
+    "fileToProvide": "Dossier à fournir",
     "visualIdentity": {
       "visualIdentity": "Identité Visuelle",
       "logoGeneration": "Génération de logo",
@@ -253,6 +252,21 @@
     "downloads": "Téléchargements",
     "favorites": "Favoris",
     "memberSince": "Membre depuis"
+  },
+  "fileToProvide": {
+    "title": "Dossier à fournir",
+    "form": {
+      "title": "Paramètres de génération",
+      "companyArea": "Secteur d'activité",
+      "publicTarget": "Publique cîble",
+      "mainLanguage": "Langage Principale",
+      "mainService": "Service Principale",
+      "submit": "Soumettre"
+    },
+    "results": {
+      "success": "Le dossier à fournir a été fournis avec succès !",
+      "error": "Il y a eu une erreur !"
+    }
   },
   "logoGenerator": {
     "title": "Générateur de Logos IA",
@@ -307,6 +321,42 @@
       "loadingLogos": "Erreur lors du chargement des logos"
     },
     "defaultDescription": "Logo pour {companyName} dans le secteur {industry}"
+  },
+  "typographieGenerator": {
+    "title": "Generateur de typographie",
+    "subtitle": "Create professional logos in just a few clicks",
+    "clearCache": "Vider le cache et recommencer",
+    "form": {
+      "title": "Generation de Typographie",
+      "styleSearch": "Style recherchée",
+      "submit": "Soumettre"
+    },
+    "result": {
+      "title": "Typographies générées",
+      "regenerate": "Generer de nouvel typographie"
+    },
+    "status": {},
+    "errors": {}
+  },
+  "colorPaletteGenerator": {
+    "title": "Generation de palette de couleur",
+    "subtitle": "Create a color palette where you can choose",
+    "clearCache": "Vider le cache et recommencer",
+    "form": {
+      "colorFavorites": "Couleurs Favoris",
+      "colorExcepts": "Couleurs à exclures",
+      "title": "Generation de palette de couleur",
+      "emotion": "emotion",
+      "colorNumber": "Nombre de couleur",
+      "styleSearch": "Style recherchée",
+      "submit": "Soumettre"
+    },
+    "result": {
+      "title": "Palettes de couleurs générées",
+      "regenerate": "Generer de nouvelle palette de couleur"
+    },
+    "status": {},
+    "errors": {}
   },
   "industries": {
     "technology": "Technologie",

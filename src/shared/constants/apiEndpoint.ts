@@ -16,10 +16,12 @@ export const API_ENDPOINTS = {
     PROJECTS: '/branding-project',
     PROJECTS_GET: '/branding-projects',
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
+    COLOR_PALETTES_GENERATION: '/brandings/color-palettes',
+    TYPOGRAPHIE_GENERATION: '/brandings/typographies',
+    FILE_TO_PROVIDE: '/brandings/file-provide'
   },
   PAYMENT: {
-    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>
-      `/secure-acceptance/init/${id}`,
+    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) => `/secure-acceptance/init/${id}`,
     GET_PAYMENT_RESUME: '/payment/resume',
   },
   SERVICES: {

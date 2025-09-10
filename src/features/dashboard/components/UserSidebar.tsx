@@ -29,6 +29,7 @@ import {
   History,
   Type,
   Images,
+  FormInput,
 } from 'lucide-react'
 import { useLogout } from '@/features/auth/hooks/useLogout'
 
@@ -126,15 +127,15 @@ export function UserSidebar({
       value: 'history',
       color: 'text-blue-600',
     },
+    {
+      title: t('navigation.fileToProvide'),
+      icon: FormInput,
+      value: 'file-to-provide',
+      color: 'text-blue-600',
+    },
   ]
 
   const visualIdentityNavigationItems = [
-    {
-      title: t('navigation.visualIdentity.logoGeneration'),
-      icon: Images,
-      value: 'logo-generation',
-      color: 'text-blue-600',
-    },
     {
       title: t('navigation.visualIdentity.colorPaletteGeneration'),
       icon: Palette,
@@ -145,6 +146,12 @@ export function UserSidebar({
       title: t('navigation.visualIdentity.typographieGeneration'),
       icon: Type,
       value: 'typographie-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.visualIdentity.logoGeneration'),
+      icon: Images,
+      value: 'logo-generation',
       color: 'text-blue-600',
     },
   ]

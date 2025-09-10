@@ -27,6 +27,7 @@ import { useAuth } from '@/features/auth/hooks/useAuth'
 import LoadingAnimation from '@/shared/components/loading/LoadingAnimation'
 import TypographieGenerator from './TypographieGenerator'
 import ColorPaletteGenerator from './ColorPaletteGenerator'
+import FileToProvide from './FileToProvide'
 
 // Mock user data
 const mockUser = {
@@ -60,9 +61,10 @@ const mockUser = {
 
 export default function UserDashboard() {
   const t = useTranslations('navigation')
-  const [activeTab, setActiveTab] = useState('logo-generation')
+  const [activeTab, setActiveTab] = useState('projects')
   const { user, loading } = useAuth()
   const router = useRouter()
+
   useEffect(() => {
     if (!loading && (!user || !user.roles.includes('ROLE_USER'))) {
       router.push('/')
@@ -85,6 +87,8 @@ export default function UserDashboard() {
         return t('visualIdentity.colorPaletteGeneration')
       case 'typographie-generation':
         return t('visualIdentity.typographieGeneration')
+      case 'file-to-provide':
+        return t('fileToProvide')
       case 'projects':
         return t('projects')
       case 'profile':
@@ -106,6 +110,8 @@ export default function UserDashboard() {
         return <ColorPaletteGenerator />
       case 'typographie-generation':
         return <TypographieGenerator />
+      case 'file-to-provide':
+        return <FileToProvide />
       case 'projects':
         return <ProjectsManager />
       case 'profile':
