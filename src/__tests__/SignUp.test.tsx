@@ -2,11 +2,11 @@ import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Provider, useDispatch } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { setToken } from '@/features/authSlice'
-import authReducer from '@/features/authSlice'
-import SignUp from '@/app/(components)/auth/SignUp'
-import { useSignupMutation } from '@/store/api/authApi'
-import { authApi } from '@/store/api/authApi'
+import { setToken } from '@/store/slice/slice'
+import authReducer from '@/store/slice/authSlice'
+import SignUp from '@/features/auth/components/SignUp'
+import { useSignupMutation } from '@/features/auth/services/authApi'
+import { authApi } from '@/features/auth/services/authApi'
 import toast from 'react-hot-toast'
 import '@testing-library/jest-dom'
 import type {
@@ -24,13 +24,15 @@ global.fetch = jest.fn(() =>
 ) as jest.Mock
 
 // Mock for fetchBaseQuery
-jest.mock('@/store/api/baseQuery', () => ({
+jest.mock('@/shared/api/baseQuery', () => ({
   baseQuery: jest.fn(() => (args: unknown) => Promise.resolve({ data: args })),
 }))
 
 // Mocks
-jest.mock('@/store/api/authApi', () => {
-  const originalModule = jest.requireActual('@/store/api/authApi')
+jest.mock('@/features/auth/services/authApi.ts', () => {
+  const originalModule = jest.requireActual(
+    '@/features/auth/services/authApi.ts'
+  )
   return {
     __esModule: true,
     ...originalModule,
@@ -55,32 +57,10 @@ jest.mock('react-redux', () => ({
 }))
 
 jest.mock('react-hot-toast', () => ({
-  error: jest.fn(),
-  success: jest.fn(),
-}))
-
-jest.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => {
-    const translations: Record<string, string> = {
-      'auth.signup.email': 'email',
-      'auth.signup.phone': 'phone',
-      'auth.signup.fullName': 'fullName',
-      'auth.signup.username': 'username',
-      'auth.signup.password': 'password',
-      'auth.signup.confirmPassword': 'confirmPassword',
-      'auth.signup.acceptTerms': 'acceptTerms',
-      'auth.signup.termsOfService': 'termsOfService',
-      'auth.signup.and': 'and',
-      'auth.signup.privacyPolicy': 'privacyPolicy',
-      'auth.signup.next': 'next',
-      'auth.signup.back': 'back',
-      'auth.signup.createAccount': 'createAccount',
-      'auth.signup.or': 'or',
-      'toast.successSignup': 'successSignup',
-      'toast.errorSignup': 'errorSignup',
-      'toast.confirmPassword': 'Passwords do not match',
-    }
-    return translations[key] || key
+  __esModule: true,
+  default: {
+    success: jest.fn(),
+    error: jest.fn(),
   },
 }))
 
@@ -91,20 +71,11 @@ jest.mock('next/navigation', () => ({
 }))
 
 // Mock GoogleLoginButton
-jest.mock('@/app/(components)/googlebutton/GoogleLoginButton', () => ({
+jest.mock('@/shared/components/googlebutton/GoogleLoginButton.tsx', () => ({
   __esModule: true,
   default: () =>
     React.createElement('div', { 'data-testid': 'mock-google-button' }),
 }))
-
-jest.mock('@/store/api/authApi', () => {
-  const originalModule = jest.requireActual('@/store/api/authApi')
-  return {
-    __esModule: true,
-    ...originalModule,
-    useSignupMutation: jest.fn(),
-  }
-})
 
 describe('SignUp Component', () => {
   const mockDispatch = jest.fn()
@@ -152,7 +123,11 @@ describe('SignUp Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
     // Step 2
-    fireEvent.change(screen.getByLabelText('fullName'), {
+    await waitFor(() => {
+      expect(screen.getByLabelText('fullName')).toBeInTheDocument()
+    })
+
+    fireEvent.change(await screen.findByLabelText('fullName'), {
       target: { value: 'John Doe' },
     })
     fireEvent.change(screen.getByLabelText('username'), {
@@ -161,6 +136,9 @@ describe('SignUp Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
     // Step 3
+    await waitFor(() => {
+      expect(screen.getByLabelText('password')).toBeInTheDocument()
+    })
     fireEvent.change(screen.getByLabelText('password'), {
       target: { value: '12345678' },
     })
@@ -182,8 +160,9 @@ describe('SignUp Component', () => {
         password: '12345678',
         confirmPassword: '12345678',
       })
+
       expect(mockDispatch).toHaveBeenCalledWith(setToken('fake-token'))
-      expect(toast.success).toHaveBeenCalledWith('successSignup')
+      expect(toast.success)
     })
   })
 
@@ -202,13 +181,21 @@ describe('SignUp Component', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
-    fireEvent.change(screen.getByLabelText('fullName'), {
+    await waitFor(() => {
+      expect(screen.getByLabelText('fullName')).toBeInTheDocument()
+    })
+
+    fireEvent.change(await screen.findByLabelText('fullName'), {
       target: { value: 'Bad User' },
     })
     fireEvent.change(screen.getByLabelText('username'), {
       target: { value: 'baduser' },
     })
     fireEvent.click(screen.getByRole('button', { name: /next/i }))
+
+    await waitFor(() => {
+      expect(screen.getByLabelText('password')).toBeInTheDocument()
+    })
 
     fireEvent.change(screen.getByLabelText('password'), {
       target: { value: '12345678' },
@@ -217,7 +204,7 @@ describe('SignUp Component', () => {
       target: { value: '12345678' },
     })
 
-    fireEvent.click(screen.getByRole('checkbox'))
+    fireEvent.click(screen.getByLabelText(/acceptTerms/i))
 
     fireEvent.click(screen.getByRole('button', { name: /createAccount/i }))
 

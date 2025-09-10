@@ -17,7 +17,8 @@
     "pricing": "Pricing",
     "contact": "Contact",
     "signin": "Sign In",
-    "start": "Get Started"
+    "start": "Get Started",
+    "profile": "My Profile"
   },
   "Header": {
     "tagline": "Premium Platform",
@@ -67,6 +68,50 @@
     "tabs": {
       "signin": "Sign In",
       "signup": "Sign Up"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "header": {
+        "title": "New Password",
+        "subtitle": "Create a secure password"
+      },
+      "fields": {
+        "newPassword": {
+          "label": "New Password",
+          "placeholder": "Enter your new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm your new password"
+        }
+      },
+      "strength": {
+        "title": "Password Strength",
+        "weak": "Weak",
+        "medium": "Medium",
+        "good": "Good",
+        "excellent": "Excellent"
+      },
+      "criteria": {
+        "title": "Your password must contain:",
+        "minLength": "At least 8 characters",
+        "uppercase": "One uppercase letter",
+        "lowercase": "One lowercase letter",
+        "number": "One number",
+        "special": "One special character"
+      },
+      "validation": {
+        "passwordsMatch": "Passwords match",
+        "passwordsDontMatch": "Passwords don't match"
+      },
+      "button": {
+        "submit": "Reset Password",
+        "loading": "Resetting..."
+      },
+      "footer": {
+        "text": "By resetting your password, you can",
+        "link": "recover your account"
+      }
     }
   },
   "services": {
@@ -115,56 +160,34 @@
     }
   },
   "pricing": {
-    "title": "Plans",
-    "subtitle": "Choose the offer that fits your ambition",
-    "free": {
-      "title": "Free",
-      "description": "Perfect for discovering our tools",
-      "features": {
-        "tokens": "10 tokens per day",
-        "tools": "Basic tools",
-        "community": "Community support",
-        "watermark": "Watermark on exports"
-      },
-      "button": "Start for free"
-    },
-    "premium": {
-      "title": "Premium",
-      "description": "Our most popular plan",
-      "features": {
-        "tokens": "1000 tokens per month",
-        "logo": "Logo + 3 variations",
-        "concepts": "Unlimited concepts",
-        "revisions": "Unlimited revisions",
-        "formats": "All formats (PNG, JPG, SVG, AI)",
-        "charter": "Brand guidelines",
-        "mockups": "Mockups included",
-        "delivery": "3-day delivery"
-      },
-      "popular": "Most popular",
-      "button": "Choose this plan"
-    },
-    "enterprise": {
-      "title": "Enterprise",
-      "description": "Complete solution for businesses",
-      "features": {
-        "tokens": "Unlimited tokens",
-        "identity": "Complete visual identity",
-        "logo": "Logo + variations",
-        "charter": "Detailed brand guidelines",
-        "cards": "Business cards",
-        "stationery": "Corporate stationery",
-        "templates": "Social media templates",
-        "designer": "Dedicated designer",
-        "delivery": "24h delivery",
-        "support": "Priority support"
-      },
-      "button": "Choose this plan"
-    },
-    "customMessage": "Need a custom solution?",
-    "requestQuote": "Request a personalized quote"
+    "popular": "Popular",
+    "free": "Free",
+    "perPack": "/pack",
+    "servicesIncluded": "{count} service{count, plural, one {} other {s}} included",
+    "customServices": "Custom services included",
+    "startFree": "Start for free",
+    "choosePack": "Choose this pack",
+    "validity": "Valid from {start} to {end}",
+    "tokens": "Tokens: {value}"
   },
-
+  "portfolio": {
+    "title": "Our Trusted Clients",
+    "subtitle": "We are proud to collaborate with leading companies who trust us for their digital solutions and innovative projects.",
+    "prevClients": "Previous clients",
+    "nextClients": "Next clients",
+    "slideLabel": "Go to slide {index}",
+    "ctaText": "Join these leading companies and discover how we can help you",
+    "ctaButton": "Discover our services"
+  },
+  "dynamicPricing": {
+    "comingSoonTitle": "Our offers are coming soon",
+    "comingSoonText": "We are preparing exceptional packages for you. Check back soon!",
+    "chooseTitle": "Choose your",
+    "chooseHighlight": "perfect pack",
+    "chooseSubtitle": "Solutions tailored to all your needs, with premium services and exceptional support.",
+    "customSolution": "Need a custom solution?",
+    "contactTeam": "Contact our team →"
+  },
   "Footer": {
     "description": "Your trusted partner for outstanding digital services. We turn your ideas into memorable visual experiences using AI.",
     "servicesTitle": "Services",
@@ -188,5 +211,489 @@
       "Terms & Conditions",
       "Support"
     ]
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "download": "Download",
+    "upload": "Upload",
+    "copy": "Copy",
+    "regenerate": "Regenerate"
+  },
+  "navigation": {
+    "generate": "Generate Logo",
+    "history": "History",
+    "projects": "My Projects",
+    "profile": "My Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "statistics": "Statistics"
+  },
+  "dashboard": {
+    "title": "ORBIXUP",
+    "subtitle": "Logo Creator",
+    "tokensUsed": "Tokens used",
+    "logosCreated": "Logos created",
+    "downloads": "Downloads",
+    "favorites": "Favorites",
+    "memberSince": "Member since"
+  },
+  "logoGenerator": {
+    "title": "AI Logo Generator",
+    "subtitle": "Create professional logos in just a few clicks",
+    "form": {
+      "title": "Generation Parameters",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "Ex: TechCorp, MyCompany...",
+      "industry": "Industry",
+      "industryPlaceholder": "Select an industry",
+      "style": "Logo Style",
+      "stylePlaceholder": "Choose a style",
+      "colorPalette": "Color Palette",
+      "colors": "Colors",
+      "description": "Description (optional)",
+      "descriptionPlaceholder": "Describe your logo vision..."
+    },
+    "preview": {
+      "title": "Preview of Your Selection",
+      "preview": "Preview",
+      "emptyState": {
+        "title": "Your selection will appear here",
+        "subtitle": "Start by entering your company name"
+      }
+    },
+    "results": {
+      "title": "Generated Logos",
+      "logosGenerated": "{count} logo(s) generated",
+      "noLogos": "No logos available"
+    },
+    "status": {
+      "creatingProject": "Creating project...",
+      "generatingLogos": "Generating logos...",
+      "generatingTime": "This may take a few minutes",
+      "generationInProgress": "Generation in progress...",
+      "generationInProgressDetails": "Logos are being created for project #{projectId}",
+      "generationTime": "This may take 2-5 minutes depending on complexity",
+      "aiProcessing": "AI processing in progress..."
+    },
+    "actions": {
+      "generateLogos": "Generate Logos",
+      "generating": "Generating...",
+      "clearCache": "Clear cache and start over",
+      "checking": "Checking...",
+      "checkNow": "Check Now",
+      "forceRefresh": "Force Refresh"
+    },
+    "errors": {
+      "quotaExceeded": "The logo generation service has reached its daily limit. Please try again in a few hours or tomorrow.",
+      "serverError": "Server error during generation. Please try again in a few minutes.",
+      "generalError": "An error occurred while generating logos. Please try again.",
+      "loadingLogos": "Error loading logos"
+    },
+    "defaultDescription": "Logo for {companyName} in the {industry} sector"
+  },
+  "industries": {
+    "technology": "Technology",
+    "health": "Health",
+    "finance": "Finance",
+    "education": "Education",
+    "commerce": "Commerce",
+    "restaurant": "Restaurant",
+    "fashion": "Fashion",
+    "sport": "Sports",
+    "realEstate": "Real Estate",
+    "other": "Other"
+  },
+  "styles": {
+    "modern": "Modern",
+    "minimalist": "Minimalist",
+    "vintage": "Vintage",
+    "professional": "Professional",
+    "creative": "Creative",
+    "elegant": "Elegant",
+    "dynamic": "Dynamic",
+    "classic": "Classic"
+  },
+  "colors": {
+    "blueWhite": "Blue & White",
+    "redBlack": "Red & Black",
+    "greenWhite": "Green & White",
+    "purplePink": "Purple & Pink",
+    "blackWhite": "Black & White",
+    "orangeBlue": "Orange & Blue",
+    "custom": "Custom"
+  },
+  "commonBranding": {
+    "tokens": "tokens",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "download": "Download",
+    "copyUrl": "Copy URL"
+  },
+  "colorPicker": {
+    "customColors": "Custom colors",
+    "presetColors": "Preset colors",
+    "customColor": "Custom color"
+  },
+  "generationHistory": {
+    "title": "Generation History",
+    "subtitle": "Manage and view your logo generation history",
+    "logos": "logos",
+    "refresh": "Refresh",
+    "filters": "Filters",
+    "searchPlaceholder": "Search in history...",
+    "allStatuses": "All statuses",
+    "approved": "Approved",
+    "pending": "Pending",
+    "loading": "Loading...",
+    "created": "Created",
+    "view": "View",
+    "download": "Download",
+    "approve": "Approve",
+    "showing": "Showing",
+    "of": "of",
+    "noLogosFound": "No logos found",
+    "noLogosFoundDesc": "You haven't generated any logos yet. Start by creating your first logo.",
+    "common": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "save": "Save",
+      "close": "Close",
+      "loading": "Loading...",
+      "error": "Error",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Information",
+      "delete": "Delete"
+    }
+  },
+  "userProfile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information and subscription",
+    "personalInfo": "Personal Information",
+    "fullName": "Full name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "mySubscription": "My Subscription",
+    "free": "Free",
+    "upgrade": "Upgrade",
+    "changePlan": "Change plan",
+    "popular": "Popular",
+    "current": "Current",
+    "currentPlan": "Current plan",
+    "choosePlan": "Choose this plan",
+    "perMonth": "/month",
+    "tokenUsage": "Token usage",
+    "renewalDate": "Renewal on",
+    "includedFeatures": "Included features:",
+    "myStats": "My Statistics",
+    "logosCreated": "Logos created",
+    "downloads": "Downloads",
+    "favorites": "Favorites",
+    "comments": "Comments",
+    "recentActivity": "Recent Activity",
+    "logoCreated": "Logo created",
+    "commentAdded": "Comment added",
+    "logoDownloaded": "Logo downloaded",
+    "favoriteAdded": "Favorite added",
+    "memberSince": "Member since",
+    "timeAgo": {
+      "hours": "{hours}h ago",
+      "days": "{days}d ago"
+    },
+    "plans": {
+      "starter": "Starter",
+      "pro": "Pro",
+      "enterprise": "Enterprise"
+    },
+    "planFeatures": {
+      "starter": {
+        "feature1": "10 logos per month",
+        "feature2": "PNG/JPG formats",
+        "feature3": "Email support"
+      },
+      "pro": {
+        "feature1": "100 logos per month",
+        "feature2": "All formats (PNG, JPG, SVG, PDF)",
+        "feature3": "Priority support",
+        "feature4": "API access",
+        "feature5": "Premium templates"
+      },
+      "enterprise": {
+        "feature1": "Unlimited logos",
+        "feature2": "All formats",
+        "feature3": "24/7 support",
+        "feature4": "API access",
+        "feature5": "White-label",
+        "feature6": "Team collaboration"
+      }
+    }
+  },
+  "projectsManager": {
+    "title": "My Projects",
+    "subtitle": "Manage your created logos and share your comments",
+    "project": "project",
+    "projects": "projects",
+    "searchPlaceholder": "Search for a project...",
+    "allStyles": "All styles",
+    "commentsTitle": "Comments",
+    "commentsSubtitle": "Share your impressions and view feedback",
+    "yourRating": "Your rating",
+    "comment": "Comment",
+    "commentPlaceholder": "Share your thoughts on this logo...",
+    "publish": "Publish",
+    "noComments": "No comments yet",
+    "beFirst": "Be the first to give your opinion!",
+    "noProjectFound": "No project found",
+    "noProjectFoundDesc": "Try modifying your search criteria or create your first logo",
+    "token": "token",
+    "tokens": "tokens"
+  },
+  "userSidebar": {
+    "logoCreator": "Logo Creator"
+  },
+  "admin": {
+    "title": "Admin",
+    "panel": "Panel",
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "subtitle": "ORBIXUP system overview",
+      "users": "Users",
+      "active": "Active",
+      "revenue": "Revenue",
+      "avgRating": "Avg Rating",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "Storage",
+      "optimal": "Optimal",
+      "warning": "Warning",
+      "critical": "Critical",
+      "systemMetrics": "System Metrics",
+      "serverResources": "Server resources status",
+      "recentActivity": "Recent Activity",
+      "lastSystemActions": "Latest system actions",
+      "newUser": "New user",
+      "logoGenerated": "Logo generated",
+      "paymentReceived": "Payment received",
+      "feedbackSubmitted": "Feedback submitted",
+      "vsLastMonth": "vs last month"
+    },
+    "plans": {
+      "title": "Plans Management",
+      "subtitle": "Create and manage subscription plans",
+      "newPlan": "New Plan",
+      "createPlan": "Create a new plan",
+      "search": "Search...",
+      "editPlan": "Edit plan",
+      "planName": "Plan name",
+      "type": "Type",
+      "price": "Price (€/month)",
+      "totalPacks": "Total plans",
+      "totalRevenue": "Total revenue",
+      "tokensIncluded": "Tokens included",
+      "tokenLimit": "Token limit",
+      "features": "Features (one per line)",
+      "activePlan": "Active plan",
+      "free": "Free",
+      "pro": "Pro",
+      "premium": "Premium",
+      "enterprise": "Enterprise",
+      "all": "All",
+      "month": "/month",
+      "subscribers": "Subscribers"
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Manage user accounts",
+      "search": "Search...",
+      "allStatuses": "All statuses",
+      "suspended": "Suspended",
+      "banned": "Banned",
+      "allPlans": "All plans",
+      "viewDetails": "View details",
+      "sendEmail": "Send email",
+      "suspend": "Suspend",
+      "reactivate": "Reactivate",
+      "banPermanently": "Ban permanently",
+      "deleteAccount": "Delete account",
+      "joinedOn": "Joined on",
+      "activeOn": "Active on",
+      "downloads": "Downloads",
+      "tokens": "Tokens",
+      "noUsersFound": "No users found",
+      "modifySearchCriteria": "Modify your search criteria",
+      "userDetails": "User details",
+      "fullInfo": "Complete information",
+      "registration": "Registration",
+      "plan": "Plan",
+      "lastActivity": "Last activity",
+      "logosCreated": "Logos created",
+      "emailSubject": "Subject",
+      "emailMessage": "Message",
+      "yourMessage": "Your message...",
+      "deleteUser": "Delete user",
+      "deleteConfirmation": "This action is irreversible.",
+      "allRoles": "All roles",
+      "roleUsers": "Users",
+      "roleAdmins": "Admins",
+      "roleClients": "Clients",
+      "subscription": "Subscription"
+    },
+    "feedback": {
+      "title": "Feedback Management",
+      "subtitle": "Moderate user reviews and comments",
+      "comment": "comment",
+      "comments": "comments",
+      "average": "average",
+      "filters": "Filters",
+      "searchInComments": "Search in comments...",
+      "allStatuses": "All statuses",
+      "allRatings": "All ratings",
+      "stars": "stars",
+      "viewDetails": "View details",
+      "respond": "Respond",
+      "approve": "Approve",
+      "reject": "Reject",
+      "teamResponse": "Team response",
+      "category": "Category",
+      "style": "Style",
+      "date": "Date",
+      "rating": "Rating",
+      "feedbackDetails": "Feedback details",
+      "fullFeedbackInfo": "Complete feedback information",
+      "userComment": "User comment",
+      "respondToComment": "Respond to comment",
+      "concerning": "concerning",
+      "yourResponse": "Your response",
+      "writeResponse": "Write your response...",
+      "sendResponse": "Send response",
+      "noCommentsFound": "No comments found"
+    },
+    "profile": {
+      "title": "My Admin Profile",
+      "subtitle": "Manage your information and settings",
+      "personalInfo": "Personal Information",
+      "editBasicInfo": "Edit your basic information",
+      "fullName": "Full name",
+      "phone": "Phone Number",
+      "changePassword": "Change Password",
+      "secureAccount": "Update your password to secure your account",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "notificationPrefs": "Notification Preferences",
+      "configureAlerts": "Configure your alerts and notifications",
+      "emailAlerts": "Email alerts",
+      "emailAlertsDesc": "Receive important notifications by email",
+      "systemAlerts": "System alerts",
+      "systemAlertsDesc": "Notifications for system issues",
+      "userRegistrations": "New registrations",
+      "userRegistrationsDesc": "Be notified of new users",
+      "criticalErrors": "Critical errors",
+      "criticalErrorsDesc": "Immediate alerts for critical errors",
+      "adminStats": "Admin Statistics",
+      "sessionsToday": "Sessions today",
+      "actionsPerformed": "Actions performed",
+      "usersManaged": "Users managed",
+      "connectionTime": "Connection time",
+      "permissions": "Permissions",
+      "fullAccess": "FULL ACCESS",
+      "recentActivity": "Recent Activity",
+      "userSuspended": "User suspended",
+      "planModified": "Plan modified",
+      "feedbackApproved": "Feedback approved",
+      "adminLogin": "Admin login",
+      "memberSince": "Member since"
+    },
+    "sidebar": {
+      "navigation": "Navigation",
+      "system": "System",
+      "api": "API",
+      "database": "Database",
+      "ai": "AI",
+      "lastLogin": "Last login",
+      "myProfile": "My Profile",
+      "logout": "Logout",
+      "plans": "Packs",
+      "users": "Users",
+      "feedback": "Feedbacks",
+      "services": "Services"
+    },
+    "common": {
+      "loading": "Loading...",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "search": "Search",
+      "filter": "Filter",
+      "actions": "Actions",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "online": "Online",
+      "offline": "Offline",
+      "yes": "Yes",
+      "no": "No",
+      "close": "Close",
+      "view": "View",
+      "send": "Send",
+      "reply": "Reply"
+    },
+    "services": {
+      "title": "Services Management",
+      "subtitle": "Create and manage services available to your users",
+      "newService": "New Service",
+      "createService": "Create Service",
+      "editService": "Edit Service",
+      "createDescription": "Add a new service to your platform",
+      "editDescription": "Modify the details of this service",
+      "serviceName": "Service Name",
+      "serviceNamePlaceholder": "Ex: Premium Logo, Startup Pack...",
+      "price": "Price",
+      "tokens": "Tokens",
+      "credits": "Credits",
+      "tokensPlaceholder": "Number of prompts included",
+      "tokensHelp": "Number of prompts/generations the user can perform",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the features and benefits of this service...",
+      "activeService": "Active Service",
+      "totalServices": "Total Services",
+      "activeServices": "Active Services",
+      "totalRevenue": "Total Revenue",
+      "searchServices": "Search in services...",
+      "allStatuses": "All statuses",
+      "viewDetails": "View details",
+      "serviceDetails": "Service Details",
+      "fullServiceInfo": "Complete information about this service",
+      "createdOn": "Created on",
+      "lastUpdate": "Last update",
+      "usages": "usages",
+      "free": "Free",
+      "pro": "Pro",
+      "enterprise": "Enterprise",
+      "deleteService": "Delete Service",
+      "deleteConfirmation": "Are you sure you want to delete the service",
+      "deleteWarning": "This action is irreversible and will delete all associated data.",
+      "noServicesFound": "No services found",
+      "modifySearchCriteria": "Modify your search criteria or create a new service."
+    }
   }
 }

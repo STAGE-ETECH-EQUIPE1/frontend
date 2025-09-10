@@ -1,11 +1,15 @@
 // jest.config.ts
 import type { Config } from 'jest'
 import { pathsToModuleNameMapper } from 'ts-jest'
-import { compilerOptions } from './tsconfig.json'
+import fs from 'fs'
 
+const tsconfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf-8'))
+const compilerOptions = tsconfig.compilerOptions
 const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
+
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: '<rootDir>/',
   }),
