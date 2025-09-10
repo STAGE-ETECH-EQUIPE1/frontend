@@ -11,6 +11,7 @@ import { fileToProvideSchema } from '../schema/fileToProvideSchema'
 import { wait } from '@/shared/services/BaseService'
 import { visuelIdentityService } from '../services/VisualIdentityService'
 import toast from 'react-hot-toast'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function FileToProvide() {
   const t = useTranslations('fileToProvide')
@@ -132,7 +133,8 @@ function FileToProvide() {
                 >
                   {isSubmitting ? (
                     <>
-                      <h6>azer</h6>Soumission
+                      <Spinner variant="ellipsis" />
+                      Soumission
                     </>
                   ) : (
                     t('form.submit')

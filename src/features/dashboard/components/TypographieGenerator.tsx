@@ -13,9 +13,9 @@ import { typographieGeneratorSchema } from '../schema/TypographieGeneratorSchema
 import { visuelIdentityService } from '../services/VisualIdentityService'
 import { TypographiesResponse } from '../types/branding'
 import { wait } from '@/shared/services/BaseService'
-import ColorPaletteSkeleton from './ui/ColorPaletteSkeleton'
 import TypographieCard from './ui/TypographieCard'
 import { useToken } from '@/shared/hooks/useToken'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function TypographieGenerator() {
   const t = useTranslations('typographieGenerator')
@@ -86,7 +86,9 @@ function TypographieGenerator() {
                 </CardHeader>
                 <CardContent className="w-full">
                   {isGenerating && isLoading ? (
-                    <ColorPaletteSkeleton />
+                    <center>
+                      <Spinner variant={'ring'} size={100} />
+                    </center>
                   ) : (
                     <>
                       {items?.map((item, index) => (

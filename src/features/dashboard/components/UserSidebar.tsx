@@ -114,12 +114,12 @@ export function UserSidebar({
       value: 'profile',
       color: 'text-blue-600',
     },
-    {
-      title: t('navigation.projects'),
-      icon: UserIcon,
-      value: 'projects',
-      color: 'text-blue-600',
-    },
+    // {
+    //   title: t('navigation.projects'),
+    //   icon: UserIcon,
+    //   value: 'projects',
+    //   color: 'text-blue-600',
+    // },
     {
       title: t('navigation.history'),
       icon: History,

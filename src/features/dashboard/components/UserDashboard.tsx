@@ -88,8 +88,8 @@ export default function UserDashboard() {
         return t('visualIdentity.typographieGeneration')
       case 'file-to-provide':
         return t('fileToProvide')
-      case 'projects':
-        return t('projects')
+      // case 'projects':
+      //   return t('projects')
       case 'profile':
         return t('profile')
       case 'history':

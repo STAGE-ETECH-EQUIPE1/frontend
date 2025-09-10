@@ -9,7 +9,6 @@ import { useTranslations } from 'next-intl'
 import { useState, useTransition } from 'react'
 import ColorPaletteCard from './ui/ColorPaletteCard'
 import { wait } from '@/shared/services/BaseService'
-import ColorPaletteSkeleton from './ui/ColorPaletteSkeleton'
 import { ColorPaletteResponse } from '../types/branding'
 import { visuelIdentityService } from '../services/VisualIdentityService'
 import { FieldValues, useForm } from 'react-hook-form'
@@ -17,6 +16,7 @@ import { ColorPicker } from './ui/ColorPicker'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { colorGeneratorSchema } from '../schema/colorGeneratorSchema'
 import { useToken } from '@/shared/hooks/useToken'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function ColorPaletteGenerator() {
   const t = useTranslations('colorPaletteGenerator')
@@ -101,7 +101,9 @@ function ColorPaletteGenerator() {
                 </CardHeader>
                 <CardContent className="justify-center grid grid-cols-3">
                   {isGenerating && isLoading ? (
-                    <ColorPaletteSkeleton />
+                    <center>
+                      <Spinner variant={'ring'} size={100} />
+                    </center>
                   ) : (
                     <>
                       {items?.map((item, index) => (

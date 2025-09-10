@@ -17,6 +17,7 @@ export const API_ENDPOINTS = {
     PROJECTS_GET: '/branding-projects',
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
     COLOR_PALETTES_GENERATION: '/brandings/color-palettes',
+    COLOR_PALETTES_SUBMIT: '/brandings/color-palettes/submit',
     TYPOGRAPHIE_GENERATION: '/brandings/typographies',
     FILE_TO_PROVIDE: '/brandings/file-provide',
   },
