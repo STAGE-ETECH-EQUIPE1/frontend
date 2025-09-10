@@ -1,8 +1,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ColorPaletteResponse } from '../../types/branding'
+import { visuelIdentityService } from '../../services/VisualIdentityService'
+import toast from 'react-hot-toast'
+import { useTranslations } from 'next-intl'
 
 function ColorPaletteCard({ data }: { data: ColorPaletteResponse }) {
-  console.log(data)
+  const t = useTranslations('colorPaletteGenerator')
+
+  const submitColorPalette = async () => {
+    const { success } = await visuelIdentityService.submitColorPaletteForClient(
+      data.colors.map((color) => color.hex)
+    )
+
+    if (success) {
+      toast.success(t('result.successToast'))
+    } else {
+      toast.error(t('result.errorToast'))
+    }
+  }
 
   return (
     <Card className="mx-5">
@@ -29,8 +44,11 @@ function ColorPaletteCard({ data }: { data: ColorPaletteResponse }) {
             </div>
           ))}
         </div>
-        <button className="w-full mt-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors select-palette">
-          Select Palette
+        <button
+          onClick={submitColorPalette}
+          className="w-full mt-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors select-palette"
+        >
+          {t('result.selectPalette')}
         </button>
       </CardContent>
     </Card>

@@ -36,20 +36,28 @@ class VisualIdentityService extends BaseService {
     throw new ApiError(r.status, await r.json())
   }
 
-  async submitTypographieForClient(): Promise<ApiResponse<ClientResponse>> {
-    const r = await fetch(this._backendUrl + API_ENDPOINTS.BRANDING.TYPOGRAPHIE_GENERATION, {
-      method: 'POST',
+  async submitTypographieForClient(data: string): Promise<ApiResponse<ClientResponse>> {
+    const url = new URL(this._backendUrl + API_ENDPOINTS.BRANDING.TYPOGRAPHIE_GENERATION)
+    url.searchParams.set('data', data)
+
+    const r = await fetch(url.toString(), {
+      method: 'GET',
       headers: this._getHeader()
     });
+
     if (r.ok) return r.json() as Promise<ApiResponse<ClientResponse>>;
     throw new ApiError(r.status, await r.json())
   }
 
-  async submitColorPaletteForClient(): Promise<ApiResponse<ClientResponse>> {
-    const r = await fetch(this._backendUrl + API_ENDPOINTS.BRANDING.COLOR_PALETTES_GENERATION, {
-      method: 'POST',
+  async submitColorPaletteForClient(data: Array<string>): Promise<ApiResponse<ClientResponse>> {
+    const url = new URL(this._backendUrl + API_ENDPOINTS.BRANDING.COLOR_PALETTES_GENERATION)
+    url.searchParams.set('data', encodeURI('["' + data.join('","') + '"]'))
+
+    const r = await fetch(url.toString(), {
+      method: 'GET',
       headers: this._getHeader()
     });
+
     if (r.ok) return r.json() as Promise<ApiResponse<ClientResponse>>;
     throw new ApiError(r.status, await r.json())
   }

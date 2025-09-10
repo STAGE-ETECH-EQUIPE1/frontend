@@ -333,10 +333,11 @@
     },
     "result": {
       "title": "Typographies générées",
-      "regenerate": "Generer de nouvel typographie"
-    },
-    "status": {},
-    "errors": {}
+      "regenerate": "Generer de nouvel typographie",
+      "selectTypo": "Selectionner Typographie",
+      "successToast": "Typographie sélectionner avec succès",
+      "errorToast": "Une erreur est survenu"
+    }
   },
   "colorPaletteGenerator": {
     "title": "Generation de palette de couleur",
@@ -353,10 +354,11 @@
     },
     "result": {
       "title": "Palettes de couleurs générées",
-      "regenerate": "Generer de nouvelle palette de couleur"
-    },
-    "status": {},
-    "errors": {}
+      "regenerate": "Generer de nouvelle palette de couleur",
+      "selectPalette": "Selectionner Palette",
+      "successToast": "Palette sélectionner avec succès",
+      "errorToast": "Une erreur est survenu"
+    }
   },
   "industries": {
     "technology": "Technologie",
