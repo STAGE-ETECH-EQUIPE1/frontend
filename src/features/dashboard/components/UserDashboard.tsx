@@ -32,6 +32,7 @@ import CompanySloganGenerator from './CompanySloganGenerator'
 import CompanyValuesGenerator from './CompanyValuesGenerator'
 import CompanyToneOfVoiceGenerator from './CompanyToneOfVoiceGenerator'
 
+import FileToProvide from './FileToProvide'
 
 // Mock user data
 const mockUser = {
@@ -65,9 +66,10 @@ const mockUser = {
 
 export default function UserDashboard() {
   const t = useTranslations('navigation')
-  const [activeTab, setActiveTab] = useState('logo-generation')
+  const [activeTab, setActiveTab] = useState('projects')
   const { user, loading } = useAuth()
   const router = useRouter()
+
   useEffect(() => {
     if (!loading && (!user || !user.roles.includes('ROLE_USER'))) {
       router.push('/')
@@ -98,6 +100,8 @@ export default function UserDashboard() {
         return t('verbalIdentity.companyValuesGeneration')
       case 'company-tone-of-voice-generation':
         return t('verbalIdentity.companyToneOfVoiceGeneration')
+      case 'file-to-provide':
+        return t('fileToProvide')
       case 'projects':
         return t('projects')
       case 'profile':
@@ -127,6 +131,8 @@ export default function UserDashboard() {
         return <CompanyValuesGenerator />
       case 'companyToneOfVoice-generation':
         return <CompanyToneOfVoiceGenerator />
+      case 'file-to-provide':
+        return <FileToProvide />
       case 'projects':
         return <ProjectsManager />
       case 'profile':
