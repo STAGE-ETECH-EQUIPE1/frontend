@@ -1,3 +1,5 @@
+'use client'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -7,17 +9,55 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { motion } from 'framer-motion'
 import { Trash2, Zap, MessageSquare } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useForm, FieldValues, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState, useTransition } from 'react'
+import { companyToneOfVoiceGeneratorSchema } from '../schema/CompanyToneOfVoiceGeneratorSchema'
+import { verbalIdentityService } from '../services/VerbalIdentityService'
+import { wait } from '@/shared/services/BaseService'
+import { CompanyToneOfVoiceResponse } from '../types/branding'
+
+export interface ToneOfVoiceResponse {
+  success: boolean
+  tones: string[]
+}
 
 function CompanyToneOfVoiceGenerator() {
   const t = useTranslations('CompanyToneOfVoiceGenerator')
+  const [results, setResults] = useState<string[]>([])
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [isLoading, startTransition] = useTransition()
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(companyToneOfVoiceGeneratorSchema),
+  })
+
+  const onSubmit = async (data: FieldValues) => {
+    setIsGenerating(true)
+    startTransition(async () => {
+      await wait(1000)
+
+      const response: CompanyToneOfVoiceResponse = await verbalIdentityService.generateCompanyToneOfVoice(data)
+      if (response.success && response.Tones) {
+        setResults(response.Tones)
+      }
+
+      setIsGenerating(false)
+    })
+  }
+
+  const resetGeneration = () => {
+    setIsGenerating(false)
+    setResults([])
+  }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="space-y-6"
-    >
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -28,15 +68,9 @@ function CompanyToneOfVoiceGenerator() {
         </div>
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-indigo-100 to-slate-100 text-indigo-700 border-indigo-200">
-            <Zap className="w-3 h-3 mr-1" />
-            56
+            <Zap className="w-3 h-3 mr-1" />56
           </Badge>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent"
-            title={t('actions.clearCache')}
-          >
+          <Button onClick={resetGeneration} variant="outline" size="sm" className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent" title={t('actions.clearCache')}>
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>
@@ -48,109 +82,86 @@ function CompanyToneOfVoiceGenerator() {
           <Card className="bg-white border-indigo-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
               <CardTitle className="text-indigo-600 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5" />
-                {t('form.title')}
+                <MessageSquare className="w-5 h-5" /> {t('form.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Mission */}
-              <div>
-                <Label htmlFor="mission" className="text-slate-700">
-                  {t('form.mission')}
-                </Label>
-                <Input
-                  id="mission"
-                  placeholder={t('form.missionPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {/* Mission */}
+                <div>
+                  <Label htmlFor="mission" className="text-slate-700">{t('form.mission')}</Label>
+                  <Input {...register('mission')} id="mission" placeholder={t('form.missionPlaceholder')} className="bg-slate-50 border-slate-200" />
+                  {errors['mission'] && <p className="text-red-600">{errors['mission'].message?.toString()}</p>}
+                </div>
 
-              {/* Vision */}
-              <div>
-                <Label htmlFor="vision" className="text-slate-700">
-                  {t('form.vision')}
-                </Label>
-                <Input
-                  id="vision"
-                  placeholder={t('form.visionPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+                {/* Vision */}
+                <div>
+                  <Label htmlFor="vision" className="text-slate-700">{t('form.vision')}</Label>
+                  <Input {...register('vision')} id="vision" placeholder={t('form.visionPlaceholder')} className="bg-slate-50 border-slate-200" />
+                </div>
 
-              {/* Valeurs */}
-              <div>
-                <Label htmlFor="values" className="text-slate-700">
-                  {t('form.values')}
-                </Label>
-                <Input
-                  id="values"
-                  placeholder={t('form.valuesPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+                {/* Valeurs */}
+                <div>
+                  <Label htmlFor="values" className="text-slate-700">{t('form.values')}</Label>
+                  <Input {...register('values')} id="values" placeholder={t('form.valuesPlaceholder')} className="bg-slate-50 border-slate-200" />
+                </div>
 
-              {/* Positionnement */}
-              <div>
-                <Label htmlFor="positioning" className="text-slate-700">
-                  {t('form.positioning')}
-                </Label>
-                <Input
-                  id="positioning"
-                  placeholder={t('form.positioningPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+                {/* Positionnement */}
+                <div>
+                  <Label htmlFor="positioning" className="text-slate-700">{t('form.positioning')}</Label>
+                  <Input {...register('positioning')} id="positioning" placeholder={t('form.positioningPlaceholder')} className="bg-slate-50 border-slate-200" />
+                </div>
 
-              {/* Exemples à éviter */}
-              <div>
-                <Label htmlFor="avoidExamples" className="text-slate-700">
-                  {t('form.avoidExamples')}
-                </Label>
-                <Input
-                  id="avoidExamples"
-                  placeholder={t('form.avoidExamplesPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+                {/* Périmètre du marché
+                <div>
+                  <Label htmlFor="marketScope" className="text-slate-700">{t('form.marketScope')}</Label>
+                  <Controller
+                    name="marketScope"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger className="bg-slate-50 border-slate-200">
+                          <SelectValue placeholder={t('form.marketScopePlaceholder')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="local">{t('form.marketScopeOptions.local')}</SelectItem>
+                          <SelectItem value="national">{t('form.marketScopeOptions.national')}</SelectItem>
+                          <SelectItem value="international">{t('form.marketScopeOptions.international')}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div> */}
 
-              {/* Périmètre du marché */}
-              <div>
-                <Label htmlFor="marketScope" className="text-slate-700">
-                  {t('form.marketScope')}
-                </Label>
-                <Select>
-                  <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder={t('form.marketScopePlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="local">{t('form.marketScopeOptions.local')}</SelectItem>
-                    <SelectItem value="national">{t('form.marketScopeOptions.national')}</SelectItem>
-                    <SelectItem value="international">{t('form.marketScopeOptions.international')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Bouton */}
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white w-full">
-                {t('actions.generateTone')}
-              </Button>
+                <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white w-full">
+                  {t('actions.generateTone')}
+                </Button>
+              </form>
             </CardContent>
           </Card>
         </div>
 
-        {/* Prévisualisation */}
+        {/* Résultats */}
         <div className="lg:col-span-1">
           <Card className="bg-white border-indigo-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
               <CardTitle className="text-indigo-600 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5" />
-                {t('preview.title')}
+                <MessageSquare className="w-5 h-5" /> {t('preview.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedTone')}</h1>
-              <p className="text-indigo-600 font-medium">Accessible, chaleureux et inspirant</p>
-              <p className="text-slate-500">{t('preview.exampleDescription')}</p>
+              {isGenerating && isLoading ? (
+                <p>{t('preview.loading')}</p>
+              ) : (
+                <>
+                  <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedTone')}</h1>
+                  <div className="space-y-2">
+                    {results.map((tone, i) => (
+                      <p key={i} className="text-indigo-600 font-medium">{tone}</p>
+                    ))}
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>

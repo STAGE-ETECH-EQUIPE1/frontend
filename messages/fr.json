@@ -38,6 +38,7 @@
     },
     "preview": {
       "title": "Prévisualisation",
+      "loading": "loading.....",
       "generatedValues": "Valeurs générées"
     }
   },
@@ -86,6 +87,7 @@
     "preview": {
       "title": "Aperçu",
       "generatedSlogans": "Slogans générés",
+      "loading": "loading.....",
       "exampleDescription": "Exemples de slogans générés à partir de vos entrées"
     }
   },
@@ -119,6 +121,7 @@
     "preview": {
       "title": "Prévisualisation",
       "generatedTone": "Ton de voix généré",
+      "loading": "loading.....",
       "exampleDescription": "Voici un exemple de ton généré en fonction de vos entrées."
     }
   },
@@ -160,6 +163,7 @@
     },
     "preview": {
       "title": "Résultats de la Génération",
+      "loading": "loading....",
       "generatedNames": "Noms générés"
     }
   },

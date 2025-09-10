@@ -1,16 +1,58 @@
+'use client'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Checkbox } from '@/components/ui/checkbox'
 import { motion } from 'framer-motion'
 import { Trash2, Zap, Type } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useForm, FieldValues, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState, useTransition } from 'react'
+import { companySloganResponseSchema } from '../schema/CompanySloganGeneratorSchema'
+import { verbalIdentityService } from '../services/VerbalIdentityService'
+import { wait } from '@/shared/services/BaseService'
+import { CompanySloganResponse } from '../types/branding'
 
 function CompanySloganGenerator() {
   const t = useTranslations('CompanySloganGenerator')
+  const [results, setResults] = useState<string[]>([])
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [isLoading, startTransition] = useTransition()
+  const [items, setItems] = useState<Array<CompanySloganResponse> | null>(null)
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(companySloganResponseSchema),
+  })
+
+  const onSubmit = async (data: FieldValues) => {
+    setIsGenerating(true)
+    startTransition(async () => {
+      await wait(1000)
+
+      const response: CompanySloganResponse = await verbalIdentityService.generateCompanySlogan(data)
+
+      if (response.success && response.Slogans) {
+        setResults(response.Slogans)
+      }
+
+      setIsGenerating(false)
+    })
+  }
+
+  const resetGeneration = () => {
+    setIsGenerating(false)
+    setResults([])
+    setItems(null)
+  }
 
   return (
     <motion.div
@@ -29,10 +71,10 @@ function CompanySloganGenerator() {
         </div>
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-green-100 to-slate-100 text-green-700 border-green-200">
-            <Zap className="w-3 h-3 mr-1" />
-            123
+            <Zap className="w-3 h-3 mr-1" />123
           </Badge>
           <Button
+            onClick={resetGeneration}
             variant="outline"
             size="sm"
             className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent"
@@ -44,7 +86,7 @@ function CompanySloganGenerator() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-        {/* Formulaire de Génération */}
+        {/* Formulaire */}
         <div className="lg:col-span-1">
           <Card className="bg-white border-green-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
@@ -53,108 +95,116 @@ function CompanySloganGenerator() {
                 {t('form.title')}
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              {/* Inclure mots-clés */}
-              <div>
-                <Label htmlFor="includeKeywords" className="text-slate-700">
-                  {t('form.includeKeywords')}
-                </Label>
-                <Input
-                  id="includeKeywords"
-                  placeholder={t('form.includeKeywordsPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                {/* Keywords include */}
+                <div>
+                  <Label htmlFor="include_keywords">{t('form.includeKeywords')}</Label>
+                  <Input
+                    {...register('include_keywords')}
+                    id="include_keywords"
+                    placeholder={t('form.includeKeywordsPlaceholder')}
+                  />
+                  {errors['include_keywords'] && (
+                    <p className="text-red-600">{errors['include_keywords'].message?.toString()}</p>
+                  )}
+                </div>
 
-              {/* Exclure mots-clés */}
-              <div>
-                <Label htmlFor="excludeKeywords" className="text-slate-700">
-                  {t('form.excludeKeywords')}
-                </Label>
-                <Input
-                  id="excludeKeywords"
-                  placeholder={t('form.excludeKeywordsPlaceholder')}
-                  className="bg-slate-50 border-slate-200"
-                />
-              </div>
+                {/* Keywords exclude */}
+                <div>
+                  <Label htmlFor="exclude_keywords">{t('form.excludeKeywords')}</Label>
+                  <Input
+                    {...register('exclude_keywords')}
+                    id="exclude_keywords"
+                    placeholder={t('form.excludeKeywordsPlaceholder')}
+                  />
+                </div>
 
-              {/* Tonalité */}
-              <div>
-                <Label htmlFor="tone" className="text-slate-700">
-                  {t('form.tone')}
-                </Label>
-                <Select>
-                  <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder={t('form.tonePlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="inspirant">{t('form.toneOptions.inspirant')}</SelectItem>
-                    <SelectItem value="motivant">{t('form.toneOptions.motivant')}</SelectItem>
-                    <SelectItem value="humoristique">{t('form.toneOptions.humoristique')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                {/* Tone */}
+                <div>
+                  <Label htmlFor="tone">{t('form.tone')}</Label>
+                  <Controller
+                    name="tone"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('form.tonePlaceholder')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="inspirant">{t('form.toneOptions.inspirant')}</SelectItem>
+                          <SelectItem value="motivant">{t('form.toneOptions.motivant')}</SelectItem>
+                          <SelectItem value="humoristique">{t('form.toneOptions.humoristique')}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors['tone'] && <p className="text-red-600">{errors['tone'].message?.toString()}</p>}
+                </div>
 
-              {/* Longueur */}
-              <div>
-                <Label htmlFor="length" className="text-slate-700">
-                  {t('form.length')}
-                </Label>
-                <Select>
-                  <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder={t('form.lengthPlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="court">{t('form.lengthOptions.short')}</SelectItem>
-                    <SelectItem value="moyen">{t('form.lengthOptions.medium')}</SelectItem>
-                    <SelectItem value="long">{t('form.lengthOptions.long')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                {/* Length */}
+                <div>
+                  <Label htmlFor="length">{t('form.length')}</Label>
+                  <Controller
+                    name="length"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('form.lengthPlaceholder')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="court">{t('form.lengthOptions.short')}</SelectItem>
+                          <SelectItem value="moyen">{t('form.lengthOptions.medium')}</SelectItem>
+                          <SelectItem value="long">{t('form.lengthOptions.long')}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors['length'] && <p className="text-red-600">{errors['length'].message?.toString()}</p>}
+                </div>
 
-              {/* Langue */}
-              <div>
-                <Label htmlFor="language" className="text-slate-700">
-                  {t('form.language')}
-                </Label>
-                <Select>
-                  <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder={t('form.languagePlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="fr">{t('form.languageOptions.fr')}</SelectItem>
-                    <SelectItem value="en">{t('form.languageOptions.en')}</SelectItem>
-                    <SelectItem value="es">{t('form.languageOptions.es')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                {/* Language */}
+                <div>
+                  <Label htmlFor="langue">{t('form.language')}</Label>
+                  <Controller
+                    name="langue"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('form.languagePlaceholder')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="français">{t('form.languageOptions.fr')}</SelectItem>
+                          <SelectItem value="anglais">{t('form.languageOptions.en')}</SelectItem>
+                          <SelectItem value="espagnol">{t('form.languageOptions.es')}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors['langue'] && <p className="text-red-600">{errors['langue'].message?.toString()}</p>}
+                </div>
 
-              {/* Focus */}
-              <div>
-                <Label htmlFor="focus" className="text-slate-700">
-                  {t('form.focus')}
-                </Label>
-                <Select>
-                  <SelectTrigger className="bg-slate-50 border-slate-200">
-                    <SelectValue placeholder={t('form.focusPlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="produits">{t('form.focusOptions.products')}</SelectItem>
-                    <SelectItem value="valeurs">{t('form.focusOptions.values')}</SelectItem>
-                    <SelectItem value="client">{t('form.focusOptions.client')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                {/* Focus */}
+                <div>
+                  <Label htmlFor="focus">{t('form.focus')}</Label>
+                  <Input
+                    {...register('focus')}
+                    id="focus"
+                    placeholder={t('form.focusPlaceholder')}
+                  />
+                </div>
 
-              {/* Bouton */}
-              <Button className="bg-green-600 hover:bg-green-700 text-white w-full">
-                {t('actions.generateSlogans')}
-              </Button>
+                <Button type="submit" className="bg-green-600 hover:bg-green-700 text-white w-full">
+                  {t('actions.generateSlogans')}
+                </Button>
+              </form>
             </CardContent>
           </Card>
         </div>
 
-        {/* Prévisualisation */}
+        {/* Résultats */}
         <div className="lg:col-span-1">
           <Card className="bg-white border-green-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
@@ -163,13 +213,19 @@ function CompanySloganGenerator() {
                 {t('preview.title')}
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedSlogans')}</h1>
-              <div className="space-y-2">
-                <p className="text-green-600 font-medium">Innovation vers l’avenir</p>
-                <p className="text-green-600 font-medium">Réussite, notre valeur</p>
-                {/* … autres slogans */}
-              </div>
+            <CardContent>
+              {isGenerating && isLoading ? (
+                <p>{t('preview.loading')}</p>
+              ) : (
+                <>
+                  <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedSlogans')}</h1>
+                  <div className="space-y-2">
+                    {results.map((slogan, i) => (
+                      <p key={i} className="text-green-600 font-medium">{slogan}</p>
+                    ))}
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>

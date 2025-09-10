@@ -18,6 +18,10 @@ export const API_ENDPOINTS = {
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
     COLOR_PALETTES_GENERATION: '/brandings/color-palettes',
     TYPOGRAPHIE_GENERATION: '/brandings/typographies',
+    COMPANY_NAME_GENERATION: '/brandings/companyNames',
+    COMPANY_SLOGAN_GENERATION: '/brandings/companySlogan',
+    COMPANY_VALUES_GENERATION: '/brandings/companyValues',
+    COMPANY_TONE_GENERATION: '/brandings/companyToneOfVoice',
     FILE_TO_PROVIDE: '/brandings/file-provide'
   },
   PAYMENT: {
