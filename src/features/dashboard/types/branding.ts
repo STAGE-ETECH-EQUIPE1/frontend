@@ -12,7 +12,6 @@ export interface BrandingProject {
 
 export interface CreateBrandingProjectRequest {
   description: string
-  slogan: string
   logoStyle: string
   colorPreferences: string[]
   brandKeywords: string[]
