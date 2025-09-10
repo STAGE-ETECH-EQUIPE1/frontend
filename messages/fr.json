@@ -36,6 +36,31 @@
       "delivery": "Livraison Express"
     }
   },
+  "payment": {
+    "title": "Informations de paiement",
+    "loading": "Chargement du paiement...",
+    "processing": "Traitement...",
+    "pay": "Payer",
+    "error": {
+      "title": "Erreur lors du chargement du formulaire de paiement",
+      "details": "Impossible de charger le formulaire de paiement sécurisé. Veuillez réessayer plus tard ou contacter le support."
+    },
+    "summary": {
+      "title": "Récapitulatif de la commande",
+      "total": "Total",
+      "helpTitle": "Besoin d'aide ?",
+      "helpText": "Contactez notre service client pour obtenir de l'aide concernant votre commande.",
+      "helpPhone": "(800) 555-1234"
+    },
+    "term": {
+      "title": "Réservation",
+      "number": "N° XXXXXXXXXXXX",
+      "description": "Informations de paiement",
+      "alert": "Vos données sont sécurisées",
+      "amount": "Montant à payer",
+      "pay": "Payer"
+    }
+  },
   "auth": {
     "signin": {
       "title": "Bon retour !",

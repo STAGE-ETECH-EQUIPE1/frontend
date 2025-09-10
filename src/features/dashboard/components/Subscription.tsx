@@ -68,7 +68,6 @@ export function SubscriptionModal({
   }
 
   const onSubmit = async (data: SubscriptionFormData) => {
-    
     const startDate = new Date()
     const endDate = calculateEndDate(startDate, data.duration)
 
@@ -83,7 +82,6 @@ export function SubscriptionModal({
       clientId: data.clientId,
     }
 
-  
     try {
       const result = await createSubscription(subscriptionData).unwrap()
       console.log(result)

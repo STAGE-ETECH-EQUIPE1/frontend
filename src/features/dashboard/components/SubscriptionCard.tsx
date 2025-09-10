@@ -7,11 +7,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Progress } from '@/components/ui/progress'
-import {
-  Calendar,
-  CreditCard,
-  PlaneIcon,
-} from 'lucide-react'
+import { Calendar, CreditCard, PlaneIcon } from 'lucide-react'
+
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useGetSubscriptionForCurrentUserQuery } from '../services/userApi'
