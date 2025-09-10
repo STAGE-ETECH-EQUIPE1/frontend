@@ -35,11 +35,11 @@ export interface ApiResponse<T> {
 }
 
 export type tokensResponse = {
-  companyNameTokens: number,
-  colorPaletteTokens: number,
-  typographyTokens: number,
-  tonVoiceTokens: number,
-  valuesTokens: number,
-  sloganTokens: number,
+  companyNameTokens: number
+  colorPaletteTokens: number
+  typographyTokens: number
+  tonVoiceTokens: number
+  valuesTokens: number
+  sloganTokens: number
   logoGenerationTokens: number
 }

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { UserSidebar } from './UserSidebar'
 import { LogoGenerator } from './LogoGenerator'
-import { ProjectsManager } from './ProjectsManager'
 import { UserProfile } from './UserProfile'
 import {
   SidebarInset,
@@ -112,8 +111,8 @@ export default function UserDashboard() {
         return <TypographieGenerator />
       case 'file-to-provide':
         return <FileToProvide />
-      case 'projects':
-        return <ProjectsManager />
+      // case 'projects':
+      //   return <ProjectsManager />
       case 'profile':
         return <UserProfile />
       case 'history':

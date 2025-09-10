@@ -75,33 +75,33 @@ export interface CreateBrandingProjectResponse {
 }
 
 export interface ColorResponse {
-  name: string;
-  position: string;
-  hex: string;
+  name: string
+  position: string
+  hex: string
 }
 
 export interface ColorPaletteResponse {
-  name: string;
+  name: string
   colors: Array<ColorResponse>
 }
 
 export interface TypographieResponse {
-  name: string;
-  Relevance: string;
-  Impact: string;
+  name: string
+  Relevance: string
+  Impact: string
 }
 
 export interface TypographiesResponse {
-  'font-type': string;
+  'font-type': string
   fonts: Array<TypographieResponse>
 }
 
 export interface ClientResponse {
-  id: number;
-  typogrpahie: string;
-  colorPalette: Array<string>;
-  mainService: string;
-  mainLanguage: string;
-  publicTarget: string;
-  qualities: string;
+  id: number
+  typogrpahie: string
+  colorPalette: Array<string>
+  mainService: string
+  mainLanguage: string
+  publicTarget: string
+  qualities: string
 }

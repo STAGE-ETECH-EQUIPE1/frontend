@@ -175,7 +175,6 @@ export default function PaymentForm({ packId }: { packId: number }) {
                 <Image
                   width={250}
                   height={100}
-
                   src="/logo/cybersource-logo.svg"
                   alt="Cybersource"
                   className="h-8 mr-4 object-cover"

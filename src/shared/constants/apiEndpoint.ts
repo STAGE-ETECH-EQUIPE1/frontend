@@ -18,10 +18,11 @@ export const API_ENDPOINTS = {
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
     COLOR_PALETTES_GENERATION: '/brandings/color-palettes',
     TYPOGRAPHIE_GENERATION: '/brandings/typographies',
-    FILE_TO_PROVIDE: '/brandings/file-provide'
+    FILE_TO_PROVIDE: '/brandings/file-provide',
   },
   PAYMENT: {
-    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) => `/secure-acceptance/init/${id}`,
+    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>
+      `/secure-acceptance/init/${id}`,
     GET_PAYMENT_RESUME: '/payment/resume',
   },
   SERVICES: {
@@ -39,6 +40,6 @@ export const API_ENDPOINTS = {
   },
   TOKEN: {
     GET: '/tokens',
-    ALL: '/tokens/all'
+    ALL: '/tokens/all',
   },
 } as const
