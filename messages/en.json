@@ -240,7 +240,14 @@
     "profile": "My Profile",
     "settings": "Settings",
     "logout": "Logout",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "fileToProvide": "File To Provide",
+    "visualIdentity": {
+      "visualIdentity": "Visual Identity",
+      "logoGeneration": "Generate Logo",
+      "colorPaletteGeneration": "Color Palette",
+      "typographieGeneration": "Typographie"
+    }
   },
   "dashboard": {
     "title": "ORBIXUP",
@@ -250,6 +257,21 @@
     "downloads": "Downloads",
     "favorites": "Favorites",
     "memberSince": "Member since"
+  },
+  "fileToProvide": {
+    "title": "File to Provide",
+    "form": {
+      "title": "Paramètres de génération",
+      "companyArea": "Company Area",
+      "publicTarget": "Public Target",
+      "mainLanguage": "Main Language",
+      "mainService": "Main Service",
+      "submit": "Submit"
+    },
+    "results": {
+      "success": "File to provide submitted successfully !",
+      "error": "We have an error"
+    }
   },
   "logoGenerator": {
     "title": "AI Logo Generator",
@@ -304,6 +326,42 @@
       "loadingLogos": "Error loading logos"
     },
     "defaultDescription": "Logo for {companyName} in the {industry} sector"
+  },
+  "typographieGenerator": {
+    "title": "AI Logo Generator",
+    "subtitle": "Create professional logos in just a few clicks",
+    "clearCache": "Clear cache and start over",
+    "form": {
+      "title": "Typographie Generation",
+      "styleSearch": "Style Searched",
+      "submit": "Submit"
+    },
+    "result": {
+      "title": "Typographie Generated",
+      "regenerate": "Generate new Typographie"
+    },
+    "status": {},
+    "errors": {}
+  },
+  "colorPaletteGenerator": {
+    "title": "Color Palette Generator",
+    "subtitle": "Create a color palette where you can choose",
+    "clearCache": "Clear cache and start over",
+    "form": {
+      "title": "Color Palette Generation",
+      "colorFavorites": "Favorites Colors",
+      "colorExcepts": "Excepted Colors",
+      "emotion": "emotion",
+      "colorNumber": "Color Number",
+      "styleSearch": "Style Searched",
+      "submit": "Submit"
+    },
+    "result": {
+      "title": "Color Palette Generated",
+      "regenerate": "Generate new Color Palette"
+    },
+    "status": {},
+    "errors": {}
   },
   "industries": {
     "technology": "Technology",

@@ -25,6 +25,9 @@ import LanguageSwitcher from '../../../shared/components/translation/LanguageSwi
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/features/auth/hooks/useAuth'
 import LoadingAnimation from '@/shared/components/loading/LoadingAnimation'
+import TypographieGenerator from './TypographieGenerator'
+import ColorPaletteGenerator from './ColorPaletteGenerator'
+import FileToProvide from './FileToProvide'
 
 // Mock user data
 const mockUser = {
@@ -58,9 +61,10 @@ const mockUser = {
 
 export default function UserDashboard() {
   const t = useTranslations('navigation')
-  const [activeTab, setActiveTab] = useState('generate')
+  const [activeTab, setActiveTab] = useState('projects')
   const { user, loading } = useAuth()
   const router = useRouter()
+
   useEffect(() => {
     if (!loading && (!user || !user.roles.includes('ROLE_USER'))) {
       router.push('/')
@@ -74,10 +78,17 @@ export default function UserDashboard() {
   if (!user || !user.roles.includes('ROLE_USER')) {
     return null
   }
+
   const getBreadcrumbTitle = (tab: string) => {
     switch (tab) {
-      case 'generate':
-        return t('generate')
+      case 'logo-generation':
+        return t('visualIdentity.logoGeneration')
+      case 'color-palette-generation':
+        return t('visualIdentity.colorPaletteGeneration')
+      case 'typographie-generation':
+        return t('visualIdentity.typographieGeneration')
+      case 'file-to-provide':
+        return t('fileToProvide')
       case 'projects':
         return t('projects')
       case 'profile':
@@ -93,28 +104,20 @@ export default function UserDashboard() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'generate':
+      case 'logo-generation':
         return <LogoGenerator user={mockUser} />
+      case 'color-palette-generation':
+        return <ColorPaletteGenerator />
+      case 'typographie-generation':
+        return <TypographieGenerator />
+      case 'file-to-provide':
+        return <FileToProvide />
       case 'projects':
         return <ProjectsManager />
       case 'profile':
         return <UserProfile />
       case 'history':
         return <GenerationHistory />
-
-      case 'settings':
-        return (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                {t('settings')}
-              </h3>
-              <p className="text-slate-600">
-                Cette section sera bientôt disponible
-              </p>
-            </div>
-          </div>
-        )
       default:
         return <LogoGenerator user={mockUser} />
     }
