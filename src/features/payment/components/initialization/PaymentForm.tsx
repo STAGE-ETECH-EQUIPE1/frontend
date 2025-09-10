@@ -12,6 +12,7 @@ import { paymentApi, wait } from '@/features/payment/services/paymentApi'
 import { useParams, useRouter } from 'next/navigation'
 import { PackResponse } from '@/types/service'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useTranslations } from 'next-intl'
 
 export default function PaymentForm({ packId }: { packId: number }) {
   const { initSecureAcceptance } = usePaymentSecure()
@@ -19,7 +20,7 @@ export default function PaymentForm({ packId }: { packId: number }) {
   const router = useRouter()
   const locale = params.locale as string
   const [isPending, startTransition] = useTransition()
-
+  const t = useTranslations('payment')
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -60,7 +61,6 @@ export default function PaymentForm({ packId }: { packId: number }) {
     }
   }
 
-  // Nouveau useEffect pour gérer les messages de l'iframe CyberSource
   useEffect(() => {
     if (showSecureAcceptance && iframeRef.current) {
       const handleMessage = (event: MessageEvent) => {
@@ -125,12 +125,12 @@ export default function PaymentForm({ packId }: { packId: number }) {
 
   return (
     <div className="container mx-auto">
-      <div className="flex flex-col lg:flex-row gap-8">
-        <div className="lg:w-2/3">
+      <div className="flex flex-col lg:flex-row gap-8 m-20">
+        <div className="flex-1">
           <Card className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="p-6">
               <CardTitle className="text-lg font-semibold text-gray-800 mb-6">
-                Payment Information
+                {t('title')}
               </CardTitle>
 
               {isLoading && <PaymentFormSkeleton />}
@@ -163,9 +163,7 @@ export default function PaymentForm({ packId }: { packId: number }) {
                   >
                     <div className="text-center">
                       <Loader2 className="w-8 h-8 animate-spin text-primary mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">
-                        Chargement du paiement...
-                      </p>
+                      <p className="text-sm text-gray-600">{t('loading')}</p>
                     </div>
                   </div>
                 </div>
@@ -177,23 +175,23 @@ export default function PaymentForm({ packId }: { packId: number }) {
                   height={100}
                   src="/logo/cybersource-logo.svg"
                   alt="Cybersource"
-                  className="h-8 mr-4"
+                  className="h-8 mr-4 object-cover"
                 />
 
-                <div className="flex space-x-2">
+                <div className="space-x-2">
                   <Image
                     width={50}
                     height={100}
                     src="/logo/mastercard.png"
                     alt="Mastercard"
-                    className="h-6"
+                    className="h-6 object-cover"
                   />
                   <Image
                     width={50}
                     height={100}
                     src="/logo/visa.png"
                     alt="Visa"
-                    className="h-6"
+                    className="h-6 object-cover"
                   />
                 </div>
 
@@ -203,7 +201,7 @@ export default function PaymentForm({ packId }: { packId: number }) {
                   className="ml-auto bg-blue-100 py-2 px-4 rounded cursor-pointer"
                   onClick={handleSecureAcceptancePayment}
                 >
-                  {secureAcceptanceLoading ? 'Traitement...' : 'Payer'}
+                  {secureAcceptanceLoading ? t('processing') : t('pay')}
                   {secureAcceptanceLoading ? (
                     <Loader2 className="w-4 h-4 ml-2 animate-spin" />
                   ) : (
@@ -214,7 +212,7 @@ export default function PaymentForm({ packId }: { packId: number }) {
 
               <div
                 id="error-message"
-                className="hidden bg-red-50 border-l-4 border-red-500 p-4 mb-6"
+                className="hidden  bg-red-50 border-l-4 border-red-500 p-4 mb-6"
               >
                 <div className="flex">
                   <div className="flex-shrink-0">
@@ -236,13 +234,10 @@ export default function PaymentForm({ packId }: { packId: number }) {
                       className="text-sm font-medium text-red-800"
                       id="error-title"
                     >
-                      Error loading payment form
+                      {t('error.title')}
                     </h3>
                     <div className="mt-2 text-sm text-red-700">
-                      <p id="error-details">
-                        We&#39;re unable to load the secure payment form. Please
-                        try again later or contact support.
-                      </p>
+                      <p id="error-details">{t('error.details')}</p>
                     </div>
                   </div>
                 </div>
