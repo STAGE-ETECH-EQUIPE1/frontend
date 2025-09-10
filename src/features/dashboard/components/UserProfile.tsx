@@ -112,7 +112,6 @@ export function UserProfile() {
   const t = useTranslations('userProfile')
   const tCommon = useTranslations('common')
 
-  // Appel de l'API (RTK Query)
   const {
     data: apiUser,
     isLoading,
@@ -120,7 +119,6 @@ export function UserProfile() {
     refetch,
   } = useGetCurrentUserQuery()
 
-  // État local inchangé, mais hydraté avec l’API
   const [user, setUser] = useState(mockUser)
   const [formData, setFormData] = useState({
     name: user.name,
@@ -128,7 +126,6 @@ export function UserProfile() {
     phone: user.phone,
   })
 
-  // Hydrate les champs disponibles depuis l’API User
   useEffect(() => {
     if (!apiUser) return
     setUser((prev) => {
@@ -201,12 +198,10 @@ export function UserProfile() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Ici vous pouvez brancher une mutation pour PATCH/PUT l'utilisateur
     setUser({ ...user, ...formData })
     console.log('Profile updated:', formData)
   }
 
-  // Loading / Error basiques
   if (isLoading) {
     return (
       <div className="p-6">

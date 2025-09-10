@@ -16,6 +16,7 @@ import { FieldValues, useForm } from 'react-hook-form'
 import { ColorPicker } from './ui/ColorPicker'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { colorGeneratorSchema } from '../schema/colorGeneratorSchema'
+import { useToken } from '@/shared/hooks/useToken'
 
 function ColorPaletteGenerator() {
   const t = useTranslations('colorPaletteGenerator')
@@ -24,6 +25,7 @@ function ColorPaletteGenerator() {
   const [items, setItems] = useState<Array<ColorPaletteResponse> | null>(null)
   const [selectedColors, setSelectedColors] = useState<string[]>([])
   const [excludedColors, setExcludedColors] = useState<string[]>([])
+  const { tokens, isTokenLoading, updateToken } = useToken()
 
   const {
     register,
@@ -52,6 +54,7 @@ function ColorPaletteGenerator() {
       const { success, data: items } =
         await visuelIdentityService.generateColorPalettes(data)
       if (success) {
+        updateToken('colorPaletteTokens', tokens.colorPaletteTokens)
         setItems(items)
       }
     })
@@ -75,7 +78,7 @@ function ColorPaletteGenerator() {
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
             <Zap className="w-3 h-3 mr-1" />
-            456
+            {isTokenLoading ? 0 : tokens.colorPaletteTokens}
           </Badge>
           <Button
             variant="outline"

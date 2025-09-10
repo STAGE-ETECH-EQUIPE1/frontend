@@ -37,7 +37,8 @@ export const API_ENDPOINTS = {
     DELETE: (id: number) => `/pack/delete/${id}`,
     GET_BY_ID: (id: number) => `/packs/${id}`,
   },
-  MERCURE: {
-    TOKEN: '/mercure/token',
+  TOKEN: {
+    GET: '/tokens',
+    ALL: '/tokens/all'
   },
 } as const

@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
 import {
   Palette,
   UserIcon,
@@ -203,10 +202,6 @@ export function UserSidebar({
   }
 
   const PlanIcon = getPlanIcon(effectiveUser.plan.type)
-  const tokensUsed = effectiveUser.plan.tokensUsed
-  const maxTokens = effectiveUser.plan.maxTokens
-  const tokensPercentage =
-    maxTokens === 'unlimited' ? 0 : (tokensUsed / (maxTokens as number)) * 100
 
   const initials = (
     effectiveUser.name && effectiveUser.name.trim().length > 0
@@ -301,19 +296,6 @@ export function UserSidebar({
 
                   {!isCollapsed && (
                     <div className="space-y-2">
-                      <div className="flex justify-between text-xs text-slate-600">
-                        <span>{t('dashboard.tokensUsed')}</span>
-                        <span>
-                          {tokensUsed}/
-                          {maxTokens === 'unlimited'
-                            ? '∞'
-                            : (maxTokens as number)}
-                        </span>
-                      </div>
-                      {maxTokens !== 'unlimited' && (
-                        <Progress value={tokensPercentage} className="h-2" />
-                      )}
-
                       {isError && (
                         <div className="mt-2 text-[11px] text-red-600 bg-red-50 border border-red-100 rounded px-2 py-1 flex items-center justify-between">
                           <span>{'Impossible de charger votre profil.'}</span>
@@ -336,7 +318,7 @@ export function UserSidebar({
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-            {t('navigation.statistics')}
+            {t('navigation.guestTab')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

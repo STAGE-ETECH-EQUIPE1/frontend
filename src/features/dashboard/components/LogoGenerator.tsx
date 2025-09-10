@@ -25,6 +25,7 @@ import React from 'react'
 import type { Logo } from '../types/branding'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { useToken } from '@/shared/hooks/useToken'
 
 export interface GeneratedLogo {
   id: number
@@ -50,6 +51,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
   const tStyles = useTranslations('styles')
   const tColors = useTranslations('colors')
   const tCommon = useTranslations('commonBranding')
+  const { isTokenLoading, tokens } = useToken()
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -134,7 +136,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
           const parsed = JSON.parse(cachedData)
 
           const now = new Date().getTime()
-          const cacheAge = (now - parsed.timestamp) / (1000 * 60 * 60) // en heures
+          const cacheAge = (now - parsed.timestamp) / (1000 * 60 * 60)
 
           if (cacheAge < CACHE_EXPIRY_HOURS) {
             const restoredFormData = {
@@ -533,7 +535,7 @@ export function LogoGenerator({ user }: LogoGeneratorProps) {
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
             <Zap className="w-3 h-3 mr-1" />
-            {tokensUsed}/{maxTokens === 'unlimited' ? '∞' : maxTokens}{' '}
+            {isTokenLoading ? 0 : tokens.logoGenerationTokens}{' '}
             {tCommon('tokens')}
           </Badge>
           <Button

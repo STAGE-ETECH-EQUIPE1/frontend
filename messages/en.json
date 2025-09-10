@@ -168,7 +168,8 @@
     "startFree": "Start for free",
     "choosePack": "Choose this pack",
     "validity": "Valid from {start} to {end}",
-    "tokens": "Tokens: {value}"
+    "tokens": "Tokens: {value}",
+    "connectError": "Please connect to your account"
   },
   "portfolio": {
     "title": "Our Trusted Clients",
@@ -240,7 +241,7 @@
     "profile": "My Profile",
     "settings": "Settings",
     "logout": "Logout",
-    "statistics": "Statistics",
+    "guestTab": "Guest Tab",
     "fileToProvide": "File To Provide",
     "visualIdentity": {
       "visualIdentity": "Visual Identity",

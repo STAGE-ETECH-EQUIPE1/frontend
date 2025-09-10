@@ -169,7 +169,8 @@
     "startFree": "Commencer gratuitement",
     "choosePack": "Choisir ce pack",
     "validity": "Valide du {start} au {end}",
-    "tokens": "Tokens: {value}"
+    "tokens": "Tokens: {value}",
+    "connectError": "Veuillez vous connecter à votre compte"
   },
   "portfolio": {
     "title": "Nos Clients de Confiance",
@@ -234,8 +235,8 @@
     "history": "Historique",
     "projects": "Mes Projets",
     "profile": "Mon Profil",
+    "guestTab": "Champ Client",
     "logout": "Déconnexion",
-    "statistics": "Statistiques",
     "fileToProvide": "Dossier à fournir",
     "visualIdentity": {
       "visualIdentity": "Identité Visuelle",
