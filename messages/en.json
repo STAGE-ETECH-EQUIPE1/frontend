@@ -216,6 +216,31 @@
       "delivery": "Express Delivery"
     }
   },
+  "payment": {
+    "title": "Payment Information",
+    "loading": "Loading payment...",
+    "processing": "Processing...",
+    "pay": "Pay",
+    "error": {
+      "title": "Error loading payment form",
+      "details": "We're unable to load the secure payment form. Please try again later or contact support."
+    },
+    "summary": {
+      "title": "Order Summary",
+      "total": "Total",
+      "helpTitle": "Need help?",
+      "helpText": "Contact our customer support team for assistance with your order.",
+      "helpPhone": "(800) 555-1234"
+    },
+    "term": {
+      "title": "Reservation",
+      "number": "No. XXXXXXXXXXXX",
+      "description": "Payment Information",
+      "alert": "Your data is secured",
+      "amount": "Amount to pay",
+      "pay": "Pay"
+    }
+  },
   "auth": {
     "signin": {
       "title": "Welcome Back!",

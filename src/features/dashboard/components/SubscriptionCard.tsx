@@ -6,6 +6,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+
+import { Progress } from '@/components/ui/progress'
 import { Calendar, CreditCard, PlaneIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
@@ -28,6 +30,11 @@ export default function SubscriptionCard({ user }: { user: mockUser }) {
         return 'from-gray-500 to-gray-600'
     }
   }
+  
+  const tokensPercentage = (() => {
+    const maxTokens = user.plan.maxTokens as number | 'unlimited'
+    return maxTokens === 'unlimited' ? 0 : (user.tokensUsed / maxTokens) * 100
+  })()
 
   if (isLoading) {
     return (
