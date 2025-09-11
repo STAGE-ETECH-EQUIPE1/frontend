@@ -40,7 +40,6 @@ const SignIn = () => {
       }
     } catch (err) {
       toast.error(toastMessage('errorLogin'))
-      console.error('Erreur :', err)
     }
   }
 

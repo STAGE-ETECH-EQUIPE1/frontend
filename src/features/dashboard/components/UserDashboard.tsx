@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { UserSidebar } from './UserSidebar'
 import { LogoGenerator } from './LogoGenerator'
-import { ProjectsManager } from './ProjectsManager'
 import { UserProfile } from './UserProfile'
 import {
   SidebarInset,
@@ -102,8 +101,8 @@ export default function UserDashboard() {
         return t('verbalIdentity.companyToneOfVoiceGeneration')
       case 'file-to-provide':
         return t('fileToProvide')
-      case 'projects':
-        return t('projects')
+      // case 'projects':
+      //   return t('projects')
       case 'profile':
         return t('profile')
       case 'history':
@@ -133,8 +132,8 @@ export default function UserDashboard() {
         return <CompanyToneOfVoiceGenerator />
       case 'file-to-provide':
         return <FileToProvide />
-      case 'projects':
-        return <ProjectsManager />
+      // case 'projects':
+      //   return <ProjectsManager />
       case 'profile':
         return <UserProfile />
       case 'history':

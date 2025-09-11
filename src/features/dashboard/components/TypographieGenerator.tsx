@@ -13,14 +13,16 @@ import { typographieGeneratorSchema } from '../schema/TypographieGeneratorSchema
 import { visuelIdentityService } from '../services/VisualIdentityService'
 import { TypographiesResponse } from '../types/branding'
 import { wait } from '@/shared/services/BaseService'
-import ColorPaletteSkeleton from './ui/ColorPaletteSkeleton'
 import TypographieCard from './ui/TypographieCard'
+import { useToken } from '@/shared/hooks/useToken'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function TypographieGenerator() {
   const t = useTranslations('typographieGenerator')
   const [isGenerating, setIsGenerating] = useState<boolean>(false)
   const [isLoading, startTransition] = useTransition()
   const [items, setItems] = useState<Array<TypographiesResponse> | null>(null)
+  const { isTokenLoading, tokens, updateToken } = useToken()
 
   const {
     register,
@@ -38,6 +40,7 @@ function TypographieGenerator() {
         await visuelIdentityService.generateTypographies(data)
       if (success) {
         setItems(items)
+        updateToken('typographyTokens', tokens.typographyTokens)
       }
     })
   }
@@ -59,7 +62,8 @@ function TypographieGenerator() {
         </h2>
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
-            <Zap className="w-3 h-3 mr-1" />4
+            <Zap className="w-3 h-3 mr-1" />
+            {isTokenLoading ? 0 : tokens.typographyTokens}
           </Badge>
           <Button
             variant="outline"
@@ -82,7 +86,9 @@ function TypographieGenerator() {
                 </CardHeader>
                 <CardContent className="w-full">
                   {isGenerating && isLoading ? (
-                    <ColorPaletteSkeleton />
+                    <center>
+                      <Spinner variant={'ring'} size={100} />
+                    </center>
                   ) : (
                     <>
                       {items?.map((item, index) => (

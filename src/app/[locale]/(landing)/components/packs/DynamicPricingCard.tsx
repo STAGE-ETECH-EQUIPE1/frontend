@@ -7,6 +7,8 @@ import { Check, Crown, Star } from 'lucide-react'
 import type { Pack, Service } from '@/features/admin/types/pack'
 import { useTranslations } from 'next-intl'
 import { useParams, useRouter } from 'next/navigation'
+import { useAuth } from '@/features/auth/hooks/useAuth'
+import toast from 'react-hot-toast'
 
 interface DynamicPricingCardProps {
   pack: Pack
@@ -28,6 +30,8 @@ export function DynamicPricingCard({
 }: DynamicPricingCardProps) {
   const t = useTranslations('pricing')
 
+  const { user } = useAuth()
+
   const params = useParams()
   const locale = params.locale as string
 
@@ -37,7 +41,11 @@ export function DynamicPricingCard({
   const totalPrice = calculatePackTotalPrice(pack)
 
   const redirectToPayment = (id: number): void => {
-    router.replace(`/${locale}/payment/${id}`)
+    if (user) {
+      router.replace(`/${locale}/payment/${id}`)
+    } else {
+      toast.error(t('connectError'))
+    }
   }
 
   const getCategoryStyles = () => {

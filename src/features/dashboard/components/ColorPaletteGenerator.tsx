@@ -9,13 +9,14 @@ import { useTranslations } from 'next-intl'
 import { useState, useTransition } from 'react'
 import ColorPaletteCard from './ui/ColorPaletteCard'
 import { wait } from '@/shared/services/BaseService'
-import ColorPaletteSkeleton from './ui/ColorPaletteSkeleton'
 import { ColorPaletteResponse } from '../types/branding'
 import { visuelIdentityService } from '../services/VisualIdentityService'
 import { FieldValues, useForm } from 'react-hook-form'
 import { ColorPicker } from './ui/ColorPicker'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { colorGeneratorSchema } from '../schema/colorGeneratorSchema'
+import { useToken } from '@/shared/hooks/useToken'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 function ColorPaletteGenerator() {
   const t = useTranslations('colorPaletteGenerator')
@@ -24,6 +25,7 @@ function ColorPaletteGenerator() {
   const [items, setItems] = useState<Array<ColorPaletteResponse> | null>(null)
   const [selectedColors, setSelectedColors] = useState<string[]>([])
   const [excludedColors, setExcludedColors] = useState<string[]>([])
+  const { tokens, isTokenLoading, updateToken } = useToken()
 
   const {
     register,
@@ -52,6 +54,7 @@ function ColorPaletteGenerator() {
       const { success, data: items } =
         await visuelIdentityService.generateColorPalettes(data)
       if (success) {
+        updateToken('colorPaletteTokens', tokens.colorPaletteTokens)
         setItems(items)
       }
     })
@@ -75,7 +78,7 @@ function ColorPaletteGenerator() {
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
             <Zap className="w-3 h-3 mr-1" />
-            456
+            {isTokenLoading ? 0 : tokens.colorPaletteTokens}
           </Badge>
           <Button
             variant="outline"
@@ -98,7 +101,9 @@ function ColorPaletteGenerator() {
                 </CardHeader>
                 <CardContent className="justify-center grid grid-cols-3">
                   {isGenerating && isLoading ? (
-                    <ColorPaletteSkeleton />
+                    <center>
+                      <Spinner variant={'ring'} size={100} />
+                    </center>
                   ) : (
                     <>
                       {items?.map((item, index) => (

@@ -17,6 +17,7 @@ export const API_ENDPOINTS = {
     PROJECTS_GET: '/branding-projects',
     PROJECT_LOGOS: (id: string | number) => `/branding-project/${id}/logos`,
     COLOR_PALETTES_GENERATION: '/brandings/color-palettes',
+    COLOR_PALETTES_SUBMIT: '/brandings/color-palettes/submit',
     TYPOGRAPHIE_GENERATION: '/brandings/typographies',
     COMPANY_NAME_GENERATION: '/brandings/companyNames',
     COMPANY_SLOGAN_GENERATION: '/brandings/companySlogan',
@@ -29,7 +30,8 @@ export const API_ENDPOINTS = {
     FILE_TO_PROVIDE: '/brandings/file-provide'
   },
   PAYMENT: {
-    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) => `/secure-acceptance/init/${id}`,
+    PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>
+      `/secure-acceptance/init/${id}`,
     GET_PAYMENT_RESUME: '/payment/resume',
   },
   SERVICES: {
@@ -45,7 +47,8 @@ export const API_ENDPOINTS = {
     DELETE: (id: number) => `/pack/delete/${id}`,
     GET_BY_ID: (id: number) => `/packs/${id}`,
   },
-  MERCURE: {
-    TOKEN: '/mercure/token',
+  TOKEN: {
+    GET: '/tokens',
+    ALL: '/tokens/all',
   },
 } as const

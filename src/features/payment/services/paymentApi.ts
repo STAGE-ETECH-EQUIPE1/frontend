@@ -3,7 +3,7 @@ import {
   PaymentSecureAcceptanceData,
 } from '@/features/payment/types/PaymentType'
 import { API_ENDPOINTS } from '@/shared/constants/apiEndpoint'
-import { ApiError } from '@/shared/services/BaseService';
+import { ApiError } from '@/shared/services/BaseService'
 import { getToken } from '@/shared/utils/localStorage'
 import { PackResponse } from '@/types/service'
 
