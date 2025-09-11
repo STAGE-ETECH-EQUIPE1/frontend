@@ -1,20 +1,19 @@
-import { BACKEND_URL } from "@/shared/config/env";
-import { getToken, removeToken } from "@/shared/utils/localStorage";
+import { BACKEND_URL } from '@/shared/config/env'
+import { getToken, removeToken } from '@/shared/utils/localStorage'
 import { jwtDecode } from 'jwt-decode'
 
 export class BaseService {
-  protected _backendUrl: string;
+  protected _backendUrl: string
 
   constructor() {
-    this._backendUrl = `${BACKEND_URL}/api`;
+    this._backendUrl = `${BACKEND_URL}/api`
   }
-
 
   _getHeader() {
     const token = getToken()
     const headerContent = {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     }
 
     if (token) {
@@ -29,7 +28,7 @@ export class BaseService {
         } else {
           return {
             ...headerContent,
-            "Authorization": `Bearer ${getToken()}`
+            Authorization: `Bearer ${getToken()}`,
           }
         }
       } catch {
@@ -38,7 +37,6 @@ export class BaseService {
     }
     return headerContent
   }
-
 }
 
 export class ApiError extends Error {

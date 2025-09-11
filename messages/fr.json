@@ -351,7 +351,8 @@
     "startFree": "Commencer gratuitement",
     "choosePack": "Choisir ce pack",
     "validity": "Valide du {start} au {end}",
-    "tokens": "Tokens: {value}"
+    "tokens": "Tokens: {value}",
+    "connectError": "Veuillez vous connecter à votre compte"
   },
   "portfolio": {
     "title": "Nos Clients de Confiance",
@@ -416,8 +417,8 @@
     "history": "Historique",
     "projects": "Mes Projets",
     "profile": "Mon Profil",
+    "guestTab": "Champ Client",
     "logout": "Déconnexion",
-    "statistics": "Statistiques",
     "fileToProvide": "Dossier à fournir",
     "visualIdentity": {
       "visualIdentity": "Identité Visuelle",
@@ -522,10 +523,11 @@
     },
     "result": {
       "title": "Typographies générées",
-      "regenerate": "Generer de nouvel typographie"
-    },
-    "status": {},
-    "errors": {}
+      "regenerate": "Generer de nouvel typographie",
+      "selectTypo": "Selectionner Typographie",
+      "successToast": "Typographie sélectionner avec succès",
+      "errorToast": "Une erreur est survenu"
+    }
   },
   "colorPaletteGenerator": {
     "title": "Generation de palette de couleur",
@@ -542,10 +544,11 @@
     },
     "result": {
       "title": "Palettes de couleurs générées",
-      "regenerate": "Generer de nouvelle palette de couleur"
-    },
-    "status": {},
-    "errors": {}
+      "regenerate": "Generer de nouvelle palette de couleur",
+      "selectPalette": "Selectionner Palette",
+      "successToast": "Palette sélectionner avec succès",
+      "errorToast": "Une erreur est survenu"
+    }
   },
   "industries": {
     "technology": "Technologie",

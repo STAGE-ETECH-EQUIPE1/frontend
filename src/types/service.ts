@@ -33,3 +33,13 @@ export interface ApiResponse<T> {
   message: string
   data: T
 }
+
+export type tokensResponse = {
+  companyNameTokens: number
+  colorPaletteTokens: number
+  typographyTokens: number
+  tonVoiceTokens: number
+  valuesTokens: number
+  sloganTokens: number
+  logoGenerationTokens: number
+}

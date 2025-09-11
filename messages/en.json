@@ -349,7 +349,8 @@
     "startFree": "Start for free",
     "choosePack": "Choose this pack",
     "validity": "Valid from {start} to {end}",
-    "tokens": "Tokens: {value}"
+    "tokens": "Tokens: {value}",
+    "connectError": "Please connect to your account"
   },
   "portfolio": {
     "title": "Our Trusted Clients",
@@ -421,7 +422,7 @@
     "profile": "My Profile",
     "settings": "Settings",
     "logout": "Logout",
-    "statistics": "Statistics",
+    "guestTab": "Guest Tab",
     "fileToProvide": "File To Provide",
     "visualIdentity": {
       "visualIdentity": "Visual Identity",
@@ -526,10 +527,11 @@
     },
     "result": {
       "title": "Typographie Generated",
-      "regenerate": "Generate new Typographie"
-    },
-    "status": {},
-    "errors": {}
+      "regenerate": "Generate new Typographie",
+      "selectTypo": "Select Typography",
+      "successToast": "Typography selected successfully",
+      "errorToast": "An error has occurred"
+    }
   },
   "colorPaletteGenerator": {
     "title": "Color Palette Generator",
@@ -546,10 +548,11 @@
     },
     "result": {
       "title": "Color Palette Generated",
-      "regenerate": "Generate new Color Palette"
-    },
-    "status": {},
-    "errors": {}
+      "regenerate": "Generate new Color Palette",
+      "selectPalette": "Select Palette",
+      "successToast": "Palette selected successfully",
+      "errorToast": "An error has occurred"
+    }
   },
   "industries": {
     "technology": "Technology",

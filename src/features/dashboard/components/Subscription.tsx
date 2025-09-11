@@ -68,10 +68,6 @@ export function SubscriptionModal({
   }
 
   const onSubmit = async (data: SubscriptionFormData) => {
-    console.log('[v0] onSubmit function called!')
-    console.log('[v0] Form validation passed')
-    console.log('[v0] Form submitted with data:', data)
-
     const startDate = new Date()
     const endDate = calculateEndDate(startDate, data.duration)
 
@@ -86,16 +82,12 @@ export function SubscriptionModal({
       clientId: data.clientId,
     }
 
-    console.log('[v0] Subscription data to send:', subscriptionData)
-
     try {
-      console.log('[v0] Calling createSubscription API...')
       const result = await createSubscription(subscriptionData).unwrap()
-      console.log('[v0] API response:', result)
+      console.log(result)
       onClose()
       alert('Abonnement créé avec succès!')
     } catch (error) {
-      console.error('[v0] API Error:', error)
       console.error("Erreur lors de la création de l'abonnement:", error)
       alert("Erreur lors de la création de l'abonnement")
     }
