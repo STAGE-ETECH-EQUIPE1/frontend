@@ -19,7 +19,15 @@ export const API_ENDPOINTS = {
     COLOR_PALETTES_GENERATION: '/brandings/color-palettes',
     COLOR_PALETTES_SUBMIT: '/brandings/color-palettes/submit',
     TYPOGRAPHIE_GENERATION: '/brandings/typographies',
-    FILE_TO_PROVIDE: '/brandings/file-provide',
+    COMPANY_NAME_GENERATION: '/brandings/companyNames',
+    COMPANY_SLOGAN_GENERATION: '/brandings/companySlogan',
+    COMPANY_VALUES_GENERATION: '/brandings/companyValues',
+    COMPANY_TONE_GENERATION: '/brandings/companyToneOfVoice',
+    COMPANY_TONE_SUBMIT: '/brandingVerbal/companyToneOfVoice',
+    COMPANY_VALUE_SUBMIT: '/brandingVerbal/companyValue',
+    COMPANY_SLOGAN_SUBMIT: '/brandingVerbal/companySlogan',
+    COMPANY_NAME_SUBMIT: '/brandingVerbal/companyName',
+    FILE_TO_PROVIDE: '/brandings/file-provide'
   },
   PAYMENT: {
     PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>

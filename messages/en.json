@@ -1,4 +1,185 @@
 {
+  "CompanyValuesGenerator": {
+    "title": "Brand Values Generator",
+    "subtitle": "Define the fundamental principles of your brand",
+
+    "form": {
+      "title": "Fill in the information",
+      "customerPainPoints": "Customer Pain Points",
+      "customerPainPointsPlaceholder": "Ex: high prices, slow customer service",
+      "customerPromise": "Customer Promise",
+      "customerPromisePlaceholder": "Ex: A simple, fast and reliable experience",
+      "mission": "Mission",
+      "missionPlaceholder": "Enter your company mission",
+      "vision": "Vision",
+      "visionPlaceholder": "Enter your company vision",
+      "culture": "Culture",
+      "culturePlaceholder": "Ex: innovative, collaborative, customer-oriented",
+      "strengths": "Strengths",
+      "strengthsPlaceholder": "Ex: innovation, reactivity, reliability",
+      "competitors": "Competitors",
+      "competitorsPlaceholder": "Ex: Company A, Company B, Company C",
+      "marketScope": "Market Scope",
+      "marketScopePlaceholder": "Select your market scope",
+      "marketScopeOptions": {
+        "local": "Local",
+        "national": "National",
+        "international": "International"
+      },
+      "preferredValues": "Preferred Values",
+      "preferredValuesPlaceholder": "Ex: transparency, sustainability, quality",
+      "avoidValues": "Values to Avoid",
+      "avoidValuesPlaceholder": "Ex: too corporate, too complex, obsolete",
+      "inspiringCompanies": "Inspiring Companies",
+      "inspiringCompaniesPlaceholder": "Ex: Apple, Tesla, Google"
+    },
+    "actions": {
+      "clearCache": "Clear cache",
+      "validateSelection": "Validate the Choice",
+      "generateValues": "Generate Brand Values",
+      "successChoice": "Company Values Saved !",
+      "errorChoice": "Error: validation of Company Values!"
+    },
+    "preview": {
+      "title": "Preview",
+      "loading": "loading.....",
+      "generatedValues": "Generated Values"
+    }
+  },
+  "CompanySloganGenerator": {
+    "title": "Slogan Generator",
+    "subtitle": "Create short, memorable slogans for your brand",
+    "actions": {
+      "clearCache": "Clear cache",
+      "validateSelection": "Validate the Choice",
+      "generateSlogans": "Generate Slogans",
+      "successChoice": "Company Slogan Saved !",
+      "errorChoice": "Error: validation of Company Slogan!"
+    },
+    "form": {
+      "title": "Fill in the information",
+      "includeKeywords": "Include keywords",
+      "includeKeywordsPlaceholder": "Keywords to include (comma separated) — e.g. innovation, future, success",
+      "excludeKeywords": "Exclude keywords",
+      "excludeKeywordsPlaceholder": "Keywords to exclude (comma separated) — e.g. cheap, old, copied",
+      "tone": "Tone",
+      "tonePlaceholder": "Select tone",
+      "toneOptions": {
+        "inspirant": "Inspirational",
+        "motivant": "Motivational",
+        "humoristique": "Humorous"
+      },
+      "length": "Length",
+      "lengthPlaceholder": "Select length",
+      "lengthOptions": {
+        "short": "Short",
+        "medium": "Medium",
+        "long": "Long"
+      },
+      "language": "Language",
+      "languagePlaceholder": "Select language",
+      "languageOptions": {
+        "fr": "Français",
+        "en": "English",
+        "es": "Español"
+      },
+      "focus": "Focus",
+      "focusPlaceholder": "Select focus",
+      "focusOptions": {
+        "products": "Products",
+        "values": "Values",
+        "client": "Customer"
+      }
+    },
+    "preview": {
+      "title": "Preview",
+      "generatedSlogans": "Generated Slogans",
+      "loading": "loading.....",
+      "exampleDescription": "Example slogans generated from your inputs"
+    }
+  },
+  "CompanyToneOfVoiceGenerator": {
+    "title": "Tone of Voice Generator",
+    "subtitle": "Define how your brand speaks to its audience",
+    "form": {
+      "title": "Fill in the information",
+      "mission": "Mission",
+      "missionPlaceholder": "Enter your company mission",
+      "vision": "Vision",
+      "visionPlaceholder": "Enter your company vision",
+      "values": "Values",
+      "valuesPlaceholder": "Ex: innovation, transparency, trust",
+      "positioning": "Positioning",
+      "positioningPlaceholder": "Ex: accessible, premium, disruptive",
+      "avoidExamples": "Examples to avoid",
+      "avoidExamplesPlaceholder": "Ex: too corporate, too technical, too basic",
+      "marketScope": "Market Scope",
+      "marketScopePlaceholder": "Select your market scope",
+      "marketScopeOptions": {
+        "local": "Local",
+        "national": "National",
+        "international": "International"
+      }
+    },
+    "actions": {
+      "clearCache": "Clear cache",
+      "validateSelection": "Validate the Choice",
+      "generateTone": "Generate Tone of Voice",
+      "successChoice": "Company Tone Of Voice Saved !",
+      "errorChoice": "Error: validation of Company Tone!"
+    },
+    "preview": {
+      "title": "Preview",
+      "generatedTone": "Generated Tone of Voice",
+      "loading": "loading.....",
+      "exampleDescription": "Here is an example of a generated tone based on your inputs."
+    }
+  },
+  "companyNameGenerator": {
+    "title": "Company Name Generator",
+    "subtitle": "Create a unique and relevant name for your business.",
+    "actions": {
+      "clearCache": "Clear Cache",
+      "validateSelection": "Validate the Choice",
+      "generateNames": "Generate Names",
+      "successChoice": "Company Name Saved !",
+      "errorChoice": "Error: validation of Company Name!"
+    },
+    "form": {
+      "title": "Generation Settings",
+      "includeKeywords": "Keywords to include",
+      "includeKeywordsPlaceholder": "e.g., tech, cloud, digital",
+      "excludeKeywords": "Keywords to exclude",
+      "excludeKeywordsPlaceholder": "e.g., old, cheap",
+      "length": "Length",
+      "lengthPlaceholder": "e.g., Medium",
+      "lengthOptions": {
+      "short": "Short",
+      "medium": "Medium",
+      "long": "Long"
+      },
+      "style": "Style",
+      "stylePlaceholder": "e.g., Modern",
+      "styleOptions": {
+      "modern": "Modern",
+      "classic": "Classic",
+      "minimalist": "Minimalist"
+      },
+      "language": "Language",
+      "languagePlaceholder": "e.g., French",
+      "languageOptions": {
+      "fr": "French",
+      "en": "English",
+      "es": "Español"
+      },
+      "checkSocialMedia": "Check social media availability"
+    },
+    "preview": {
+      "title": "Generation Results",
+      "loading": "loading.....",
+      "generatedNames": "Generated Names"
+    }
+  },
   "toast": {
     "successLogin": "Login successful!",
     "errorLogin": "Check your email or password!",
@@ -246,8 +427,15 @@
     "visualIdentity": {
       "visualIdentity": "Visual Identity",
       "logoGeneration": "Generate Logo",
-      "colorPaletteGeneration": "Color Palette",
-      "typographieGeneration": "Typographie"
+      "colorPaletteGeneration": "Generate Logo Color Palette",
+      "typographieGeneration": "Generate Typographie"
+    },
+    "verbalIdentity": {
+      "verbalIdentity": "Verbal Identity",
+      "companyNameGeneration": " Company Name",
+      "companySloganGeneration": " Company Slogan",
+      "companyValueGeneration": " Company Value",
+      "companyToneOfVoiceGeneration": " Company Tone Of Voice"
     }
   },
   "dashboard": {

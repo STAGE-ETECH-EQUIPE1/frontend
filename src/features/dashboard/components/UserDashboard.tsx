@@ -26,6 +26,11 @@ import { useAuth } from '@/features/auth/hooks/useAuth'
 import LoadingAnimation from '@/shared/components/loading/LoadingAnimation'
 import TypographieGenerator from './TypographieGenerator'
 import ColorPaletteGenerator from './ColorPaletteGenerator'
+import CompanyNameGenerator from './CompanyNameGenerator'
+import CompanySloganGenerator from './CompanySloganGenerator'
+import CompanyValuesGenerator from './CompanyValuesGenerator'
+import CompanyToneOfVoiceGenerator from './CompanyToneOfVoiceGenerator'
+
 import FileToProvide from './FileToProvide'
 
 // Mock user data
@@ -86,6 +91,14 @@ export default function UserDashboard() {
         return t('visualIdentity.colorPaletteGeneration')
       case 'typographie-generation':
         return t('visualIdentity.typographieGeneration')
+      case 'company-name-generation':
+        return t('verbalIdentity.companyNameGeneration')
+      case 'company-slogan-generation':
+        return t('verbalIdentity.companySloganGeneration')
+      case 'company-Values-generation':
+        return t('verbalIdentity.companyValuesGeneration')
+      case 'company-tone-of-voice-generation':
+        return t('verbalIdentity.companyToneOfVoiceGeneration')
       case 'file-to-provide':
         return t('fileToProvide')
       // case 'projects':
@@ -109,6 +122,14 @@ export default function UserDashboard() {
         return <ColorPaletteGenerator />
       case 'typographie-generation':
         return <TypographieGenerator />
+      case 'companyName-generation':
+        return <CompanyNameGenerator />
+      case 'companySlogan-generation':
+        return <CompanySloganGenerator />
+      case 'companyValues-generation':
+        return <CompanyValuesGenerator />
+      case 'companyToneOfVoice-generation':
+        return <CompanyToneOfVoiceGenerator />
       case 'file-to-provide':
         return <FileToProvide />
       // case 'projects':

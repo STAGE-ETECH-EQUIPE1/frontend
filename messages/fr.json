@@ -1,4 +1,184 @@
 {
+  "CompanyValuesGenerator": {
+    "title": "Générateur de valeurs de marque",
+    "subtitle": "Définissez les principes fondamentaux de votre marque",
+    "form": {
+      "title": "Remplissez les informations",
+      "customerPainPoints": "Problèmes clients",
+      "customerPainPointsPlaceholder": "Ex : prix trop élevés, service client lent",
+      "customerPromise": "Promesse client",
+      "customerPromisePlaceholder": "Ex : Une expérience simple, rapide et fiable",
+      "mission": "Mission",
+      "missionPlaceholder": "Entrez la mission de votre entreprise",
+      "vision": "Vision",
+      "visionPlaceholder": "Entrez la vision de votre entreprise",
+      "culture": "Culture",
+      "culturePlaceholder": "Ex : innovante, collaborative, orientée client",
+      "strengths": "Forces",
+      "strengthsPlaceholder": "Ex : innovation, réactivité, fiabilité",
+      "competitors": "Concurrents",
+      "competitorsPlaceholder": "Ex : Entreprise A, Entreprise B, Entreprise C",
+      "marketScope": "Périmètre du marché",
+      "marketScopePlaceholder": "Sélectionnez votre périmètre",
+      "marketScopeOptions": {
+        "local": "Local",
+        "national": "National",
+        "international": "International"
+      },
+      "preferredValues": "Valeurs préférées",
+      "preferredValuesPlaceholder": "Ex : transparence, durabilité, qualité",
+      "avoidValues": "Valeurs à éviter",
+      "avoidValuesPlaceholder": "Ex : trop corporatif, trop complexe, obsolète",
+      "inspiringCompanies": "Entreprises inspirantes",
+      "inspiringCompaniesPlaceholder": "Ex : Apple, Tesla, Google"
+    },
+    "actions": {
+      "clearCache": "Vider le cache",
+      "validateSelection": "Valider le Choix",
+      "generateValues": "Générer les valeurs",
+      "successChoice": "Valeur Enregistre!",
+      "errorChoice": "Erreur: validation du Valeur !"
+    },
+    "preview": {
+      "title": "Prévisualisation",
+      "loading": "loading.....",
+      "generatedValues": "Valeurs générées"
+    }
+  },
+  "CompanySloganGenerator": {
+    "title": "Générateur de slogans",
+    "subtitle": "Créez des slogans courts et mémorables pour votre marque",
+    "actions": {
+      "clearCache": "Vider le cache",
+      "validateSelection": "Valider le Choix",
+      "generateSlogans": "Générer des slogans",
+      "successChoice": "Slogan Enregistre!",
+      "errorChoice": "Erreur: validation du Slogan !"
+    },
+    "form": {
+      "title": "Remplissez les informations",
+      "includeKeywords": "Mots-clés à inclure",
+      "includeKeywordsPlaceholder": "Mots-clés à inclure (séparés par des virgules) — ex : innovation, avenir, réussite",
+      "excludeKeywords": "Mots-clés à exclure",
+      "excludeKeywordsPlaceholder": "Mots-clés à exclure (séparés par des virgules) — ex : cheap, ancien, copié",
+      "tone": "Tonalité",
+      "tonePlaceholder": "Sélectionnez une tonalité",
+      "toneOptions": {
+        "inspirant": "Inspirant",
+        "motivant": "Motivant",
+        "humoristique": "Humoristique"
+      },
+      "length": "Longueur",
+      "lengthPlaceholder": "Sélectionnez la longueur",
+      "lengthOptions": {
+        "short": "Court",
+        "medium": "Moyen",
+        "long": "Long"
+      },
+      "language": "Langue",
+      "languagePlaceholder": "Sélectionnez la langue",
+      "languageOptions": {
+        "fr": "Français",
+        "en": "Anglais",
+        "es": "Espagnol"
+      },
+      "focus": "Focus",
+      "focusPlaceholder": "Sélectionnez le focus",
+      "focusOptions": {
+        "products": "Produits",
+        "values": "Valeurs",
+        "client": "Client"
+      }
+    },
+    "preview": {
+      "title": "Aperçu",
+      "generatedSlogans": "Slogans générés",
+      "loading": "loading.....",
+      "exampleDescription": "Exemples de slogans générés à partir de vos entrées"
+    }
+  },
+  "CompanyToneOfVoiceGenerator": {
+    "title": "Générateur de ton de voix",
+    "subtitle": "Définissez comment votre marque s’adresse à son audience",
+    "form": {
+      "title": "Remplissez les informations",
+      "mission": "Mission",
+      "missionPlaceholder": "Entrez la mission de votre entreprise",
+      "vision": "Vision",
+      "visionPlaceholder": "Entrez la vision de votre entreprise",
+      "values": "Valeurs",
+      "valuesPlaceholder": "Ex : innovation, transparence, confiance",
+      "positioning": "Positionnement",
+      "positioningPlaceholder": "Ex : accessible, premium, disruptif",
+      "avoidExamples": "Exemples à éviter",
+      "avoidExamplesPlaceholder": "Ex : trop corporate, trop technique, trop basique",
+      "marketScope": "Périmètre du marché",
+      "marketScopePlaceholder": "Sélectionnez votre périmètre",
+      "marketScopeOptions": {
+        "local": "Local",
+        "national": "National",
+        "international": "International"
+      }
+    },
+    "actions": {
+      "clearCache": "Vider le cache",
+      "validateSelection": "Valider le Choix",
+      "generateTone": "Générer le ton de voix",
+      "successChoice": "Ton de Voix Enregistre!",
+      "errorChoice": "Erreur: validation du Ton de Voix !"
+    },
+    "preview": {
+      "title": "Prévisualisation",
+      "generatedTone": "Ton de voix généré",
+      "loading": "loading.....",
+      "exampleDescription": "Voici un exemple de ton généré en fonction de vos entrées."
+    }
+  },
+  "companyNameGenerator": {
+    "title": "Générateur de Nom d'Entreprise",
+    "subtitle": "Créez un nom unique et pertinent pour votre entreprise.",
+    "actions": {
+      "clearCache": "Effacer le cache",
+      "validateSelection": "Valider le Choix",
+      "generateNames": "Générer des noms",
+      "successChoice": "Nom d'entreprise Enregistre!",
+      "errorChoice": "Erreur: validation du Nom d'entreprise !"
+    },
+    "form": {
+      "title": "Paramètres de Génération",
+      "includeKeywords": "Mots-clés à inclure",
+      "includeKeywordsPlaceholder": "ex: tech, cloud, digital",
+      "excludeKeywords": "Mots-clés à exclure",
+      "excludeKeywordsPlaceholder": "ex: vieux, bas de gamme",
+      "length": "Longueur",
+      "lengthPlaceholder": "ex: Moyen",
+      "lengthOptions": {
+        "short": "Court",
+        "medium": "Moyen",
+        "long": "Long"
+      },
+      "style": "Style",
+      "stylePlaceholder": "ex: Moderne",
+      "styleOptions": {
+        "modern": "Moderne",
+        "classic": "Classique",
+        "minimalist": "Minimaliste"
+      },
+      "language": "Langue",
+      "languagePlaceholder": "ex: Français",
+      "languageOptions": {
+        "fr": "Français",
+        "en": "Anglais",
+        "es": "Español"
+      },
+      "checkSocialMedia": "Vérifier la disponibilité sur les réseaux sociaux"
+    },
+    "preview": {
+      "title": "Résultats de la Génération",
+      "loading": "loading....",
+      "generatedNames": "Noms générés"
+    }
+  },
   "toast": {
     "successLogin": "Connexion réussie !",
     "errorLogin": "Vérifier votre email ou mot de passe !",
@@ -9,7 +189,9 @@
     "successSignupGoogle": "Inscription réussie avec Google !",
     "errorSignupGoogle": "Erreur lors de l'inscription avec Google !",
     "confirmPassword": "Les mots de passe ne correspondent pas.",
-    "successLogout": "Déconnexion réussie !"
+    "successLogout": "Déconnexion réussie !",
+    "successChoice": "Choix Enregistré !",
+    "errorChoice": "Erreur: validation !"
   },
 
   "navbar": {
@@ -243,6 +425,13 @@
       "logoGeneration": "Génération de logo",
       "colorPaletteGeneration": "Palette de couleur",
       "typographieGeneration": "Typographie"
+    },
+    "verbalIdentity": {
+      "verbalIdentity": "Identité Verbale",
+      "companyNameGeneration": " Nom d'entreprise",
+      "companySloganGeneration": " Slogan d'entreprise",
+      "companyValueGeneration": " Valeur d'entreprise",
+      "companyToneOfVoiceGeneration": " Ton de voix "
     }
   },
   "dashboard": {

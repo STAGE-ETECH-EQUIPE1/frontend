@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import { FileText, Star, Heart, Speaker } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -151,6 +152,34 @@ export function UserSidebar({
       title: t('navigation.visualIdentity.logoGeneration'),
       icon: Images,
       value: 'logo-generation',
+      color: 'text-blue-600',
+    },
+  ]
+
+
+  const verbalIdentityNavigationItems = [
+    {
+      title: t('navigation.verbalIdentity.companyNameGeneration'),
+      icon: FileText, 
+      value: 'companyName-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.verbalIdentity.companySloganGeneration'),
+      icon: Star, 
+      value: 'companySlogan-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.verbalIdentity.companyValueGeneration'),
+      icon: Heart, 
+      value: 'companyValues-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.verbalIdentity.companyToneOfVoiceGeneration'),
+      icon: Speaker, 
+      value: 'companyToneOfVoice-generation',
       color: 'text-blue-600',
     },
   ]
@@ -366,6 +395,49 @@ export function UserSidebar({
           <SidebarGroupContent>
             <SidebarMenu>
               {visualIdentityNavigationItems.map((item, index) => (
+                <motion.div
+                  key={item.value}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.05 }}
+                >
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      onClick={() => setActiveTab(item.value)}
+                      className={`group relative transition-all duration-300 ${
+                        activeTab === item.value
+                          ? 'bg-blue-100 text-blue-700 border-l-2 border-blue-500 shadow-sm'
+                          : 'hover:bg-slate-50 text-slate-600 hover:text-blue-600'
+                      }`}
+                      tooltip={isCollapsed ? item.title : undefined}
+                    >
+                      <item.icon
+                        className={`w-4 sm:w-5 h-4 sm:h-5 ${item.color} group-hover:scale-110 transition-transform duration-300`}
+                      />
+                      {!isCollapsed && (
+                        <span className="font-medium text-sm">
+                          {item.title}
+                        </span>
+                      )}
+                      {activeTab === item.value && (
+                        <Sparkles className="w-4 h-4 text-blue-500 ml-auto animate-pulse" />
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </motion.div>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Navigation : Verbal Identity*/}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
+            {t('navigation.verbalIdentity.verbalIdentity')}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {verbalIdentityNavigationItems.map((item, index) => (
                 <motion.div
                   key={item.value}
                   initial={{ opacity: 0, x: -20 }}
