@@ -17,10 +17,12 @@ import { companyNameGeneratorSchema } from '../schema/CompanyNameGeneratorSchema
 import { verbalIdentityService } from '../services/VerbalIdentityService'
 import { wait } from '@/shared/services/BaseService'
 import { CompanyNameResponse } from '../types/branding'
+import toast from 'react-hot-toast'
 
 function CompanyNameGenerator() {
   const t = useTranslations('companyNameGenerator')
   const [results, setResults] = useState<string[]>([])
+  const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isLoading, startTransition] = useTransition()
 
@@ -37,30 +39,33 @@ function CompanyNameGenerator() {
     setIsGenerating(true)
     startTransition(async () => {
       await wait(1000)
-
       const response: CompanyNameResponse = await verbalIdentityService.generateCompanyNames(data)
-
       if (response.success && response.Names) {
         setResults(response.Names)
       }
-
       setIsGenerating(false)
     })
   }
 
-
   const resetGeneration = () => {
     setIsGenerating(false)
     setResults([])
+    setSelectedValue(null)
+  }
+
+  const validateSelection = async () => {
+    try {
+      if (!selectedValue)
+        return
+      await verbalIdentityService.submitCompanyName({ value: selectedValue })
+      toast.success(t('actions.successChoice'))
+    } catch (err) {
+      toast.error(t('actions.errorChoice'))
+    }
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="space-y-6"
-    >
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -73,13 +78,7 @@ function CompanyNameGenerator() {
           <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
             <Zap className="w-3 h-3 mr-1" />456
           </Badge>
-          <Button
-            onClick={resetGeneration}
-            variant="outline"
-            size="sm"
-            className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent"
-            title={t('actions.clearCache')}
-          >
+          <Button onClick={resetGeneration} variant="outline" size="sm" className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent" title={t('actions.clearCache')}>
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>
@@ -97,8 +96,7 @@ function CompanyNameGenerator() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                {/* Keywords include */}
-                <div>
+                 <div>
                   <Label htmlFor="includeKeywords">{t('form.includeKeywords')}</Label>
                   <Input
                     {...register('includeKeywords')}
@@ -229,9 +227,26 @@ function CompanyNameGenerator() {
                   <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedNames')}</h1>
                   <div className="space-y-2">
                     {results.map((name, i) => (
-                      <p key={i} className="text-blue-600 font-medium">{name}</p>
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setSelectedValue(name)}
+                        className={`w-full text-left px-2 py-1 border rounded ${
+                          selectedValue === name ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-700'
+                        }`}
+                      >
+                        {name}
+                      </button>
                     ))}
                   </div>
+
+                  <Button
+                    className="bg-blue-600 hover:bg-blue-700 text-white w-full mt-4"
+                    disabled={!selectedValue}
+                    onClick={validateSelection}
+                  >
+                    {t('actions.validateSelection')}
+                  </Button>
                 </>
               )}
             </CardContent>

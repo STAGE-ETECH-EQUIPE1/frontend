@@ -35,7 +35,10 @@
     },
     "actions": {
       "clearCache": "Clear cache",
-      "generateValues": "Generate Brand Values"
+      "validateSelection": "Validate the Choice",
+      "generateValues": "Generate Brand Values",
+      "successChoice": "Company Values Saved !",
+      "errorChoice": "Error: validation of Company Values!"
     },
     "preview": {
       "title": "Preview",
@@ -48,7 +51,10 @@
     "subtitle": "Create short, memorable slogans for your brand",
     "actions": {
       "clearCache": "Clear cache",
-      "generateSlogans": "Generate Slogans"
+      "validateSelection": "Validate the Choice",
+      "generateSlogans": "Generate Slogans",
+      "successChoice": "Company Slogan Saved !",
+      "errorChoice": "Error: validation of Company Slogan!"
     },
     "form": {
       "title": "Fill in the information",
@@ -117,7 +123,10 @@
     },
     "actions": {
       "clearCache": "Clear cache",
-      "generateTone": "Generate Tone of Voice"
+      "validateSelection": "Validate the Choice",
+      "generateTone": "Generate Tone of Voice",
+      "successChoice": "Company Tone Of Voice Saved !",
+      "errorChoice": "Error: validation of Company Tone!"
     },
     "preview": {
       "title": "Preview",
@@ -131,7 +140,10 @@
     "subtitle": "Create a unique and relevant name for your business.",
     "actions": {
       "clearCache": "Clear Cache",
-      "generateNames": "Generate Names"
+      "validateSelection": "Validate the Choice",
+      "generateNames": "Generate Names",
+      "successChoice": "Company Name Saved !",
+      "errorChoice": "Error: validation of Company Name!"
     },
     "form": {
       "title": "Generation Settings",

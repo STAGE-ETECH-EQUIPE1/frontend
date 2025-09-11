@@ -16,10 +16,12 @@ import { companySloganResponseSchema } from '../schema/CompanySloganGeneratorSch
 import { verbalIdentityService } from '../services/VerbalIdentityService'
 import { wait } from '@/shared/services/BaseService'
 import { CompanySloganResponse } from '../types/branding'
+import toast from 'react-hot-toast'
 
 function CompanySloganGenerator() {
   const t = useTranslations('CompanySloganGenerator')
   const [results, setResults] = useState<string[]>([])
+  const [selectedSlogan, setSelectedSlogan] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isLoading, startTransition] = useTransition()
   const [items, setItems] = useState<Array<CompanySloganResponse> | null>(null)
@@ -46,6 +48,17 @@ function CompanySloganGenerator() {
 
       setIsGenerating(false)
     })
+  }
+
+  const validateSelection = async () => {
+    try {
+      if (!selectedSlogan)
+        return
+      await verbalIdentityService.submitCompanySlogan({ value: selectedSlogan})
+      toast.success(t('actions.successChoice'))
+    } catch (err) {
+      toast.success(t('actions.errorChoice'))
+    }
   }
 
   const resetGeneration = () => {
@@ -221,14 +234,32 @@ function CompanySloganGenerator() {
                   <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedSlogans')}</h1>
                   <div className="space-y-2">
                     {results.map((slogan, i) => (
-                      <p key={i} className="text-green-600 font-medium">{slogan}</p>
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setSelectedSlogan(slogan)}
+                        className={`w-full text-left px-2 py-1 border rounded ${
+                          selectedSlogan === slogan ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700'
+                        }`}
+                      >
+                        {slogan}
+                      </button>
                     ))}
                   </div>
+
+                  <Button
+                    className="bg-green-600 hover:bg-green-700 text-white w-full mt-4"
+                    disabled={!selectedSlogan}
+                    onClick={validateSelection}
+                  >
+                    {t('actions.validateSelection')}
+                  </Button>
                 </>
               )}
             </CardContent>
           </Card>
         </div>
+
       </div>
     </motion.div>
   )

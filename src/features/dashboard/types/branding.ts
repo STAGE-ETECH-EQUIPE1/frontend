@@ -100,6 +100,7 @@ export interface ClientResponse {
   id: number;
   typogrpahie: string;
   companyName: string;
+  companyValue: string;
   colorPalette: Array<string>;
   mainService: string;
   mainLanguage: string;
@@ -121,6 +122,7 @@ export interface CompanyValuesResponse {
   success: boolean;
   Values: string[];
 }
+
 export interface CompanyToneOfVoiceResponse {
   success: boolean;
   Tones: string[];

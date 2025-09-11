@@ -15,10 +15,12 @@ import { companyValuesGeneratorSchema } from '../schema/CompanyValuesGeneratorSc
 import { verbalIdentityService } from '../services/VerbalIdentityService'
 import { wait } from '@/shared/services/BaseService'
 import { CompanyValuesResponse } from '../types/branding'
+import toast from 'react-hot-toast'
 
 function CompanyValuesGenerator() {
   const t = useTranslations('CompanyValuesGenerator')
   const [results, setResults] = useState<string[]>([])
+  const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isLoading, startTransition] = useTransition()
 
@@ -41,6 +43,17 @@ function CompanyValuesGenerator() {
       setIsGenerating(false)
     })
   }
+
+    const validateSelection = async () => {
+      try {
+        if (!selectedValue)
+          return
+        await verbalIdentityService.submitCompanyValue({ value: selectedValue })
+        toast.success(t('actions.successChoice'))
+      } catch (err) {
+        toast.success(t('actions.errorChoice'))
+      }
+    }
 
   const resetGeneration = () => {
     setIsGenerating(false)
@@ -187,14 +200,32 @@ function CompanyValuesGenerator() {
                   <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedValues')}</h1>
                   <div className="space-y-2">
                     {results.map((value, i) => (
-                      <p key={i} className="text-purple-600 font-medium">{value}</p>
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setSelectedValue(value)}
+                        className={`w-full text-left px-2 py-1 border rounded ${
+                          selectedValue === value ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700'
+                        }`}
+                      >
+                        {value}
+                      </button>
                     ))}
                   </div>
+
+                  <Button
+                    className="bg-purple-600 hover:bg-purple-700 text-white w-full mt-4"
+                    disabled={!selectedValue}
+                    onClick={validateSelection}
+                  >
+                    {t('actions.validateSelection')}
+                  </Button>
                 </>
               )}
             </CardContent>
           </Card>
         </div>
+
       </div>
     </motion.div>
   )

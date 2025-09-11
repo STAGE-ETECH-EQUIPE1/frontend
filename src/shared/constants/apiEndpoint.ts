@@ -22,6 +22,10 @@ export const API_ENDPOINTS = {
     COMPANY_SLOGAN_GENERATION: '/brandings/companySlogan',
     COMPANY_VALUES_GENERATION: '/brandings/companyValues',
     COMPANY_TONE_GENERATION: '/brandings/companyToneOfVoice',
+    COMPANY_TONE_SUBMIT: '/brandingVerbal/companyToneOfVoice',
+    COMPANY_VALUE_SUBMIT: '/brandingVerbal/companyValue',
+    COMPANY_SLOGAN_SUBMIT: '/brandingVerbal/companySlogan',
+    COMPANY_NAME_SUBMIT: '/brandingVerbal/companyName',
     FILE_TO_PROVIDE: '/brandings/file-provide'
   },
   PAYMENT: {

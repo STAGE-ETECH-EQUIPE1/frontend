@@ -16,6 +16,7 @@ import { companyToneOfVoiceGeneratorSchema } from '../schema/CompanyToneOfVoiceG
 import { verbalIdentityService } from '../services/VerbalIdentityService'
 import { wait } from '@/shared/services/BaseService'
 import { CompanyToneOfVoiceResponse } from '../types/branding'
+import toast from 'react-hot-toast'
 
 export interface ToneOfVoiceResponse {
   success: boolean
@@ -26,6 +27,7 @@ function CompanyToneOfVoiceGenerator() {
   const t = useTranslations('CompanyToneOfVoiceGenerator')
   const [results, setResults] = useState<string[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
+  const [selectedTone, setSelectedTone] = useState<string | null>(null)
   const [isLoading, startTransition] = useTransition()
 
   const {
@@ -50,6 +52,18 @@ function CompanyToneOfVoiceGenerator() {
       setIsGenerating(false)
     })
   }
+
+    const validateSelection = async () => {
+      if (!selectedTone) return
+      try {
+        if (!selectedTone)
+          return
+        await verbalIdentityService.submitCompanyToneOfVoice({ value: selectedTone })
+        toast.success(t('actions.successChoice'))
+      } catch (err) {
+        toast.success(t('actions.errorChoice'))
+      }
+    }
 
   const resetGeneration = () => {
     setIsGenerating(false)
@@ -157,14 +171,32 @@ function CompanyToneOfVoiceGenerator() {
                   <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedTone')}</h1>
                   <div className="space-y-2">
                     {results.map((tone, i) => (
-                      <p key={i} className="text-indigo-600 font-medium">{tone}</p>
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setSelectedTone(tone)}
+                        className={`w-full text-left px-2 py-1 border rounded ${
+                          selectedTone === tone ? 'bg-indigo-600 text-white' : 'bg-indigo-100 text-indigo-700'
+                        }`}
+                      >
+                        {tone}
+                      </button>
                     ))}
                   </div>
+
+                  <Button
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white w-full mt-4"
+                    disabled={!selectedTone}
+                    onClick={validateSelection}
+                  >
+                    {t('actions.validateSelection')}
+                  </Button>
                 </>
               )}
             </CardContent>
           </Card>
         </div>
+
       </div>
     </motion.div>
   )

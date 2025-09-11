@@ -34,7 +34,10 @@
     },
     "actions": {
       "clearCache": "Vider le cache",
-      "generateValues": "Générer les valeurs"
+      "validateSelection": "Valider le Choix",
+      "generateValues": "Générer les valeurs",
+      "successChoice": "Valeur Enregistre!",
+      "errorChoice": "Erreur: validation du Valeur !"
     },
     "preview": {
       "title": "Prévisualisation",
@@ -47,7 +50,10 @@
     "subtitle": "Créez des slogans courts et mémorables pour votre marque",
     "actions": {
       "clearCache": "Vider le cache",
-      "generateSlogans": "Générer des slogans"
+      "validateSelection": "Valider le Choix",
+      "generateSlogans": "Générer des slogans",
+      "successChoice": "Slogan Enregistre!",
+      "errorChoice": "Erreur: validation du Slogan !"
     },
     "form": {
       "title": "Remplissez les informations",
@@ -116,7 +122,10 @@
     },
     "actions": {
       "clearCache": "Vider le cache",
-      "generateTone": "Générer le ton de voix"
+      "validateSelection": "Valider le Choix",
+      "generateTone": "Générer le ton de voix",
+      "successChoice": "Ton de Voix Enregistre!",
+      "errorChoice": "Erreur: validation du Ton de Voix !"
     },
     "preview": {
       "title": "Prévisualisation",
@@ -130,7 +139,10 @@
     "subtitle": "Créez un nom unique et pertinent pour votre entreprise.",
     "actions": {
       "clearCache": "Effacer le cache",
-      "generateNames": "Générer des noms"
+      "validateSelection": "Valider le Choix",
+      "generateNames": "Générer des noms",
+      "successChoice": "Nom d'entreprise Enregistre!",
+      "errorChoice": "Erreur: validation du Nom d'entreprise !"
     },
     "form": {
       "title": "Paramètres de Génération",
@@ -177,7 +189,9 @@
     "successSignupGoogle": "Inscription réussie avec Google !",
     "errorSignupGoogle": "Erreur lors de l'inscription avec Google !",
     "confirmPassword": "Les mots de passe ne correspondent pas.",
-    "successLogout": "Déconnexion réussie !"
+    "successLogout": "Déconnexion réussie !",
+    "successChoice": "Choix Enregistré !",
+    "errorChoice": "Erreur: validation !"
   },
 
   "navbar": {
