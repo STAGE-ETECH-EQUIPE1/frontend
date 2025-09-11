@@ -60,7 +60,7 @@ function CompanyToneOfVoiceGenerator() {
           return
         await verbalIdentityService.submitCompanyToneOfVoice({ value: selectedTone })
         toast.success(t('actions.successChoice'))
-      } catch (err) {
+      } catch () {
         toast.success(t('actions.errorChoice'))
       }
     }

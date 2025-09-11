@@ -44,16 +44,15 @@ function CompanyValuesGenerator() {
     })
   }
 
-    const validateSelection = async () => {
-      try {
-        if (!selectedValue)
-          return
-        await verbalIdentityService.submitCompanyValue({ value: selectedValue })
-        toast.success(t('actions.successChoice'))
-      } catch (err) {
-        toast.success(t('actions.errorChoice'))
-      }
+  const validateSelection = async () => {
+    try {
+      if (!selectedValue) return
+      await verbalIdentityService.submitCompanyValue({ value: selectedValue })
+      toast.success(t('actions.successChoice'))
+    } catch () {
+      toast.success(t('actions.errorChoice'))
     }
+  }
 
   const resetGeneration = () => {
     setIsGenerating(false)
@@ -70,13 +69,13 @@ function CompanyValuesGenerator() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
             {t('title')}
           </h2>
           <p className="text-slate-600">{t('subtitle')}</p>
         </div>
         <div className="flex items-center gap-4">
-          <Badge className="bg-gradient-to-r from-purple-100 to-slate-100 text-purple-700 border-purple-200">
+          <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
             <Zap className="w-3 h-3 mr-1" />
             89
           </Badge>
@@ -95,9 +94,9 @@ function CompanyValuesGenerator() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* Formulaire */}
         <div className="lg:col-span-1">
-          <Card className="bg-white border-purple-200/50 shadow-lg p-4 sm:p-6 h-full">
+          <Card className="bg-white border-blue-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
-              <CardTitle className="text-purple-600 flex items-center gap-2">
+              <CardTitle className="text-blue-600 flex items-center gap-2">
                 <Heart className="w-5 h-5" />
                 {t('form.title')}
               </CardTitle>
@@ -113,7 +112,9 @@ function CompanyValuesGenerator() {
                     {...register('customer_pain_points')}
                   />
                   {errors['customer_pain_points'] && (
-                    <p className="text-red-600">{errors['customer_pain_points'].message?.toString()}</p>
+                    <p className="text-red-600">
+                      {errors['customer_pain_points'].message?.toString()}
+                    </p>
                   )}
                 </div>
 
@@ -126,56 +127,101 @@ function CompanyValuesGenerator() {
                     {...register('customer_promise')}
                   />
                   {errors['customer_promise'] && (
-                    <p className="text-red-600">{errors['customer_promise'].message?.toString()}</p>
+                    <p className="text-red-600">
+                      {errors['customer_promise'].message?.toString()}
+                    </p>
                   )}
                 </div>
 
                 {/* Mission */}
                 <div>
                   <Label htmlFor="mission">{t('form.mission')}</Label>
-                  <Input id="mission" {...register('mission')} placeholder={t('form.missionPlaceholder')} />
-                  {errors['mission'] && <p className="text-red-600">{errors['mission'].message?.toString()}</p>}
+                  <Input
+                    id="mission"
+                    {...register('mission')}
+                    placeholder={t('form.missionPlaceholder')}
+                  />
+                  {errors['mission'] && (
+                    <p className="text-red-600">
+                      {errors['mission'].message?.toString()}
+                    </p>
+                  )}
                 </div>
 
                 {/* Vision */}
                 <div>
                   <Label htmlFor="vision">{t('form.vision')}</Label>
-                  <Input id="vision" {...register('vision')} placeholder={t('form.visionPlaceholder')} />
-                  {errors['vision'] && <p className="text-red-600">{errors['vision'].message?.toString()}</p>}
+                  <Input
+                    id="vision"
+                    {...register('vision')}
+                    placeholder={t('form.visionPlaceholder')}
+                  />
+                  {errors['vision'] && (
+                    <p className="text-red-600">
+                      {errors['vision'].message?.toString()}
+                    </p>
+                  )}
                 </div>
 
                 {/* Culture */}
                 <div>
                   <Label htmlFor="culture">{t('form.culture')}</Label>
-                  <Input id="culture" {...register('culture')} placeholder={t('form.culturePlaceholder')} />
-                  {errors['culture'] && <p className="text-red-600">{errors['culture'].message?.toString()}</p>}
+                  <Input
+                    id="culture"
+                    {...register('culture')}
+                    placeholder={t('form.culturePlaceholder')}
+                  />
+                  {errors['culture'] && (
+                    <p className="text-red-600">
+                      {errors['culture'].message?.toString()}
+                    </p>
+                  )}
                 </div>
 
                 {/* Strengths */}
                 <div>
                   <Label htmlFor="strengths">{t('form.strengths')}</Label>
-                  <Input id="strengths" {...register('strengths')} placeholder={t('form.strengthsPlaceholder')} />
+                  <Input
+                    id="strengths"
+                    {...register('strengths')}
+                    placeholder={t('form.strengthsPlaceholder')}
+                  />
                 </div>
 
                 {/* Competitors */}
                 <div>
                   <Label htmlFor="competitors">{t('form.competitors')}</Label>
-                  <Input id="competitors" {...register('competitors')} placeholder={t('form.competitorsPlaceholder')} />
+                  <Input
+                    id="competitors"
+                    {...register('competitors')}
+                    placeholder={t('form.competitorsPlaceholder')}
+                  />
                 </div>
 
                 {/* Preferred Values */}
                 <div>
                   <Label htmlFor="preferredValues">{t('form.preferredValues')}</Label>
-                  <Input id="preferredValues" {...register('preferred_values')} placeholder={t('form.preferredValuesPlaceholder')} />
+                  <Input
+                    id="preferredValues"
+                    {...register('preferred_values')}
+                    placeholder={t('form.preferredValuesPlaceholder')}
+                  />
                 </div>
 
                 {/* Inspiring Companies */}
                 <div>
                   <Label htmlFor="inspiringCompanies">{t('form.inspiringCompanies')}</Label>
-                  <Input id="inspiringCompanies" {...register('inspiring_companies')} placeholder={t('form.inspiringCompaniesPlaceholder')} />
+                  <Input
+                    id="inspiringCompanies"
+                    {...register('inspiring_companies')}
+                    placeholder={t('form.inspiringCompaniesPlaceholder')}
+                  />
                 </div>
 
-                <Button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white w-full">
+                <Button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white w-full"
+                >
                   {t('actions.generateValues')}
                 </Button>
               </form>
@@ -185,9 +231,9 @@ function CompanyValuesGenerator() {
 
         {/* Résultats */}
         <div className="lg:col-span-1">
-          <Card className="bg-white border-purple-200/50 shadow-lg p-4 sm:p-6 h-full">
+          <Card className="bg-white border-blue-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
-              <CardTitle className="text-purple-600 flex items-center gap-2">
+              <CardTitle className="text-blue-600 flex items-center gap-2">
                 <Heart className="w-5 h-5" />
                 {t('preview.title')}
               </CardTitle>
@@ -197,7 +243,9 @@ function CompanyValuesGenerator() {
                 <p>{t('preview.loading')}</p>
               ) : (
                 <>
-                  <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedValues')}</h1>
+                  <h1 className="text-lg font-semibold text-slate-800">
+                    {t('preview.generatedValues')}
+                  </h1>
                   <div className="space-y-2">
                     {results.map((value, i) => (
                       <button
@@ -205,7 +253,9 @@ function CompanyValuesGenerator() {
                         type="button"
                         onClick={() => setSelectedValue(value)}
                         className={`w-full text-left px-2 py-1 border rounded ${
-                          selectedValue === value ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700'
+                          selectedValue === value
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-blue-100 text-blue-700'
                         }`}
                       >
                         {value}
@@ -214,7 +264,7 @@ function CompanyValuesGenerator() {
                   </div>
 
                   <Button
-                    className="bg-purple-600 hover:bg-purple-700 text-white w-full mt-4"
+                    className="bg-blue-600 hover:bg-blue-700 text-white w-full mt-4"
                     disabled={!selectedValue}
                     onClick={validateSelection}
                   >
@@ -225,7 +275,6 @@ function CompanyValuesGenerator() {
             </CardContent>
           </Card>
         </div>
-
       </div>
     </motion.div>
   )

@@ -56,7 +56,7 @@ function CompanySloganGenerator() {
         return
       await verbalIdentityService.submitCompanySlogan({ value: selectedSlogan})
       toast.success(t('actions.successChoice'))
-    } catch (err) {
+    } catch () {
       toast.success(t('actions.errorChoice'))
     }
   }
@@ -77,13 +77,13 @@ function CompanySloganGenerator() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent mb-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-2">
             {t('title')}
           </h2>
           <p className="text-slate-600">{t('subtitle')}</p>
         </div>
         <div className="flex items-center gap-4">
-          <Badge className="bg-gradient-to-r from-green-100 to-slate-100 text-green-700 border-green-200">
+          <Badge className="bg-gradient-to-r from-blue-100 to-slate-100 text-blue-700 border-blue-200">
             <Zap className="w-3 h-3 mr-1" />123
           </Badge>
           <Button
@@ -101,9 +101,9 @@ function CompanySloganGenerator() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* Formulaire */}
         <div className="lg:col-span-1">
-          <Card className="bg-white border-green-200/50 shadow-lg p-4 sm:p-6 h-full">
+          <Card className="bg-white border-blue-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
-              <CardTitle className="text-green-600 flex items-center gap-2">
+              <CardTitle className="text-blue-600 flex items-center gap-2">
                 <Type className="w-5 h-5" />
                 {t('form.title')}
               </CardTitle>
@@ -209,7 +209,7 @@ function CompanySloganGenerator() {
                   />
                 </div>
 
-                <Button type="submit" className="bg-green-600 hover:bg-green-700 text-white w-full">
+                <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white w-full">
                   {t('actions.generateSlogans')}
                 </Button>
               </form>
@@ -219,9 +219,9 @@ function CompanySloganGenerator() {
 
         {/* Résultats */}
         <div className="lg:col-span-1">
-          <Card className="bg-white border-green-200/50 shadow-lg p-4 sm:p-6 h-full">
+          <Card className="bg-white border-blue-200/50 shadow-lg p-4 sm:p-6 h-full">
             <CardHeader>
-              <CardTitle className="text-green-600 flex items-center gap-2">
+              <CardTitle className="text-blue-600 flex items-center gap-2">
                 <Type className="w-5 h-5" />
                 {t('preview.title')}
               </CardTitle>
@@ -239,7 +239,7 @@ function CompanySloganGenerator() {
                         type="button"
                         onClick={() => setSelectedSlogan(slogan)}
                         className={`w-full text-left px-2 py-1 border rounded ${
-                          selectedSlogan === slogan ? 'bg-green-600 text-white' : 'bg-green-100 text-green-700'
+                          selectedSlogan === slogan ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-700'
                         }`}
                       >
                         {slogan}
@@ -248,7 +248,7 @@ function CompanySloganGenerator() {
                   </div>
 
                   <Button
-                    className="bg-green-600 hover:bg-green-700 text-white w-full mt-4"
+                    className="bg-blue-600 hover:bg-blue-700 text-white w-full mt-4"
                     disabled={!selectedSlogan}
                     onClick={validateSelection}
                   >

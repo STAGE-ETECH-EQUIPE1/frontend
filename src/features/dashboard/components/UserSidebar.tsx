@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import { FileText, Star, Heart, Speaker } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -156,32 +157,32 @@ export function UserSidebar({
     },
   ]
 
+
   const verbalIdentityNavigationItems = [
     {
       title: t('navigation.verbalIdentity.companyNameGeneration'),
-      icon: Images,
+      icon: FileText, 
       value: 'companyName-generation',
       color: 'text-blue-600',
     },
     {
       title: t('navigation.verbalIdentity.companySloganGeneration'),
-      icon: Images,
+      icon: Star, 
       value: 'companySlogan-generation',
       color: 'text-blue-600',
     },
     {
       title: t('navigation.verbalIdentity.companyValueGeneration'),
-      icon: Images,
+      icon: Heart, 
       value: 'companyValues-generation',
       color: 'text-blue-600',
     },
     {
       title: t('navigation.verbalIdentity.companyToneOfVoiceGeneration'),
-      icon: Images,
+      icon: Speaker, 
       value: 'companyToneOfVoice-generation',
       color: 'text-blue-600',
     },
-
   ]
 
   const getPlanIcon = (type: string) => {
