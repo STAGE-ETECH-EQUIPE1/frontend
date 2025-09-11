@@ -56,7 +56,7 @@ function CompanySloganGenerator() {
         return
       await verbalIdentityService.submitCompanySlogan({ value: selectedSlogan})
       toast.success(t('actions.successChoice'))
-    } catch () {
+    } catch (err) {
       toast.success(t('actions.errorChoice'))
     }
   }

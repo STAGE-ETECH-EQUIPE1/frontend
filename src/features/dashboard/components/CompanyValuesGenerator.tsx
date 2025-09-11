@@ -49,7 +49,7 @@ function CompanyValuesGenerator() {
       if (!selectedValue) return
       await verbalIdentityService.submitCompanyValue({ value: selectedValue })
       toast.success(t('actions.successChoice'))
-    } catch () {
+    } catch (err) {
       toast.success(t('actions.errorChoice'))
     }
   }
