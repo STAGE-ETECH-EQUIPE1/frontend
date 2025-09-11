@@ -74,14 +74,16 @@ class VisualIdentityService extends BaseService {
   async submitColorPaletteForClient(
     data: Array<string>
   ): Promise<ApiResponse<ClientResponse>> {
-
-    const r = await fetch(this._backendUrl + API_ENDPOINTS.BRANDING.COLOR_PALETTES_SUBMIT, {
-      method: 'POST',
-      headers: this._getHeader(),
-      body: JSON.stringify({
-        colors: data
-      })
-    })
+    const r = await fetch(
+      this._backendUrl + API_ENDPOINTS.BRANDING.COLOR_PALETTES_SUBMIT,
+      {
+        method: 'POST',
+        headers: this._getHeader(),
+        body: JSON.stringify({
+          colors: data,
+        }),
+      }
+    )
 
     if (r.ok) return r.json() as Promise<ApiResponse<ClientResponse>>
     throw new ApiError(r.status, await r.json())

@@ -3,22 +3,22 @@ import {
   LoaderIcon,
   LoaderPinwheelIcon,
   type LucideProps,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+} from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-type SpinnerVariantProps = Omit<SpinnerProps, 'variant'>;
+type SpinnerVariantProps = Omit<SpinnerProps, 'variant'>
 
 const Default = ({ className, ...props }: SpinnerVariantProps) => (
   <LoaderIcon className={cn('animate-spin', className)} {...props} />
-);
+)
 
 const Circle = ({ className, ...props }: SpinnerVariantProps) => (
   <LoaderCircleIcon className={cn('animate-spin', className)} {...props} />
-);
+)
 
 const Pinwheel = ({ className, ...props }: SpinnerVariantProps) => (
   <LoaderPinwheelIcon className={cn('animate-spin', className)} {...props} />
-);
+)
 
 const CircleFilled = ({
   className,
@@ -39,7 +39,7 @@ const CircleFilled = ({
       {...props}
     />
   </div>
-);
+)
 
 const Ellipsis = ({ size = 24, ...props }: SpinnerVariantProps) => {
   return (
@@ -84,8 +84,8 @@ const Ellipsis = ({ size = 24, ...props }: SpinnerVariantProps) => {
         />
       </circle>
     </svg>
-  );
-};
+  )
+}
 
 const Ring = ({ size = 24, ...props }: SpinnerVariantProps) => (
   <svg
@@ -144,7 +144,7 @@ const Ring = ({ size = 24, ...props }: SpinnerVariantProps) => (
       </circle>
     </g>
   </svg>
-);
+)
 
 const Bars = ({ size = 24, ...props }: SpinnerVariantProps) => (
   <svg
@@ -203,7 +203,7 @@ const Bars = ({ size = 24, ...props }: SpinnerVariantProps) => (
       y="1"
     />
   </svg>
-);
+)
 
 const Infinite = ({ size = 24, ...props }: SpinnerVariantProps) => (
   <svg
@@ -236,7 +236,7 @@ const Infinite = ({ size = 24, ...props }: SpinnerVariantProps) => (
       />
     </path>
   </svg>
-);
+)
 
 export type SpinnerProps = LucideProps & {
   variant?:
@@ -247,26 +247,26 @@ export type SpinnerProps = LucideProps & {
     | 'ellipsis'
     | 'ring'
     | 'bars'
-    | 'infinite';
-};
+    | 'infinite'
+}
 
 export const Spinner = ({ variant, ...props }: SpinnerProps) => {
   switch (variant) {
     case 'circle':
-      return <Circle {...props} />;
+      return <Circle {...props} />
     case 'pinwheel':
-      return <Pinwheel {...props} />;
+      return <Pinwheel {...props} />
     case 'circle-filled':
-      return <CircleFilled {...props} />;
+      return <CircleFilled {...props} />
     case 'ellipsis':
-      return <Ellipsis {...props} />;
+      return <Ellipsis {...props} />
     case 'ring':
-      return <Ring {...props} />;
+      return <Ring {...props} />
     case 'bars':
-      return <Bars {...props} />;
+      return <Bars {...props} />
     case 'infinite':
-      return <Infinite {...props} />;
+      return <Infinite {...props} />
     default:
-      return <Default {...props} />;
+      return <Default {...props} />
   }
-};
+}
