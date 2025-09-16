@@ -1,0 +1,58 @@
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ColorPaletteResponse } from '../../types/branding'
+import { visuelIdentityService } from '../../services/VisualIdentityService'
+import toast from 'react-hot-toast'
+import { useTranslations } from 'next-intl'
+
+function ColorPaletteCard({ data }: { data: ColorPaletteResponse }) {
+  const t = useTranslations('colorPaletteGenerator')
+
+  const submitColorPalette = async () => {
+    const { success } = await visuelIdentityService.submitColorPaletteForClient(
+      data.colors.map((color) => color.hex)
+    )
+
+    if (success) {
+      toast.success(t('result.successToast'))
+    } else {
+      toast.error(t('result.errorToast'))
+    }
+  }
+
+  return (
+    <Card className="mx-5">
+      <CardHeader>
+        <CardTitle className="text-center">{data.name}</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4">
+        <div className="space-y-3">
+          {data.colors.map((color, index) => (
+            <div
+              className="color-swatch flex items-center rounded-lg p-2 cursor-pointer"
+              style={{ backgroundColor: color.hex }}
+              key={index}
+            >
+              <div className="flex-grow">
+                <div className="text-white font-medium">{color.name}</div>
+                <div className="text-white text-opacity-80 text-sm">
+                  {color.position}
+                </div>
+              </div>
+              <div className="copy-hex text-white bg-black bg-opacity-20 px-2 py-1 rounded text-xs">
+                {color.hex}
+              </div>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={submitColorPalette}
+          className="w-full mt-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg font-medium transition-colors select-palette"
+        >
+          {t('result.selectPalette')}
+        </button>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default ColorPaletteCard

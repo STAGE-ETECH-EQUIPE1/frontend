@@ -16,6 +16,7 @@ interface ColorPickerProps {
   selectedColors: string[]
   onColorsChange: (colors: string[]) => void
   maxColors?: number
+  inputLabel: string
 }
 
 const presetColors = [
@@ -43,6 +44,7 @@ export function ColorPicker({
   selectedColors,
   onColorsChange,
   maxColors = 4,
+  inputLabel,
 }: ColorPickerProps) {
   const t = useTranslations('colorPicker')
   const [customColor, setCustomColor] = useState('#3B82F6')
@@ -64,7 +66,7 @@ export function ColorPicker({
   return (
     <div className="space-y-4">
       <Label className="text-slate-700">
-        {t('customColors')} ({selectedColors.length}/{maxColors})
+        {inputLabel} ({selectedColors.length}/{maxColors})
       </Label>
 
       {/* Couleurs sélectionnées */}
@@ -97,7 +99,8 @@ export function ColorPicker({
                 <Plus className="w-4 h-4" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-64">
+
+            <PopoverContent className="w-64 bg-white">
               <div className="space-y-4">
                 <div>
                   <Label className="text-sm font-medium">

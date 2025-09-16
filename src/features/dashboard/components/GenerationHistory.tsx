@@ -23,7 +23,6 @@ import {
   Eye,
   Loader2,
   ImageIcon,
-  Download,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
@@ -37,6 +36,7 @@ import type {
   ProjectLogosResponse,
 } from '../types/branding'
 import Image from 'next/image'
+import DownloadButton from './ui/DownloadButton'
 
 function ProjectLogos({ projectId }: { projectId: number }) {
   const [start, setStart] = useState(0)
@@ -193,18 +193,13 @@ function ProjectLogos({ projectId }: { projectId: number }) {
                 />
               </a>
               <a
-                href={imageUrl || undefined}
-                download
                 className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
                 title="Télécharger"
               >
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  className="rounded-full shadow"
-                >
-                  <Download className="w-4 h-4" />
-                </Button>
+                <DownloadButton
+                  imageUrl={imageUrl ?? ''}
+                  filename={logo.id + ''}
+                />
               </a>
             </div>
           )

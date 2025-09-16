@@ -2,7 +2,8 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQuery } from '@/shared/api/baseQuery'
 import { User } from '../types/user'
 import { API_ENDPOINTS } from '@/shared/constants/apiEndpoint'
-import { ApiResponse, SubscriptionResponse } from '../types/subscription'
+import { SubscriptionResponse } from '../types/subscription'
+import { ApiResponse } from '@/types/service'
 
 export const userApi = createApi({
   reducerPath: 'userApi',

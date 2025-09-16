@@ -38,9 +38,8 @@ const SignIn = () => {
       if (authMethod !== 'google') {
         toast.success(toastMessage('successLogin'))
       }
-    } catch (err) {
+    } catch {
       toast.error(toastMessage('errorLogin'))
-      console.error('Erreur :', err)
     }
   }
 

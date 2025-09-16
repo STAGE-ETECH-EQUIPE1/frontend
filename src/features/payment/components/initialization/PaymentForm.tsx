@@ -8,10 +8,12 @@ import PaymentFormPrice from '@/features/payment/components/initialization/Payme
 import { Button } from '@/components/ui/button'
 import { Check, Loader2 } from 'lucide-react'
 import { usePaymentSecure } from '@/features/payment/hooks/usePaymentSecure'
-import { paymentApi, wait } from '@/features/payment/services/paymentApi'
+import { paymentApi } from '@/features/payment/services/paymentApi'
 import { useParams, useRouter } from 'next/navigation'
 import { PackResponse } from '@/types/service'
 import { Skeleton } from '@/components/ui/skeleton'
+
+import { wait } from '@/shared/services/BaseService'
 import { useTranslations } from 'next-intl'
 
 export default function PaymentForm({ packId }: { packId: number }) {

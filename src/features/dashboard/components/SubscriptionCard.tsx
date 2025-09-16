@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Progress } from '@/components/ui/progress'
+
 import { Calendar, CreditCard, PlaneIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
@@ -29,11 +29,7 @@ export default function SubscriptionCard({ user }: { user: mockUser }) {
         return 'from-gray-500 to-gray-600'
     }
   }
-
-  const tokensPercentage = (() => {
-    const maxTokens = user.plan.maxTokens as number | 'unlimited'
-    return maxTokens === 'unlimited' ? 0 : (user.tokensUsed / maxTokens) * 100
-  })()
+  
 
   if (isLoading) {
     return (
@@ -93,21 +89,6 @@ export default function SubscriptionCard({ user }: { user: mockUser }) {
               <DynamicPricing />
             </DialogContent>
           </Dialog>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex justify-between text-sm">
-            <span className="text-slate-600">{t('tokenUsage')}</span>
-            <span className="text-blue-600">
-              {user.tokensUsed}/
-              {(user.plan.maxTokens as number | 'unlimited') === 'unlimited'
-                ? '∞'
-                : (user.plan.maxTokens as number)}
-            </span>
-          </div>
-          {(user.plan.maxTokens as number | 'unlimited') !== 'unlimited' && (
-            <Progress value={tokensPercentage} className="h-2" />
-          )}
         </div>
 
         <div className="text-sm text-slate-600">
