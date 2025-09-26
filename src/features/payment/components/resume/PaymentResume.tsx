@@ -3,9 +3,10 @@
 import { PrinterIcon } from 'lucide-react'
 import { useEffect, useState, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { paymentApi, wait } from '@/features/payment/services/paymentApi'
+import { paymentApi } from '@/features/payment/services/paymentApi'
 import { Skeleton } from '@/components/ui/skeleton'
 import { PaymentData } from '@/features/payment/types/PaymentType'
+import { wait } from '@/shared/services/BaseService'
 
 export default function PaymentResume() {
   const [isLoading, startTransition] = useTransition()

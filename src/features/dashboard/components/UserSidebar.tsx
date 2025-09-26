@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import { FileText, Star, Heart, Speaker } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -17,7 +18,6 @@ import {
 } from '@/components/ui/sidebar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
 import {
   Palette,
   UserIcon,
@@ -27,10 +27,12 @@ import {
   Target,
   Sparkles,
   History,
+  Type,
+  Images,
+  FormInput,
 } from 'lucide-react'
 import { useLogout } from '@/features/auth/hooks/useLogout'
 
-// RTK Query – adaptez le chemin si nécessaire
 import { useGetCurrentUserQuery } from '../services/userApi'
 
 type PlanType = 'gratuit' | 'premium' | 'entreprise'
@@ -49,7 +51,6 @@ interface SidebarUserShape {
 }
 
 interface UserSidebarProps {
-  // Rendu optionnel: si fourni, sert de base; l'API viendra hydrater name/email si disponible
   user?: SidebarUserShape
   activeTab: string
   setActiveTab: (tab: string) => void
@@ -109,11 +110,17 @@ export function UserSidebar({
 
   const navigationItems = [
     {
-      title: t('navigation.generate'),
-      icon: Palette,
-      value: 'generate',
+      title: t('navigation.profile'),
+      icon: UserIcon,
+      value: 'profile',
       color: 'text-blue-600',
     },
+    // {
+    //   title: t('navigation.projects'),
+    //   icon: UserIcon,
+    //   value: 'projects',
+    //   color: 'text-blue-600',
+    // },
     {
       title: t('navigation.history'),
       icon: History,
@@ -121,9 +128,57 @@ export function UserSidebar({
       color: 'text-blue-600',
     },
     {
-      title: t('navigation.profile'),
-      icon: UserIcon,
-      value: 'profile',
+      title: t('navigation.fileToProvide'),
+      icon: FormInput,
+      value: 'file-to-provide',
+      color: 'text-blue-600',
+    },
+  ]
+
+  const visualIdentityNavigationItems = [
+    {
+      title: t('navigation.visualIdentity.colorPaletteGeneration'),
+      icon: Palette,
+      value: 'color-palette-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.visualIdentity.typographieGeneration'),
+      icon: Type,
+      value: 'typographie-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.visualIdentity.logoGeneration'),
+      icon: Images,
+      value: 'logo-generation',
+      color: 'text-blue-600',
+    },
+  ]
+
+  const verbalIdentityNavigationItems = [
+    {
+      title: t('navigation.verbalIdentity.companyNameGeneration'),
+      icon: FileText,
+      value: 'companyName-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.verbalIdentity.companySloganGeneration'),
+      icon: Star,
+      value: 'companySlogan-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.verbalIdentity.companyValueGeneration'),
+      icon: Heart,
+      value: 'companyValues-generation',
+      color: 'text-blue-600',
+    },
+    {
+      title: t('navigation.verbalIdentity.companyToneOfVoiceGeneration'),
+      icon: Speaker,
+      value: 'companyToneOfVoice-generation',
       color: 'text-blue-600',
     },
   ]
@@ -175,10 +230,6 @@ export function UserSidebar({
   }
 
   const PlanIcon = getPlanIcon(effectiveUser.plan.type)
-  const tokensUsed = effectiveUser.plan.tokensUsed
-  const maxTokens = effectiveUser.plan.maxTokens
-  const tokensPercentage =
-    maxTokens === 'unlimited' ? 0 : (tokensUsed / (maxTokens as number)) * 100
 
   const initials = (
     effectiveUser.name && effectiveUser.name.trim().length > 0
@@ -273,19 +324,6 @@ export function UserSidebar({
 
                   {!isCollapsed && (
                     <div className="space-y-2">
-                      <div className="flex justify-between text-xs text-slate-600">
-                        <span>{t('dashboard.tokensUsed')}</span>
-                        <span>
-                          {tokensUsed}/
-                          {maxTokens === 'unlimited'
-                            ? '∞'
-                            : (maxTokens as number)}
-                        </span>
-                      </div>
-                      {maxTokens !== 'unlimited' && (
-                        <Progress value={tokensPercentage} className="h-2" />
-                      )}
-
                       {isError && (
                         <div className="mt-2 text-[11px] text-red-600 bg-red-50 border border-red-100 rounded px-2 py-1 flex items-center justify-between">
                           <span>{'Impossible de charger votre profil.'}</span>
@@ -308,7 +346,7 @@ export function UserSidebar({
         {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-            {t('navigation.statistics')}
+            {t('navigation.guestTab')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -348,50 +386,91 @@ export function UserSidebar({
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Quick Stats */}
-        {!isCollapsed && (
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
-              {t('navigation.statistics')}
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="space-y-2"
-              >
-                {[
-                  {
-                    label: t('dashboard.logosCreated'),
-                    value: '12',
-                    color: 'text-blue-500',
-                  },
-                  {
-                    label: t('dashboard.downloads'),
-                    value: '34',
-                    color: 'text-blue-500',
-                  },
-                  {
-                    label: t('dashboard.favorites'),
-                    value: '8',
-                    color: 'text-pink-500',
-                  },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex items-center justify-between p-2 rounded-lg bg-slate-50"
-                  >
-                    <span className="text-xs text-slate-600">{stat.label}</span>
-                    <span className={`font-semibold ${stat.color}`}>
-                      {stat.value}
-                    </span>
-                  </div>
-                ))}
-              </motion.div>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
+        {/* Navigation */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
+            {t('navigation.visualIdentity.visualIdentity')}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {visualIdentityNavigationItems.map((item, index) => (
+                <motion.div
+                  key={item.value}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.05 }}
+                >
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      onClick={() => setActiveTab(item.value)}
+                      className={`group relative transition-all duration-300 ${
+                        activeTab === item.value
+                          ? 'bg-blue-100 text-blue-700 border-l-2 border-blue-500 shadow-sm'
+                          : 'hover:bg-slate-50 text-slate-600 hover:text-blue-600'
+                      }`}
+                      tooltip={isCollapsed ? item.title : undefined}
+                    >
+                      <item.icon
+                        className={`w-4 sm:w-5 h-4 sm:h-5 ${item.color} group-hover:scale-110 transition-transform duration-300`}
+                      />
+                      {!isCollapsed && (
+                        <span className="font-medium text-sm">
+                          {item.title}
+                        </span>
+                      )}
+                      {activeTab === item.value && (
+                        <Sparkles className="w-4 h-4 text-blue-500 ml-auto animate-pulse" />
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </motion.div>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Navigation : Verbal Identity*/}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-xs font-semibold text-blue-600 uppercase tracking-wider px-2">
+            {t('navigation.verbalIdentity.verbalIdentity')}
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {verbalIdentityNavigationItems.map((item, index) => (
+                <motion.div
+                  key={item.value}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.05 }}
+                >
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      onClick={() => setActiveTab(item.value)}
+                      className={`group relative transition-all duration-300 ${
+                        activeTab === item.value
+                          ? 'bg-blue-100 text-blue-700 border-l-2 border-blue-500 shadow-sm'
+                          : 'hover:bg-slate-50 text-slate-600 hover:text-blue-600'
+                      }`}
+                      tooltip={isCollapsed ? item.title : undefined}
+                    >
+                      <item.icon
+                        className={`w-4 sm:w-5 h-4 sm:h-5 ${item.color} group-hover:scale-110 transition-transform duration-300`}
+                      />
+                      {!isCollapsed && (
+                        <span className="font-medium text-sm">
+                          {item.title}
+                        </span>
+                      )}
+                      {activeTab === item.value && (
+                        <Sparkles className="w-4 h-4 text-blue-500 ml-auto animate-pulse" />
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </motion.div>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter className="p-3 sm:p-4 border-t border-blue-100 bg-white">

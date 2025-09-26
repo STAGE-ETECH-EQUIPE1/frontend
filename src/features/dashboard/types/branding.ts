@@ -12,7 +12,6 @@ export interface BrandingProject {
 
 export interface CreateBrandingProjectRequest {
   description: string
-  slogan: string
   logoStyle: string
   colorPreferences: string[]
   brandKeywords: string[]
@@ -72,4 +71,58 @@ export interface CreateBrandingProjectResponse {
     slogan: string
   }
   projectId: number
+}
+
+export interface ColorResponse {
+  name: string
+  position: string
+  hex: string
+}
+
+export interface ColorPaletteResponse {
+  name: string
+  colors: Array<ColorResponse>
+}
+
+export interface TypographieResponse {
+  name: string
+  Relevance: string
+  Impact: string
+}
+
+export interface TypographiesResponse {
+  'font-type': string
+  fonts: Array<TypographieResponse>
+}
+
+export interface ClientResponse {
+  id: number
+  typogrpahie: string
+  companyName: string
+  companyValue: string
+  colorPalette: Array<string>
+  mainService: string
+  mainLanguage: string
+  publicTarget: string
+  qualities: string
+}
+
+export interface CompanyNameResponse {
+  success: boolean
+  Names: string[]
+}
+
+export interface CompanySloganResponse {
+  success: boolean
+  Slogans: string[]
+}
+
+export interface CompanyValuesResponse {
+  success: boolean
+  Values: string[]
+}
+
+export interface CompanyToneOfVoiceResponse {
+  success: boolean
+  Tones: string[]
 }

@@ -27,3 +27,19 @@ export interface PackResponse {
   startedAt: string
   expiredAt: string
 }
+
+export interface ApiResponse<T> {
+  success: boolean
+  message: string
+  data: T
+}
+
+export type tokensResponse = {
+  companyNameTokens: number
+  colorPaletteTokens: number
+  typographyTokens: number
+  tonVoiceTokens: number
+  valuesTokens: number
+  sloganTokens: number
+  logoGenerationTokens: number
+}

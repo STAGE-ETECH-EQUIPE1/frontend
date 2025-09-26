@@ -3,6 +3,7 @@ import {
   PaymentSecureAcceptanceData,
 } from '@/features/payment/types/PaymentType'
 import { API_ENDPOINTS } from '@/shared/constants/apiEndpoint'
+import { ApiError } from '@/shared/services/BaseService'
 import { getToken } from '@/shared/utils/localStorage'
 import { PackResponse } from '@/types/service'
 
@@ -68,23 +69,6 @@ export class PaymentApi {
       return r.json() as Promise<{ success: boolean; data: PackResponse }>
     throw new ApiError(r.status, await r.json())
   }
-}
-
-class ApiError extends Error {
-  public statusCode: number
-  public data: Record<string, unknown>
-
-  constructor(statusCode: number, data: Record<string, unknown>) {
-    super()
-    this.statusCode = statusCode
-    this.data = data
-  }
-}
-
-export const wait = (duration: number = 1000) => {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, duration)
-  })
 }
 
 export const paymentApi = new PaymentApi()
