@@ -96,34 +96,33 @@ export interface TypographiesResponse {
 }
 
 export interface ClientResponse {
-  id: number;
-  typogrpahie: string;
-  companyName: string;
-  companyValue: string;
-  colorPalette: Array<string>;
-  mainService: string;
-  mainLanguage: string;
-  publicTarget: string;
-  qualities: string;
+  id: number
+  typogrpahie: string
+  companyName: string
+  companyValue: string
+  colorPalette: Array<string>
+  mainService: string
+  mainLanguage: string
+  publicTarget: string
+  qualities: string
 }
 
 export interface CompanyNameResponse {
-  success: boolean;
-  Names: string[];
+  success: boolean
+  Names: string[]
 }
 
 export interface CompanySloganResponse {
-  success: boolean;
-  Slogans: string[];
+  success: boolean
+  Slogans: string[]
 }
 
 export interface CompanyValuesResponse {
-  success: boolean;
-  Values: string[];
+  success: boolean
+  Values: string[]
 }
 
 export interface CompanyToneOfVoiceResponse {
-  success: boolean;
-  Tones: string[];
+  success: boolean
+  Tones: string[]
 }
-

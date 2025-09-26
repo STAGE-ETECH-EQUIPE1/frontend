@@ -27,7 +27,7 @@ export const API_ENDPOINTS = {
     COMPANY_VALUE_SUBMIT: '/brandingVerbal/companyValue',
     COMPANY_SLOGAN_SUBMIT: '/brandingVerbal/companySlogan',
     COMPANY_NAME_SUBMIT: '/brandingVerbal/companyName',
-    FILE_TO_PROVIDE: '/brandings/file-provide'
+    FILE_TO_PROVIDE: '/brandings/file-provide',
   },
   PAYMENT: {
     PAYMENT_SECURE_ACCEPTANCE: (id: string | number) =>

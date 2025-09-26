@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { motion } from 'framer-motion'
 import { Trash2, Zap, MessageSquare } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useForm, FieldValues} from 'react-hook-form'
+import { useForm, FieldValues } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useTransition } from 'react'
 import { companyToneOfVoiceGeneratorSchema } from '../schema/CompanyToneOfVoiceGeneratorSchema'
@@ -40,8 +40,9 @@ function CompanyToneOfVoiceGenerator() {
     setIsGenerating(true)
     startTransition(async () => {
       await wait(1000)
-      const response = await verbalIdentityService.generateCompanyToneOfVoice(data)
-      if (response.success && response.data.length > 0) { 
+      const response =
+        await verbalIdentityService.generateCompanyToneOfVoice(data)
+      if (response.success && response.data.length > 0) {
         setResults(response.data[0].Tones)
       }
 
@@ -49,17 +50,18 @@ function CompanyToneOfVoiceGenerator() {
     })
   }
 
-    const validateSelection = async () => {
+  const validateSelection = async () => {
+    if (!selectedTone) return
+    try {
       if (!selectedTone) return
-      try {
-        if (!selectedTone)
-          return
-        await verbalIdentityService.submitCompanyToneOfVoice({ value: selectedTone })
-        toast.success(t('actions.successChoice'))
-      } catch {
-        toast.success(t('actions.errorChoice'))
-      }
+      await verbalIdentityService.submitCompanyToneOfVoice({
+        value: selectedTone,
+      })
+      toast.success(t('actions.successChoice'))
+    } catch {
+      toast.success(t('actions.errorChoice'))
     }
+  }
 
   const resetGeneration = () => {
     setIsGenerating(false)
@@ -67,7 +69,12 @@ function CompanyToneOfVoiceGenerator() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }} className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="space-y-6"
+    >
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -78,9 +85,16 @@ function CompanyToneOfVoiceGenerator() {
         </div>
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-indigo-100 to-slate-100 text-indigo-700 border-indigo-200">
-            <Zap className="w-3 h-3 mr-1" />56
+            <Zap className="w-3 h-3 mr-1" />
+            56
           </Badge>
-          <Button onClick={resetGeneration} variant="outline" size="sm" className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent" title={t('actions.clearCache')}>
+          <Button
+            onClick={resetGeneration}
+            variant="outline"
+            size="sm"
+            className="text-slate-600 border-slate-300 hover:bg-slate-50 bg-transparent"
+            title={t('actions.clearCache')}
+          >
             <Trash2 className="w-4 h-4" />
           </Button>
         </div>
@@ -99,27 +113,59 @@ function CompanyToneOfVoiceGenerator() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Mission */}
                 <div>
-                  <Label htmlFor="mission" className="text-slate-700">{t('form.mission')}</Label>
-                  <Input {...register('mission')} id="mission" placeholder={t('form.missionPlaceholder')} className="bg-slate-50 border-slate-200" />
-                  {errors['mission'] && <p className="text-red-600">{errors['mission'].message?.toString()}</p>}
+                  <Label htmlFor="mission" className="text-slate-700">
+                    {t('form.mission')}
+                  </Label>
+                  <Input
+                    {...register('mission')}
+                    id="mission"
+                    placeholder={t('form.missionPlaceholder')}
+                    className="bg-slate-50 border-slate-200"
+                  />
+                  {errors['mission'] && (
+                    <p className="text-red-600">
+                      {errors['mission'].message?.toString()}
+                    </p>
+                  )}
                 </div>
 
                 {/* Vision */}
                 <div>
-                  <Label htmlFor="vision" className="text-slate-700">{t('form.vision')}</Label>
-                  <Input {...register('vision')} id="vision" placeholder={t('form.visionPlaceholder')} className="bg-slate-50 border-slate-200" />
+                  <Label htmlFor="vision" className="text-slate-700">
+                    {t('form.vision')}
+                  </Label>
+                  <Input
+                    {...register('vision')}
+                    id="vision"
+                    placeholder={t('form.visionPlaceholder')}
+                    className="bg-slate-50 border-slate-200"
+                  />
                 </div>
 
                 {/* Valeurs */}
                 <div>
-                  <Label htmlFor="values" className="text-slate-700">{t('form.values')}</Label>
-                  <Input {...register('values')} id="values" placeholder={t('form.valuesPlaceholder')} className="bg-slate-50 border-slate-200" />
+                  <Label htmlFor="values" className="text-slate-700">
+                    {t('form.values')}
+                  </Label>
+                  <Input
+                    {...register('values')}
+                    id="values"
+                    placeholder={t('form.valuesPlaceholder')}
+                    className="bg-slate-50 border-slate-200"
+                  />
                 </div>
 
                 {/* Positionnement */}
                 <div>
-                  <Label htmlFor="positioning" className="text-slate-700">{t('form.positioning')}</Label>
-                  <Input {...register('positioning')} id="positioning" placeholder={t('form.positioningPlaceholder')} className="bg-slate-50 border-slate-200" />
+                  <Label htmlFor="positioning" className="text-slate-700">
+                    {t('form.positioning')}
+                  </Label>
+                  <Input
+                    {...register('positioning')}
+                    id="positioning"
+                    placeholder={t('form.positioningPlaceholder')}
+                    className="bg-slate-50 border-slate-200"
+                  />
                 </div>
 
                 {/* Périmètre du marché
@@ -143,7 +189,10 @@ function CompanyToneOfVoiceGenerator() {
                   />
                 </div> */}
 
-                <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white w-full">
+                <Button
+                  type="submit"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white w-full"
+                >
                   {t('actions.generateTone')}
                 </Button>
               </form>
@@ -164,7 +213,9 @@ function CompanyToneOfVoiceGenerator() {
                 <p>{t('preview.loading')}</p>
               ) : (
                 <>
-                  <h1 className="text-lg font-semibold text-slate-800">{t('preview.generatedTone')}</h1>
+                  <h1 className="text-lg font-semibold text-slate-800">
+                    {t('preview.generatedTone')}
+                  </h1>
                   <div className="space-y-2">
                     {results.map((tone, i) => (
                       <button
@@ -172,7 +223,9 @@ function CompanyToneOfVoiceGenerator() {
                         type="button"
                         onClick={() => setSelectedTone(tone)}
                         className={`w-full text-left px-2 py-1 border rounded ${
-                          selectedTone === tone ? 'bg-indigo-600 text-white' : 'bg-indigo-100 text-indigo-700'
+                          selectedTone === tone
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-indigo-100 text-indigo-700'
                         }`}
                       >
                         {tone}
@@ -192,7 +245,6 @@ function CompanyToneOfVoiceGenerator() {
             </CardContent>
           </Card>
         </div>
-
       </div>
     </motion.div>
   )

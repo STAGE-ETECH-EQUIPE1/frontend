@@ -29,7 +29,6 @@ export default function SubscriptionCard({ user }: { user: mockUser }) {
         return 'from-gray-500 to-gray-600'
     }
   }
-  
 
   if (isLoading) {
     return (

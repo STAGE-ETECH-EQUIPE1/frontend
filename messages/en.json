@@ -154,23 +154,23 @@
       "length": "Length",
       "lengthPlaceholder": "e.g., Medium",
       "lengthOptions": {
-      "short": "Short",
-      "medium": "Medium",
-      "long": "Long"
+        "short": "Short",
+        "medium": "Medium",
+        "long": "Long"
       },
       "style": "Style",
       "stylePlaceholder": "e.g., Modern",
       "styleOptions": {
-      "modern": "Modern",
-      "classic": "Classic",
-      "minimalist": "Minimalist"
+        "modern": "Modern",
+        "classic": "Classic",
+        "minimalist": "Minimalist"
       },
       "language": "Language",
       "languagePlaceholder": "e.g., French",
       "languageOptions": {
-      "fr": "French",
-      "en": "English",
-      "es": "Español"
+        "fr": "French",
+        "en": "English",
+        "es": "Español"
       },
       "checkSocialMedia": "Check social media availability"
     },

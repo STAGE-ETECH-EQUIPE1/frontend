@@ -5,7 +5,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { motion } from 'framer-motion'
 import { Trash2, Zap, Building2 } from 'lucide-react'
@@ -41,7 +47,7 @@ function CompanyNameGenerator() {
         await wait(1000)
         const response = await verbalIdentityService.generateCompanyNames(data)
         if (response.success && Array.isArray(response.data)) {
-          const names = response.data.flatMap(item => item.Names ?? [])
+          const names = response.data.flatMap((item) => item.Names ?? [])
           setResults(names)
         }
       } catch {
@@ -69,10 +75,10 @@ function CompanyNameGenerator() {
   }
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
-      transition={{ duration: 0.6 }} 
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
       className="space-y-6"
     >
       {/* Header */}
@@ -85,13 +91,14 @@ function CompanyNameGenerator() {
         </div>
         <div className="flex items-center gap-4">
           <Badge className="bg-gradient-to-r from-blue-50 to-gray-100 text-blue-700 border border-blue-200 shadow-sm">
-            <Zap className="w-3 h-3 mr-1" />456
+            <Zap className="w-3 h-3 mr-1" />
+            456
           </Badge>
-          <Button 
-            onClick={resetGeneration} 
-            variant="outline" 
-            size="sm" 
-            className="text-gray-600 border-gray-300 hover:bg-gray-50" 
+          <Button
+            onClick={resetGeneration}
+            variant="outline"
+            size="sm"
+            className="text-gray-600 border-gray-300 hover:bg-gray-50"
             title={t('actions.clearCache')}
           >
             <Trash2 className="w-4 h-4" />
@@ -113,7 +120,10 @@ function CompanyNameGenerator() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Keywords include */}
                 <div>
-                  <Label htmlFor="includeKeywords" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="includeKeywords"
+                    className="text-gray-700 font-medium"
+                  >
                     {t('form.includeKeywords')}
                   </Label>
                   <Input
@@ -123,13 +133,18 @@ function CompanyNameGenerator() {
                     className="mt-1 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   />
                   {errors['includeKeywords'] && (
-                    <p className="text-red-500 text-sm">{errors['includeKeywords'].message?.toString()}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors['includeKeywords'].message?.toString()}
+                    </p>
                   )}
                 </div>
 
                 {/* Keywords exclude */}
                 <div>
-                  <Label htmlFor="excludeKeywords" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="excludeKeywords"
+                    className="text-gray-700 font-medium"
+                  >
                     {t('form.excludeKeywords')}
                   </Label>
                   <Input
@@ -149,20 +164,33 @@ function CompanyNameGenerator() {
                     name="length"
                     control={control}
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-                          <SelectValue placeholder={t('form.lengthPlaceholder')} />
+                          <SelectValue
+                            placeholder={t('form.lengthPlaceholder')}
+                          />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="short">{t('form.lengthOptions.short')}</SelectItem>
-                          <SelectItem value="medium">{t('form.lengthOptions.medium')}</SelectItem>
-                          <SelectItem value="long">{t('form.lengthOptions.long')}</SelectItem>
+                          <SelectItem value="short">
+                            {t('form.lengthOptions.short')}
+                          </SelectItem>
+                          <SelectItem value="medium">
+                            {t('form.lengthOptions.medium')}
+                          </SelectItem>
+                          <SelectItem value="long">
+                            {t('form.lengthOptions.long')}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
                   />
                   {errors['length'] && (
-                    <p className="text-red-500 text-sm">{errors['length'].message?.toString()}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors['length'].message?.toString()}
+                    </p>
                   )}
                 </div>
 
@@ -175,46 +203,75 @@ function CompanyNameGenerator() {
                     name="style"
                     control={control}
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-                          <SelectValue placeholder={t('form.stylePlaceholder')} />
+                          <SelectValue
+                            placeholder={t('form.stylePlaceholder')}
+                          />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="modern">{t('form.styleOptions.modern')}</SelectItem>
-                          <SelectItem value="classic">{t('form.styleOptions.classic')}</SelectItem>
-                          <SelectItem value="minimalist">{t('form.styleOptions.minimalist')}</SelectItem>
+                          <SelectItem value="modern">
+                            {t('form.styleOptions.modern')}
+                          </SelectItem>
+                          <SelectItem value="classic">
+                            {t('form.styleOptions.classic')}
+                          </SelectItem>
+                          <SelectItem value="minimalist">
+                            {t('form.styleOptions.minimalist')}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
                   />
                   {errors['style'] && (
-                    <p className="text-red-500 text-sm">{errors['style'].message?.toString()}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors['style'].message?.toString()}
+                    </p>
                   )}
                 </div>
 
                 {/* Language */}
                 <div>
-                  <Label htmlFor="language" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="language"
+                    className="text-gray-700 font-medium"
+                  >
                     {t('form.language')}
                   </Label>
                   <Controller
                     name="language"
                     control={control}
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <SelectTrigger className="border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-                          <SelectValue placeholder={t('form.languagePlaceholder')} />
+                          <SelectValue
+                            placeholder={t('form.languagePlaceholder')}
+                          />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="fr">{t('form.languageOptions.fr')}</SelectItem>
-                          <SelectItem value="en">{t('form.languageOptions.en')}</SelectItem>
-                          <SelectItem value="es">{t('form.languageOptions.es')}</SelectItem>
+                          <SelectItem value="fr">
+                            {t('form.languageOptions.fr')}
+                          </SelectItem>
+                          <SelectItem value="en">
+                            {t('form.languageOptions.en')}
+                          </SelectItem>
+                          <SelectItem value="es">
+                            {t('form.languageOptions.es')}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
                   />
                   {errors['language'] && (
-                    <p className="text-red-500 text-sm">{errors['language'].message?.toString()}</p>
+                    <p className="text-red-500 text-sm">
+                      {errors['language'].message?.toString()}
+                    </p>
                   )}
                 </div>
 
@@ -224,14 +281,20 @@ function CompanyNameGenerator() {
                     name="checkSocialMedia"
                     control={control}
                     render={({ field }) => (
-                      <Checkbox id="checkSocialMedia" checked={field.value} onCheckedChange={field.onChange} />
+                      <Checkbox
+                        id="checkSocialMedia"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     )}
                   />
-                  <Label htmlFor="checkSocialMedia" className="text-gray-700">{t('form.checkSocialMedia')}</Label>
+                  <Label htmlFor="checkSocialMedia" className="text-gray-700">
+                    {t('form.checkSocialMedia')}
+                  </Label>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-medium w-full rounded-lg shadow-sm"
                 >
                   {t('actions.generateNames')}
@@ -255,7 +318,9 @@ function CompanyNameGenerator() {
                 <p className="text-gray-500">{t('preview.loading')}</p>
               ) : (
                 <>
-                  <h1 className="text-lg font-semibold text-gray-800 mb-3">{t('preview.generatedNames')}</h1>
+                  <h1 className="text-lg font-semibold text-gray-800 mb-3">
+                    {t('preview.generatedNames')}
+                  </h1>
                   <div className="space-y-2">
                     {results.map((name, i) => (
                       <button
@@ -263,8 +328,8 @@ function CompanyNameGenerator() {
                         type="button"
                         onClick={() => setSelectedValue(name)}
                         className={`w-full text-left px-3 py-2 rounded-lg border transition ${
-                          selectedValue === name 
-                            ? 'bg-blue-600 text-white border-blue-600' 
+                          selectedValue === name
+                            ? 'bg-blue-600 text-white border-blue-600'
                             : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border-blue-200'
                         }`}
                       >

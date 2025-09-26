@@ -10,4 +10,4 @@ export const companyValuesGeneratorSchema = z.object({
   competitors: z.string(),
   preferred_values: z.string(),
   inspiring_companies: z.string(),
-});
+})

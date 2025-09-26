@@ -104,7 +104,9 @@ function CompanyValuesGenerator() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Customer Pain Points */}
                 <div>
-                  <Label htmlFor="painPoints">{t('form.customerPainPoints')}</Label>
+                  <Label htmlFor="painPoints">
+                    {t('form.customerPainPoints')}
+                  </Label>
                   <Input
                     id="painPoints"
                     placeholder={t('form.customerPainPointsPlaceholder')}
@@ -199,7 +201,9 @@ function CompanyValuesGenerator() {
 
                 {/* Preferred Values */}
                 <div>
-                  <Label htmlFor="preferredValues">{t('form.preferredValues')}</Label>
+                  <Label htmlFor="preferredValues">
+                    {t('form.preferredValues')}
+                  </Label>
                   <Input
                     id="preferredValues"
                     {...register('preferred_values')}
@@ -209,7 +213,9 @@ function CompanyValuesGenerator() {
 
                 {/* Inspiring Companies */}
                 <div>
-                  <Label htmlFor="inspiringCompanies">{t('form.inspiringCompanies')}</Label>
+                  <Label htmlFor="inspiringCompanies">
+                    {t('form.inspiringCompanies')}
+                  </Label>
                   <Input
                     id="inspiringCompanies"
                     {...register('inspiring_companies')}

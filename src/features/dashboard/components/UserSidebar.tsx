@@ -156,29 +156,28 @@ export function UserSidebar({
     },
   ]
 
-
   const verbalIdentityNavigationItems = [
     {
       title: t('navigation.verbalIdentity.companyNameGeneration'),
-      icon: FileText, 
+      icon: FileText,
       value: 'companyName-generation',
       color: 'text-blue-600',
     },
     {
       title: t('navigation.verbalIdentity.companySloganGeneration'),
-      icon: Star, 
+      icon: Star,
       value: 'companySlogan-generation',
       color: 'text-blue-600',
     },
     {
       title: t('navigation.verbalIdentity.companyValueGeneration'),
-      icon: Heart, 
+      icon: Heart,
       value: 'companyValues-generation',
       color: 'text-blue-600',
     },
     {
       title: t('navigation.verbalIdentity.companyToneOfVoiceGeneration'),
-      icon: Speaker, 
+      icon: Speaker,
       value: 'companyToneOfVoice-generation',
       color: 'text-blue-600',
     },

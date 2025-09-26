@@ -5,4 +5,4 @@ export const companyToneOfVoiceGeneratorSchema = z.object({
   vision: z.string(),
   values: z.string(),
   positioning: z.string(),
-});
+})
